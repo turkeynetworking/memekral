@@ -1,24 +1,49 @@
-// Kral Analiz Motoru v1.1
-async function analizEt() {
-    const ca = document.querySelector('input').value;
+
+let score = localStorage.getItem('kralScore') ? parseInt(localStorage.getItem('kralScore')) : 0;
+document.getElementById('main-score').innerText = score;
+
+// Dokun-Kazan Mekaniği + Animasyon
+const tapBtn = document.getElementById('tap-btn');
+const animContainer = document.getElementById('tap-anim-container');
+
+tapBtn.addEventListener('click', (e) => {
+    score += 10;
+    localStorage.setItem('kralScore', score);
+    document.getElementById('main-score').innerText = score;
+
+    // Altın Puan Uçurma Efekti
+    const x = e.clientX - tapBtn.getBoundingClientRect().left;
+    const y = e.clientY - tapBtn.getBoundingClientRect().top;
     
-    if(ca.length < 32) {
-        alert("Kral, bu adres sahte! Gerçek bir Solana CA gir.");
+    const floatingText = document.createElement('div');
+    floatingText.innerText = "+10";
+    floatingText.className = "absolute text-[#D4AF37] font-bold pointer-events-none animate-float";
+    floatingText.style.left = `${x}px`;
+    floatingText.style.top = `${y}px`;
+    
+    animContainer.appendChild(floatingText);
+    setTimeout(() => floatingText.remove(), 800);
+});
+
+// Kral Analiz Simülasyonu
+async function kralAnaliz() {
+    const ca = document.getElementById('sol-ca').value;
+    
+    if(ca.length < 30) {
+        alert("Kanka bu adres Solana değil! Kralı kandıramazsın.");
         return;
     }
 
-    // Görsel Efekt: Butonun yazısını değiştiriyoruz
-    const btn = document.querySelector('button');
-    btn.innerText = "BALİNALAR TARANIYOR... 🐋";
-    btn.style.opacity = "0.7";
+    // Modal Penceresini Aç
+    const overlay = document.getElementById('modal-overlay');
+    const text = document.getElementById('modal-text');
+    
+    text.innerText = "Temel tarama bitti: Balina cüzdanlarında hareket var! Rug-Pull riski %35 görünüyor. Kesin sonuç için VIP raporu almalısın.";
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+}
 
-    // 2 saniye 'Düşünüyor' havası katalım
-    await new Promise(r => setTimeout(r, 2000));
-
-    // VIP Ödeme Penceresi (Simülasyon)
-    const onay = confirm("TEMEL ANALİZ BİTTİ: Risk Orta Seviye! ⚠️\n\nGerçek 'Rug-Pull' koruması ve Balina cüzdan hareketlerini görmek için 50 YILDIZ ile VIP ANALİZ açmak ister misin?");
-
-    if(onay) {
-        alert("KRAL DİYOR Kİ: Stars ödeme sistemi entegre ediliyor. Çok yakında bu özellik aktif!");
-    } else {
-        alert("Temel Karar: Bu coine dikkatli gir kanka!");
+function closeModal() {
+    document.getElementById('modal-overlay').classList.add('hidden');
+    document.getElementById('modal-overlay').classList.remove('flex');
+}
