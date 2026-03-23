@@ -3,82 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MEME KRAL | TRENDS</title>
+    <title>MEME KRAL | POWER</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
+        body { background: #000; color: #fff; font-family: sans-serif; overflow: hidden; height: 100vh; margin: 0; position: fixed; width: 100%; }
         .gold-glow { text-shadow: 0 0 10px #D4AF37; }
-        .glass { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.1); }
-        .active-tab { color: #D4AF37; border-top: 2px solid #D4AF37; background: linear-gradient(to bottom, rgba(212, 175, 55, 0.1), transparent); }
-        .token-card { background: rgba(255, 255, 255, 0.03); border-radius: 20px; transition: all 0.3s; border: 1px solid rgba(255, 255, 255, 0.05); }
-        .token-card:active { background: rgba(212, 175, 55, 0.1); }
-        @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
-        .pulse { animation: pulse-gold 2s infinite; }
+        .glass { background: rgba(20, 20, 20, 0.8); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.1); }
+        .active-tab { color: #D4AF37; border-top: 2px solid #D4AF37; }
+        .token-card { background: rgba(255, 255, 255, 0.05); border-radius: 15px; margin-bottom: 8px; border: 1px solid rgba(255, 255, 255, 0.03); }
     </style>
 </head>
 <body class="flex flex-col items-center">
 
     <header class="w-full p-4 flex justify-between items-center glass z-50">
         <div class="flex flex-col">
-            <h1 class="font-['Orbitron'] text-[11px] gold-glow font-black tracking-widest">MEME KRAL</h1>
-            <div id="status-dot" class="flex items-center gap-1 mt-1">
-                <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
-                <span class="text-[7px] text-gray-500 font-bold uppercase tracking-tighter">Solana Mainnet Live</span>
+            <h1 class="font-['Orbitron'] text-[12px] gold-glow font-black tracking-widest">MEME KRAL</h1>
+            <div class="flex items-center gap-1 mt-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                <span class="text-[7px] text-gray-500 font-bold uppercase">Mainnet Online</span>
             </div>
         </div>
-        <div class="text-right flex flex-col items-end">
+        <div class="text-right">
             <p id="score" class="text-lg font-black text-[#D4AF37] leading-none">0</p>
-            <p class="text-[7px] text-gray-600 font-bold mt-1 uppercase">King Points</p>
+            <p class="text-[7px] text-gray-600 font-bold uppercase mt-1 italic">Kral Puanı</p>
         </div>
     </header>
 
-    <main class="flex-1 w-full overflow-y-auto pb-28">
+    <main class="flex-1 w-full overflow-y-auto pb-32">
         
-        <div id="tab-game" class="h-full flex flex-col items-center justify-center p-6 space-y-10">
-            <div class="relative">
-                <div class="absolute inset-0 bg-[#D4AF37]/5 blur-[80px] rounded-full"></div>
-                <button onclick="handleTap()" class="w-56 h-56 rounded-full bg-gradient-to-tr from-black to-[#111] border-[6px] border-[#D4AF37]/50 shadow-2xl flex items-center justify-center relative z-10 active:scale-90 transition-transform pulse">
-                    <span class="text-8xl select-none">👑</span>
-                </button>
-            </div>
-            <div class="text-center space-y-1">
-                <p id="energy-txt" class="text-[10px] font-black text-[#D4AF37]">ENERGY: 1000/1000</p>
-                <div class="w-48 h-1 bg-white/5 rounded-full overflow-hidden">
-                    <div id="energy-bar" class="h-full bg-[#D4AF37]" style="width: 100%"></div>
+        <div id="tab-game" class="h-full flex flex-col items-center justify-center p-6 space-y-8">
+            <button onclick="handleTap()" class="w-52 h-52 rounded-full bg-black border-[6px] border-[#D4AF37]/40 shadow-[0_0_40px_rgba(212,175,55,0.2)] text-8xl active:scale-90 transition-transform">👑</button>
+            <div class="text-center w-full max-w-[200px] space-y-2">
+                <div class="flex justify-between text-[10px] font-black text-[#D4AF37]">
+                    <span>ENERJİ</span>
+                    <span id="energy-txt">1000/1000</span>
+                </div>
+                <div class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden border border-white/5">
+                    <div id="energy-bar" class="h-full bg-gradient-to-r from-[#D4AF37] to-yellow-200" style="width: 100%"></div>
                 </div>
             </div>
         </div>
 
         <div id="tab-analiz" class="hidden p-5 space-y-6">
-            <div class="glass p-4 rounded-3xl space-y-3">
-                <div class="flex items-center gap-2 border-b border-white/5 pb-2">
-                    <span class="text-xs">🔍</span>
-                    <input type="text" id="caInput" placeholder="Kontrat Adresi (CA)..." class="w-full bg-transparent p-1 text-[10px] outline-none text-[#D4AF37] font-mono">
-                </div>
-                <button onclick="runAnalysis()" class="w-full bg-[#D4AF37] text-black py-3 rounded-xl font-black text-[10px] uppercase tracking-widest">Özel Analiz</button>
+            <div class="glass p-4 rounded-2xl border border-[#D4AF37]/20">
+                <input type="text" id="caInput" placeholder="Solana CA Yapıştır..." class="w-full bg-transparent text-xs p-2 outline-none text-[#D4AF37] font-mono border-b border-white/5">
+                <button onclick="runAnalysis()" class="w-full mt-3 bg-[#D4AF37] text-black py-3 rounded-xl font-black text-[10px] uppercase tracking-widest">Özel Tarama</button>
             </div>
-
-            <div class="space-y-4">
-                <div class="flex justify-between items-center px-2">
-                    <h3 class="font-['Orbitron'] text-[10px] text-[#D4AF37] font-black tracking-widest uppercase">Günün Yıldızları (Top 10)</h3>
-                    <button onclick="fetchTrends()" class="text-[8px] text-gray-500 font-bold uppercase underline">Yenile</button>
-                </div>
+            
+            <div class="space-y-3">
+                <h3 class="text-[10px] font-black text-[#D4AF37] tracking-widest uppercase px-2 italic">Günün Balina Havuzları</h3>
                 <div id="trends-list" class="space-y-2">
+                    <div class="token-card p-4 flex justify-between items-center opacity-50">
+                        <p class="text-[9px] font-bold">Veriler Yükleniyor...</p>
                     </div>
+                </div>
             </div>
         </div>
 
-        <div id="tab-network" class="hidden p-6 space-y-6">
-            <h2 class="text-center font-['Orbitron'] text-[#D4AF37] text-sm tracking-widest font-black uppercase">Ekip Merkezi</h2>
-            <div class="glass p-6 rounded-[30px] text-center space-y-4 border-dashed border-[#D4AF37]/20">
-                <p class="text-[9px] text-gray-500 font-bold uppercase">Referans Linkin</p>
-                <div class="bg-black/60 p-3 rounded-xl border border-white/5 text-[9px] text-[#D4AF37] break-all font-mono" id="refLink">Yükleniyor...</div>
-                <button onclick="copyRef()" class="w-full bg-white text-black py-3 rounded-xl font-black text-[9px] uppercase tracking-widest">Linki Kopyala</button>
+        <div id="tab-network" class="hidden p-6 space-y-4 text-center">
+            <h2 class="font-['Orbitron'] text-[#D4AF37] text-xs font-black tracking-widest italic uppercase">Referans Merkezi</h2>
+            <div class="glass p-6 rounded-[30px] border-dashed border-[#D4AF37]/30">
+                <p class="text-[9px] text-gray-500 font-bold uppercase mb-4">Senin Özel Linkin</p>
+                <div id="refLink" class="bg-black/80 p-3 rounded-xl border border-white/5 text-[9px] text-[#D4AF37] break-all font-mono mb-4">...</div>
+                <button onclick="copyRef()" class="w-full bg-white text-black py-3 rounded-xl font-black text-[10px] uppercase">Linki Kopyala</button>
             </div>
         </div>
     </main>
 
-    <nav class="fixed bottom-6 w-[92%] glass rounded-[40px] p-2 flex justify-around items-center z-50 shadow-2xl">
-        <button onclick="showTab('game')" id="nav-game" class="flex-1 py-3 flex flex-col items-center gap-1 active-tab rounded-[30px]">
+    <nav class="fixed bottom-6 w-[90%] glass rounded-[35px] p-2 flex justify-around items-center z-50
