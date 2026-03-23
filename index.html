@@ -2,29 +2,146 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meme Kral Trade</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MEME KRAL | VIP HUB</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
+    <style>
+        body { background: #000; color: #fff; font-family: sans-serif; overflow: hidden; height: 100vh; margin: 0; }
+        .gold-glow { text-shadow: 0 0 15px #D4AF37; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.1); }
+        .active-tab { color: #D4AF37; border-top: 2px solid #D4AF37; }
+        .tap-btn:active { transform: scale(0.95); }
+    </style>
 </head>
-<body class="bg-[#0B0B0B] text-white flex flex-col items-center justify-center min-h-screen font-sans">
-    
-    <div id="king-crown" class="mb-6 drop-shadow-[0_0_15px_rgba(212,175,55,0.7)] animate-pulse">
-        <span style="font-size: 80px;">👑</span>
-    </div>
+<body class="flex flex-col items-center">
 
-    <h1 class="text-4xl font-bold text-[#D4AF37] mb-2 tracking-widest">MEME KRAL</h1>
-    <p class="text-gray-400 mb-8 italic">"Tahtını kur, kazancını analiz et."</p>
+    <header class="w-full p-5 flex justify-between items-center glass">
+        <div class="flex flex-col">
+            <h1 class="font-['Orbitron'] text-sm gold-glow font-black italic">MEME KRAL</h1>
+            <div id="lang-switch" class="flex gap-2 mt-1 opacity-50 text-[10px]">
+                <button onclick="changeLang('tr')" id="btn-tr" class="font-bold text-[#D4AF37]">TR</button>
+                <button onclick="changeLang('en')" id="btn-en" class="font-bold">EN</button>
+            </div>
+        </div>
+        <div class="flex flex-col items-end">
+            <span class="text-[9px] text-gray-500 font-bold uppercase" id="lbl-points">Kral Puanı</span>
+            <span id="score" class="text-xl font-black text-[#D4AF37]">0</span>
+        </div>
+    </header>
 
-    <button id="tap-btn" class="w-48 h-48 rounded-full bg-gradient-to-b from-[#D4AF37] to-[#8B7500] border-4 border-[#FFD700] shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center justify-center mb-10">
-        <span class="text-6xl text-white drop-shadow-lg">💰</span>
-    </button>
+    <main class="flex-1 w-full overflow-y-auto pb-24">
+        
+        <div id="tab-game" class="h-full flex flex-col items-center justify-center space-y-8 p-6">
+            <div class="relative">
+                <div class="absolute -inset-10 bg-[#D4AF37]/10 blur-3xl rounded-full"></div>
+                <button onclick="handleTap()" class="tap-btn w-52 h-52 rounded-full bg-black border-[8px] border-[#D4AF37] shadow-[0_0_50px_rgba(212,175,55,0.3)] text-8xl relative z-10">👑</button>
+            </div>
+            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-[0.3em] animate-pulse" id="lbl-tap">VIP Analiz İçin Dokun</p>
+        </div>
 
-    <div class="w-80 p-4 bg-[#1A1A1A] border border-[#D4AF37] rounded-xl shadow-inner">
-        <input type="text" placeholder="Solana CA Yapıştır..." class="w-full bg-transparent text-[#D4AF37] outline-none text-center mb-3">
-        <button class="w-full bg-[#D4AF37] text-black font-bold py-2 rounded-lg hover:bg-[#FFD700] transition-colors">KRAL ANALİZ</button>
-    </div>
+        <div id="tab-analiz" class="hidden p-6 space-y-4">
+            <h2 class="text-center font-['Orbitron'] text-[#D4AF37] text-lg mb-6" id="lbl-radar">BALİNA RADARI</h2>
+            <div class="glass p-5 rounded-[30px] space-y-4">
+                <input type="text" id="caInput" placeholder="SOLANA CA..." class="w-full bg-transparent border-b border-[#D4AF37]/30 p-3 text-xs outline-none text-[#D4AF37] font-mono">
+                <button onclick="runAnalysis()" class="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-black text-xs uppercase" id="btn-scan">TARAMAYI BAŞLAT</button>
+            </div>
+            <div id="analiz-result" class="space-y-3"></div>
+        </div>
 
-    <script src="app.js"></script>
+        <div id="tab-network" class="hidden p-6 space-y-6">
+            <h2 class="text-center font-['Orbitron'] text-[#D4AF37] text-lg mb-6" id="lbl-net-title">EKİP YÖNETİMİ</h2>
+            <div class="glass p-6 rounded-[35px] text-center space-y-4">
+                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest" id="lbl-ref">Referans Linkin</p>
+                <div class="bg-black/40 p-3 rounded-xl border border-white/5 text-[10px] text-[#D4AF37] break-all font-mono" id="refLink">t.me/memekralbot?start=USER_ID</div>
+                <button onclick="copyRef()" class="w-full bg-white text-black py-3 rounded-2xl font-black text-[10px] uppercase" id="btn-copy">LİNKİ KOPYALA</button>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass p-4 rounded-2xl text-center">
+                    <p class="text-[8px] text-gray-500 uppercase font-bold" id="lbl-team">Ekip</p>
+                    <p class="text-xl font-black">24</p>
+                </div>
+                <div class="glass p-4 rounded-2xl text-center">
+                    <p class="text-[8px] text-gray-500 uppercase font-bold" id="lbl-earn">Kazanç</p>
+                    <p class="text-xl font-black text-green-500">2.4 SOL</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="fixed bottom-6 w-[90%] glass rounded-[35px] p-2 flex justify-around items-center z-50">
+        <button onclick="showTab('game')" id="nav-game" class="p-4 text-xl active-tab">🏠</button>
+        <button onclick="showTab('analiz')" id="nav-analiz" class="p-4 text-xl opacity-40">📡</button>
+        <button onclick="showTab('network')" id="nav-network" class="p-4 text-xl opacity-40">👥</button>
+    </nav>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        let score = parseInt(localStorage.getItem('kScore') || 0);
+        document.getElementById('score').innerText = score;
+
+        // Dil Verileri
+        const lang = {
+            tr: { points: "Kral Puanı", tap: "VIP Analiz İçin Dokun", radar: "BALİNA RADARI", scan: "TARAMAYI BAŞLAT", net: "EKİP YÖNETİMİ", ref: "Referans Linkin", copy: "LİNKİ KOPYALA", team: "Ekip", earn: "Kazanç" },
+            en: { points: "King Points", tap: "Tap for VIP Analysis", radar: "WHALE RADAR", scan: "START SCAN", net: "TEAM MANAGEMENT", ref: "Your Referral Link", copy: "COPY LINK", team: "Team", earn: "Earnings" }
+        };
+
+        function changeLang(l) {
+            document.getElementById('lbl-points').innerText = lang[l].points;
+            document.getElementById('lbl-tap').innerText = lang[l].tap;
+            document.getElementById('lbl-radar').innerText = lang[l].radar;
+            document.getElementById('btn-scan').innerText = lang[l].scan;
+            document.getElementById('lbl-net-title').innerText = lang[l].net;
+            document.getElementById('lbl-ref').innerText = lang[l].ref;
+            document.getElementById('btn-copy').innerText = lang[l].copy;
+            document.getElementById('lbl-team').innerText = lang[l].team;
+            document.getElementById('lbl-earn').innerText = lang[l].earn;
+            
+            document.getElementById('btn-tr').classList.toggle('text-[#D4AF37]', l === 'tr');
+            document.getElementById('btn-en').classList.toggle('text-[#D4AF37]', l === 'en');
+        }
+
+        function handleTap() {
+            score += 10;
+            document.getElementById('score').innerText = score;
+            localStorage.setItem('kScore', score);
+            if(window.Taptic) window.Taptic.impact('medium');
+        }
+
+        function showTab(t) {
+            ['game', 'analiz', 'network'].forEach(id => {
+                document.getElementById('tab-' + id).classList.add('hidden');
+                document.getElementById('nav-' + id).classList.remove('active-tab', 'opacity-100');
+                document.getElementById('nav-' + id).classList.add('opacity-40');
+            });
+            document.getElementById('tab-' + t).classList.remove('hidden');
+            document.getElementById('nav-' + t).classList.add('active-tab', 'opacity-100');
+        }
+
+        async function runAnalysis() {
+            const ca = document.getElementById('caInput').value;
+            const resDiv = document.getElementById('analiz-result');
+            if(!ca) return;
+            resDiv.innerHTML = `<p class="text-center text-[10px] animate-pulse">VERİLER ÇEKİLİYOR...</p>`;
+            try {
+                const r = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${ca}`);
+                const d = await r.json();
+                const p = d.pairs[0];
+                resDiv.innerHTML = `
+                    <div class="glass p-4 rounded-2xl border-l-4 border-[#D4AF37]">
+                        <div class="flex justify-between font-black"><span>${p.baseToken.symbol}</span><span class="text-green-500">$${p.priceUsd}</span></div>
+                        <div class="text-[9px] text-gray-500 mt-2 uppercase font-bold">Market Cap: $${p.fdv.toLocaleString()}</div>
+                    </div>`;
+            } catch(e) { resDiv.innerHTML = "Hata!"; }
+        }
+
+        function copyRef() {
+            navigator.clipboard.writeText(document.getElementById('refLink').innerText);
+            tg.showAlert("Kopyalandı kanka!");
+        }
+    </script>
 </body>
 </html>
