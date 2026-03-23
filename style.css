@@ -1,6 +1,6 @@
 @keyframes float {
     0% { transform: translateY(0) scale(1); opacity: 1; }
-    100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+    100% { transform: translateY(-120px) scale(1.6); opacity: 0; }
 }
 
 .animate-float {
@@ -12,16 +12,11 @@ body {
     touch-action: manipulation;
 }
 
-#tap-btn {
-    box-shadow: 0 0 40px rgba(212, 175, 55, 0.1);
-    transition: all 0.1s ease;
-}
-
 #tap-btn:active {
-    box-shadow: 0 0 60px rgba(212, 175, 55, 0.4);
     transform: scale(0.92);
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.5);
 }
 
-input::placeholder {
-    color: #333 !important;
+::-webkit-scrollbar {
+    display: none;
 }
