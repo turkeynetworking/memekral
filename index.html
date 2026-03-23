@@ -3,166 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MEME KRAL | WHALE RADAR</title>
+    <title>MEME KRAL | TRENDS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        body { background: #050505; color: #fff; font-family: sans-serif; overflow: hidden; height: 100vh; margin: 0; }
-        .gold-glow { text-shadow: 0 0 15px #D4AF37; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.2); }
-        .active-tab { color: #D4AF37; border-top: 3px solid #D4AF37; background: linear-gradient(to bottom, rgba(212, 175, 55, 0.1), transparent); }
-        .whale-card { background: linear-gradient(145deg, #111, #000); border-left: 5px solid #D4AF37; }
+        body { background: #000; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
+        .gold-glow { text-shadow: 0 0 10px #D4AF37; }
+        .glass { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.1); }
+        .active-tab { color: #D4AF37; border-top: 2px solid #D4AF37; background: linear-gradient(to bottom, rgba(212, 175, 55, 0.1), transparent); }
+        .token-card { background: rgba(255, 255, 255, 0.03); border-radius: 20px; transition: all 0.3s; border: 1px solid rgba(255, 255, 255, 0.05); }
+        .token-card:active { background: rgba(212, 175, 55, 0.1); }
+        @keyframes pulse-gold { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
+        .pulse { animation: pulse-gold 2s infinite; }
     </style>
 </head>
 <body class="flex flex-col items-center">
 
-    <header class="w-full p-4 flex justify-between items-center glass">
+    <header class="w-full p-4 flex justify-between items-center glass z-50">
         <div class="flex flex-col">
-            <h1 class="font-['Orbitron'] text-[12px] gold-glow font-black italic tracking-widest">MEME KRAL</h1>
-            <span id="limit-info" class="text-[8px] text-[#D4AF37] font-bold mt-1">ÜCRETSİZ HAK: 5/5</span>
+            <h1 class="font-['Orbitron'] text-[11px] gold-glow font-black tracking-widest">MEME KRAL</h1>
+            <div id="status-dot" class="flex items-center gap-1 mt-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                <span class="text-[7px] text-gray-500 font-bold uppercase tracking-tighter">Solana Mainnet Live</span>
+            </div>
         </div>
-        <div class="text-right">
-            <span class="text-[9px] text-gray-500 font-bold uppercase">KRAL PUANI</span>
-            <p id="score" class="text-xl font-black text-[#D4AF37]">0</p>
+        <div class="text-right flex flex-col items-end">
+            <p id="score" class="text-lg font-black text-[#D4AF37] leading-none">0</p>
+            <p class="text-[7px] text-gray-600 font-bold mt-1 uppercase">King Points</p>
         </div>
     </header>
 
-    <main class="flex-1 w-full overflow-y-auto pb-24">
+    <main class="flex-1 w-full overflow-y-auto pb-28">
         
-        <div id="tab-game" class="h-full flex flex-col items-center justify-center space-y-8 p-6">
-            <button onclick="handleTap()" class="w-52 h-52 rounded-full bg-black border-[8px] border-[#D4AF37] shadow-[0_0_50px_rgba(212,175,55,0.3)] text-8xl active:scale-95 transition-all">👑</button>
-            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em] animate-pulse">Puan Toplamak İçin Dokun</p>
+        <div id="tab-game" class="h-full flex flex-col items-center justify-center p-6 space-y-10">
+            <div class="relative">
+                <div class="absolute inset-0 bg-[#D4AF37]/5 blur-[80px] rounded-full"></div>
+                <button onclick="handleTap()" class="w-56 h-56 rounded-full bg-gradient-to-tr from-black to-[#111] border-[6px] border-[#D4AF37]/50 shadow-2xl flex items-center justify-center relative z-10 active:scale-90 transition-transform pulse">
+                    <span class="text-8xl select-none">👑</span>
+                </button>
+            </div>
+            <div class="text-center space-y-1">
+                <p id="energy-txt" class="text-[10px] font-black text-[#D4AF37]">ENERGY: 1000/1000</p>
+                <div class="w-48 h-1 bg-white/5 rounded-full overflow-hidden">
+                    <div id="energy-bar" class="h-full bg-[#D4AF37]" style="width: 100%"></div>
+                </div>
+            </div>
         </div>
 
-        <div id="tab-analiz" class="hidden p-6 space-y-6">
-            <div class="text-center space-y-1">
-                <h2 class="font-['Orbitron'] text-[#D4AF37] text-lg font-black tracking-widest">BALİNA RADARI</h2>
-                <p class="text-[8px] text-gray-500 uppercase font-bold">Detaylı Solana Memecoin Analizi</p>
-            </div>
-
-            <div class="glass p-5 rounded-[30px] space-y-4">
-                <input type="text" id="caInput" placeholder="SOLANA KONTRAT (CA)..." class="w-full bg-transparent border-b border-[#D4AF37]/30 p-3 text-[10px] outline-none text-[#D4AF37] font-mono">
-                <button onclick="runAnalysis()" id="btn-scan" class="w-full bg-gradient-to-r from-[#D4AF37] to-[#F9D423] text-black py-4 rounded-2xl font-black text-xs uppercase shadow-lg shadow-[#D4AF37]/20">ANALİZİ BAŞLAT</button>
-            </div>
-
-            <div id="analiz-result" class="space-y-4">
+        <div id="tab-analiz" class="hidden p-5 space-y-6">
+            <div class="glass p-4 rounded-3xl space-y-3">
+                <div class="flex items-center gap-2 border-b border-white/5 pb-2">
+                    <span class="text-xs">🔍</span>
+                    <input type="text" id="caInput" placeholder="Kontrat Adresi (CA)..." class="w-full bg-transparent p-1 text-[10px] outline-none text-[#D4AF37] font-mono">
                 </div>
+                <button onclick="runAnalysis()" class="w-full bg-[#D4AF37] text-black py-3 rounded-xl font-black text-[10px] uppercase tracking-widest">Özel Analiz</button>
+            </div>
+
+            <div class="space-y-4">
+                <div class="flex justify-between items-center px-2">
+                    <h3 class="font-['Orbitron'] text-[10px] text-[#D4AF37] font-black tracking-widest uppercase">Günün Yıldızları (Top 10)</h3>
+                    <button onclick="fetchTrends()" class="text-[8px] text-gray-500 font-bold uppercase underline">Yenile</button>
+                </div>
+                <div id="trends-list" class="space-y-2">
+                    </div>
+            </div>
         </div>
 
         <div id="tab-network" class="hidden p-6 space-y-6">
-            <h2 class="text-center font-['Orbitron'] text-[#D4AF37] text-lg">EKİP MERKEZİ</h2>
-            <div class="glass p-6 rounded-[35px] text-center space-y-4">
-                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Senin Referans Linkin</p>
-                <div class="bg-black/40 p-3 rounded-xl border border-white/5 text-[10px] text-[#D4AF37] break-all font-mono" id="refLink">Yükleniyor...</div>
-                <button onclick="copyRef()" class="w-full bg-white text-black py-3 rounded-2xl font-black text-[10px] uppercase">LİNKİ KOPYALA</button>
+            <h2 class="text-center font-['Orbitron'] text-[#D4AF37] text-sm tracking-widest font-black uppercase">Ekip Merkezi</h2>
+            <div class="glass p-6 rounded-[30px] text-center space-y-4 border-dashed border-[#D4AF37]/20">
+                <p class="text-[9px] text-gray-500 font-bold uppercase">Referans Linkin</p>
+                <div class="bg-black/60 p-3 rounded-xl border border-white/5 text-[9px] text-[#D4AF37] break-all font-mono" id="refLink">Yükleniyor...</div>
+                <button onclick="copyRef()" class="w-full bg-white text-black py-3 rounded-xl font-black text-[9px] uppercase tracking-widest">Linki Kopyala</button>
             </div>
         </div>
     </main>
 
-    <nav class="fixed bottom-6 w-[92%] glass rounded-[35px] p-2 flex justify-around items-center z-50">
-        <button onclick="showTab('game')" id="nav-game" class="p-4 text-xl active-tab">🏠</button>
-        <button onclick="showTab('analiz')" id="nav-analiz" class="p-4 text-xl opacity-40">📡</button>
-        <button onclick="showTab('network')" id="nav-network" class="p-4 text-xl opacity-40">👥</button>
-    </nav>
-
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-
-        const user = tg.initDataUnsafe?.user || {};
-        const userId = user.id || "000000";
-        const botUser = "memekralbot"; 
-        document.getElementById('refLink').innerText = `t.me/${botUser}?start=${userId}`;
-
-        let score = parseInt(localStorage.getItem('kScore') || 0);
-        let dailyLimit = parseInt(localStorage.getItem('kLimit') || 5);
-        
-        document.getElementById('score').innerText = score.toLocaleString();
-        document.getElementById('limit-info').innerText = `ÜCRETSİZ HAK: ${dailyLimit}/5`;
-
-        function handleTap() {
-            score += 10;
-            document.getElementById('score').innerText = score.toLocaleString();
-            localStorage.setItem('kScore', score);
-            tg.HapticFeedback.impactOccurred('medium');
-        }
-
-        function showTab(t) {
-            ['game', 'analiz', 'network'].forEach(id => {
-                document.getElementById('tab-' + id).classList.add('hidden');
-                document.getElementById('nav-' + id).classList.remove('active-tab');
-                document.getElementById('nav-' + id).classList.add('opacity-40');
-            });
-            document.getElementById('tab-' + t).classList.remove('hidden');
-            document.getElementById('nav-' + t).classList.add('active-tab');
-            document.getElementById('nav-' + t).classList.remove('opacity-40');
-        }
-
-        async function runAnalysis() {
-            if(dailyLimit <= 0) {
-                tg.showAlert("🚨 Günlük ücretsiz analiz hakkın bitti kral! \nVIP üye ol veya yarını bekle.");
-                return;
-            }
-
-            const ca = document.getElementById('caInput').value.trim();
-            const resDiv = document.getElementById('analiz-result');
-            if(ca.length < 30) return;
-
-            resDiv.innerHTML = `<p class="text-center text-[10px] animate-pulse gold-glow">BALİNALAR İZLENİYOR...</p>`;
-            
-            try {
-                const r = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${ca}`);
-                const d = await r.json();
-                const p = d.pairs[0];
-                
-                // --- DETAYLI BALINA EKRANI ---
-                resDiv.innerHTML = `
-                    <div class="whale-card p-5 rounded-2xl space-y-4 animate-in fade-in">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <h3 class="text-lg font-black text-[#D4AF37] italic">${p.baseToken.symbol}</h3>
-                                <p class="text-[8px] text-gray-500 font-bold">${p.baseToken.name}</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-green-500 font-black text-sm">$${parseFloat(p.priceUsd).toFixed(8)}</p>
-                                <p class="text-[8px] ${p.priceChange.h24 > 0 ? 'text-green-400' : 'text-red-400'} font-bold">24H: %${p.priceChange.h24}</p>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-2 text-[9px]">
-                            <div class="bg-white/5 p-3 rounded-xl border border-white/5">
-                                <p class="text-gray-500 mb-1 uppercase">Likidite (SOL)</p>
-                                <p class="font-bold text-white">$${p.liquidity.usd.toLocaleString()}</p>
-                            </div>
-                            <div class="bg-white/5 p-3 rounded-xl border border-white/5">
-                                <p class="text-gray-500 mb-1 uppercase">Market Cap</p>
-                                <p class="font-bold text-white">$${p.fdv.toLocaleString()}</p>
-                            </div>
-                            <div class="bg-white/5 p-3 rounded-xl border border-white/5">
-                                <p class="text-gray-500 mb-1 uppercase">24H Hacim</p>
-                                <p class="font-bold text-white">$${p.volume.h24.toLocaleString()}</p>
-                            </div>
-                            <div class="bg-white/5 p-3 rounded-xl border border-white/5">
-                                <p class="text-gray-500 mb-1 uppercase">İşlem (24H)</p>
-                                <p class="font-bold text-white">${p.txns.h24.buys + p.txns.h24.sells}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                dailyLimit -= 1;
-                document.getElementById('limit-info').innerText = `ÜCRETSİZ HAK: ${dailyLimit}/5`;
-                localStorage.setItem('kLimit', dailyLimit);
-                tg.HapticFeedback.notificationOccurred('success');
-
-            } catch(e) { resDiv.innerHTML = "Hata! Adresi kontrol et kanka."; }
-        }
-
-        function copyRef() {
-            navigator.clipboard.writeText(document.getElementById('refLink').innerText);
-            tg.showAlert("Link kopyalandı kanka!");
-        }
-    </script>
-</body>
-</html>
+    <nav class="fixed bottom-6 w-[92%] glass rounded-[40px] p-2 flex justify-around items-center z-50 shadow-2xl">
+        <button onclick="showTab('game')" id="nav-game" class="flex-1 py-3 flex flex-col items-center gap-1 active-tab rounded-[30px]">
