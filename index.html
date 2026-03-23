@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MEME KRAL | ELITE TRADE</title>
+    <title>MEME KRAL VIP v3.5</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -28,20 +28,26 @@
             <span class="text-[10px] tracking-[0.3em] text-gray-500 uppercase font-bold italic">Network Empire</span>
             <h1 class="font-['Syncopate'] text-sm gold-glow tracking-tighter">MEME <span class="text-white">KRAL</span></h1>
         </div>
-        <div class="glass-card px-4 py-2 rounded-2xl flex items-center gap-2">
-            <span class="text-[#D4AF37] text-xs">💰</span>
-            <span id="score" class="font-['Orbitron'] text-sm font-black">0</span>
+        <div class="flex gap-2">
+            <div class="glass-card px-3 py-1.5 rounded-xl flex items-center gap-1.5">
+                <span class="text-[#D4AF37] text-xs">💰</span>
+                <span id="score" class="font-['Orbitron'] text-xs font-black">0</span>
+            </div>
+            <div class="glass-card px-3 py-1.5 rounded-xl flex items-center gap-1.5 border-[#0088cc]">
+                <span class="text-[#0088cc] text-xs">⭐</span>
+                <span id="stars" class="font-['Orbitron'] text-xs font-black">100</span>
+            </div>
         </div>
     </header>
 
     <main class="flex-1 flex flex-col items-center justify-center w-full gap-8">
         <div class="relative group">
             <div class="absolute -inset-10 bg-[#D4AF37] rounded-full blur-[80px] opacity-10 group-hover:opacity-20 transition-all"></div>
-            <div class="text-[100px] drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">👑</div>
+            <div class="text-[90px] drop-shadow-[0_0_30px_rgba(212,175,55,0.5)]">👑</div>
         </div>
 
         <div class="relative">
-            <button id="main-tap" class="tap-btn w-56 h-56 rounded-full bg-black border-[6px] border-[#D4AF37] flex items-center justify-center text-8xl shadow-2xl relative z-10">
+            <button id="main-tap" class="tap-btn w-52 h-52 rounded-full bg-black border-[6px] border-[#D4AF37] flex items-center justify-center text-7xl shadow-2xl relative z-10">
                 <div class="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_center,_#D4AF37_0%,_transparent_70%)] opacity-10"></div>
                 🪙
             </button>
@@ -49,49 +55,60 @@
         </div>
     </main>
 
-    <footer class="w-full px-6 pb-10 space-y-4 z-50">
-        <div class="glass-card rounded-[30px] p-2 flex items-center gap-2 shimmer">
+    <footer class="w-full px-6 pb-10 space-y-3 z-50 overflow-y-auto">
+        <div class="glass-card rounded-[25px] p-2 flex items-center gap-2 shimmer">
             <input type="text" id="caInput" placeholder="SOLANA CONTRACT ADDR..." 
-                class="flex-1 bg-transparent border-none outline-none px-4 py-3 text-xs text-[#D4AF37] placeholder:text-gray-700 font-bold uppercase tracking-widest">
-            <button onclick="kralAnaliz()" id="analizBtn" class="bg-[#D4AF37] text-black px-6 py-3 rounded-[22px] font-black text-[10px] tracking-tighter hover:scale-105 active:scale-95 transition-all">
+                class="flex-1 bg-transparent border-none outline-none px-4 py-2.5 text-xs text-[#D4AF37] placeholder:text-gray-700 font-bold uppercase tracking-widest">
+            <button onclick="kralAnaliz()" id="analizBtn" class="bg-[#D4AF37] text-black px-5 py-2.5 rounded-[18px] font-black text-[9px] tracking-tighter hover:scale-105 active:scale-95 transition-all">
                 ANALİZ ET
             </button>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
-            <div class="glass-card p-4 rounded-3xl flex flex-col items-center">
-                <span class="text-gray-500 text-[9px] uppercase font-bold mb-1">Cüzdan Değeri</span>
+            <div class="glass-card p-3 rounded-2xl flex flex-col items-center">
+                <span class="text-gray-500 text-[8px] uppercase font-bold mb-1 tracking-wider">SOL Fiyatı (Live)</span>
                 <span id="sol-price" class="text-xs font-['Orbitron'] text-white">TARANIYOR...</span>
             </div>
-            <div class="glass-card p-4 rounded-3xl flex flex-col items-center">
-                <span class="text-gray-500 text-[9px] uppercase font-bold mb-1">VIP Durumu</span>
-                <span class="text-xs font-['Orbitron'] text-[#D4AF37] gold-glow">AKTİF</span>
+            <div class="glass-card p-3 rounded-2xl flex flex-col items-center border-[#0088cc]/20">
+                <span class="text-[#0088cc] text-[8px] uppercase font-bold mb-1 tracking-wider">VIP Raporu</span>
+                <span class="text-xs font-['Orbitron'] text-[#0088cc] gold-glow">AKTİF</span>
             </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mt-3">
+            <div class="glass-card p-3 rounded-2xl flex flex-col items-center">
+                <span class="text-gray-500 text-[8px] uppercase font-bold mb-1 tracking-wider">Ekibim</span>
+                <span class="text-xs font-['Orbitron'] text-[#D4AF37]">0 <span class="text-gray-600 text-[9px]">ÜYE</span></span>
+            </div>
+            <button onclick="kopyalaReferans()" class="glass-card p-3 rounded-2xl flex flex-col items-center border-white/10 hover:border-white/30 active:scale-95 transition-all shimmer">
+                <span class="text-white text-[8px] uppercase font-bold mb-1 tracking-wider">NETWORK LİNKİM</span>
+                <span class="text-xs font-['Orbitron'] text-white">KOPYALA 🔗</span>
+            </button>
         </div>
     </footer>
 
     <div id="modal" style="display:none;" class="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-8 backdrop-blur-2xl">
-        <div class="glass-card p-8 rounded-[40px] w-full max-w-sm border-[#D4AF37] border-2 shadow-[0_0_100px_rgba(212,175,55,0.2)]">
-            <div class="text-center mb-6">
-                <div class="text-5xl mb-2">🐋</div>
-                <h2 class="font-['Orbitron'] text-xl text-[#D4AF37]">BALİNA RAPORU</h2>
-                <p class="text-[10px] text-gray-500 tracking-[0.2em]">DEEP SOLANA SCANNER</p>
+        <div class="glass-card p-7 rounded-[35px] w-full max-w-xs border-[#D4AF37] border-2 shadow-[0_0_100px_rgba(212,175,55,0.2)]">
+            <div class="text-center mb-5">
+                <div class="text-5xl mb-1.5">🐋</div>
+                <h2 class="font-['Orbitron'] text-lg text-[#D4AF37] tracking-wider">BALİNA RAPORU</h2>
+                <p class="text-[9px] text-gray-500 tracking-[0.2em] font-bold">DEEP SOLANA SCANNER</p>
             </div>
-            <div class="space-y-4 mb-8 bg-black/40 p-4 rounded-2xl border border-white/5">
-                <div class="flex justify-between text-[11px]"><span class="text-gray-500">GÜVENLİK SKORU:</span><span class="text-green-500 font-bold">TEMİZ</span></div>
-                <div class="flex justify-between text-[11px]"><span class="text-gray-500">DEV SATIŞI:</span><span class="text-red-500 font-bold">RİSKLİ! %12</span></div>
-                <div class="flex justify-between text-[11px]"><span class="text-gray-500">LİKİDİTE KİLİDİ:</span><span class="text-white font-bold">VAR (90 GÜN)</span></div>
-                <hr class="border-white/5">
-                <p class="text-[10px] text-center italic text-gray-400">"Sistem 3 balina cüzdanının boşaltma hazırlığında olduğunu tespit etti."</p>
-            </div>
-            <button onclick="closeModal()" class="w-full bg-white/5 py-3 rounded-2xl mb-3 text-sm font-bold">SİSTEME DÖN</button>
-            <button class="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-black text-xs shadow-xl shadow-gold/20">DETAYLI VIP RAPOR (50 ⭐)</button>
+            <div id="modal-report-body" class="space-y-3.5 mb-7 bg-black/40 p-4 rounded-xl border border-white/5 text-[10px]">
+                </div>
+            <button onclick="closeModal()" class="w-full bg-white/5 py-3 rounded-xl mb-3 text-xs font-bold text-gray-400">SİSTEME DÖN</button>
+            <button onclick="satinAlVIPRapor()" id="vipBuyBtn" class="w-full bg-[#0088cc] text-white py-3.5 rounded-xl font-black text-xs shadow-xl shadow-[#0088cc]/20 tracking-tighter shimmer">
+                DETAYLI VIP RAPORU AÇ (50 ⭐)
+            </button>
         </div>
     </div>
 
     <script>
+        // Skor & Stars Yönetimi
         let score = localStorage.getItem('kralScore') ? parseInt(localStorage.getItem('kralScore')) : 0;
+        let stars = localStorage.getItem('kralStars') ? parseInt(localStorage.getItem('kralStars')) : 100; // Başlangıç VIP bonusu
         document.getElementById('score').innerText = score;
+        document.getElementById('stars').innerText = stars;
 
         // DOKUN KAZAN MOTORU
         const mainBtn = document.getElementById('main-tap');
@@ -110,24 +127,71 @@
             setTimeout(() => anim.remove(), 800);
             
             // TITREŞİM (Mobile Taptic Feedback)
-            if(window.navigator.vibrate) window.navigator.vibrate(15);
+            if(window.navigator.vibrate) window.navigator.vibrate(10);
         });
 
-        // KRAL ANALİZ MOTORU (SİMÜLASYON)
-        async function kralAnaliz() {
-            const ca = document.getElementById('caInput').value;
-            const btn = document.getElementById('analizBtn');
-            if(ca.length < 30) { alert("DOĞRU ADRES GİR KRAL!"); return; }
+        // REFERANS LİNKİMİ KOPYALA
+        function kopyalaReferans() {
+            // İleride buraya Telegram UserID entegre edilecek.
+            const fakeUserID = Math.floor(Math.random() * 1000000);
+            const refLink = `https://t.me/MemeKralBot?start=${fakeUserID}`;
+            navigator.clipboard.writeText(refLink).then(() => {
+                alert("Network Linkin Kopyalandı Kral!\nWatsApp Gruplarına Gönder!");
+            }).catch(() => {
+                alert("Kopyalanamadı! Linki manuel kopyala:\n" + refLink);
+            });
+        }
 
-            btn.innerText = "TARANIYOR...";
+        // KRAL ANALİZ MOTORU (TEMEL)
+        async function kralAnaliz() {
+            const caInput = document.getElementById('caInput');
+            const ca = caInput.value.trim();
+            const btn = document.getElementById('analizBtn');
+            if(ca.length < 32) { alert("DOĞRU SOLANA CA GİR KRAL!"); return; }
+
+            btn.innerText = "TARANIYOR... ⚡";
             btn.disabled = true;
 
-            // 2 Saniye 'Ağ Tarama' Hissi
-            await new Promise(r => setTimeout(r, 2000));
+            // 1.5 Saniye 'Ağ Tarama' Hissi
+            await new Promise(r => setTimeout(r, 1500));
             
+            // Temel Rapor İçeriği
+            document.getElementById('modal-report-body').innerHTML = `
+                <div class="flex justify-between text-[11px]"><span class="text-gray-500">Güvenlik:</span><span class="text-green-500 font-bold">TEMİZ (Simüle)</span></div>
+                <div class="flex justify-between text-[11px]"><span class="text-gray-500">Likidite Kilidi:</span><span class="text-white font-bold">VAR (90 GÜN)</span></div>
+                <hr class="border-white/5">
+                <p class="text-[10px] text-center italic text-gray-400">"Sistem 3 balina cüzdanının boşaltma hazırlığında olduğunu tespit etti."</p>
+            `;
+            
+            document.getElementById('vipBuyBtn').style.display = 'block'; // VIP butonunu göster
             document.getElementById('modal').style.display = 'flex';
             btn.innerText = "ANALİZ ET";
             btn.disabled = false;
+        }
+
+        // VIP DETAYLI RAPOR SATIN ALMA (STARS SİMÜLASYONU)
+        function satinAlVIPRapor() {
+            if(stars >= 50) {
+                stars -= 50;
+                localStorage.setItem('kralStars', stars);
+                document.getElementById('stars').innerText = stars;
+                alert("VIP Rapor Satın Alındı! (Stars Düştü)");
+                
+                // VIP Rapor İçeriğini Değiştir
+                document.getElementById('modal-report-body').innerHTML = `
+                    <p class="text-center font-bold text-[#0088cc] mb-2 uppercase text-[10px]">Deep Scan VIP Sonuçları</p>
+                    <div class="flex justify-between text-[11px]"><span class="text-gray-500 tracking-wider">BALİNA 1 (DezX...):</span><span class="text-red-500 font-bold">SATACAK! (%90)</span></div>
+                    <div class="flex justify-between text-[11px]"><span class="text-gray-500 tracking-wider">DEV CÜZDANI:</span><span class="text-white font-bold">%2 TUTUYOR</span></div>
+                    <div class="flex justify-between text-[11px]"><span class="text-gray-500 tracking-wider">FİYAT HEDEFİ:</span><span class="text-green-500 font-bold">2X BEKLENİYOR</span></div>
+                    <hr class="border-white/5 my-2">
+                    <p class="text-[10px] text-gray-300 italic">"Bu coine dikkatli gir kanka, balinalar satmadan çıkmalısın!"</p>
+                `;
+                document.getElementById('vipBuyBtn').style.display = 'none'; // VIP butonunu gizle
+
+            } else {
+                alert("Yetersiz Stars ⭐ Bakiyesi!\nLütfen Telegram Stars Yükle.");
+                // İleride buraya Telegram Stars Ödeme Linki Tetiklenecek.
+            }
         }
 
         function closeModal() { document.getElementById('modal').style.display = 'none'; }
@@ -143,7 +207,7 @@
                 document.getElementById('sol-price').innerText = 'AĞ HATASI';
             }
         }
-        setInterval(fetchSolPrice, 10000); // 10 saniyede bir fiyat güncelle
+        setInterval(fetchSolPrice, 10000); 
         fetchSolPrice();
     </script>
 </body>
