@@ -3,145 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MEME KRAL | VIP HUB</title>
+    <title>MEME KRAL | ELITE HUB</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; overflow: hidden; height: 100vh; margin: 0; }
-        .gold-glow { text-shadow: 0 0 15px #D4AF37; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.1); }
-        .active-tab { color: #D4AF37; border-top: 2px solid #D4AF37; }
-        .tap-btn:active { transform: scale(0.95); }
+        body { background: #050505; color: #fff; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
+        .font-royal { font-family: 'Orbitron', sans-serif; }
+        .gold-glow { text-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(20px); border: 1px solid rgba(212, 175, 55, 0.1); }
+        .active-tab { color: #D4AF37; border-top: 3px solid #D4AF37; background: linear-gradient(to bottom, rgba(212, 175, 55, 0.1), transparent); }
+        .tap-btn { transition: all 0.1s ease; outline: none; -webkit-tap-highlight-color: transparent; }
+        .tap-btn:active { transform: scale(0.92) rotate(2deg); }
+        .progress-bar { height: 6px; border-radius: 3px; background: #222; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #D4AF37, #F9D423); transition: width 0.3s ease; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        .floating { animation: float 3s ease-in-out infinite; }
     </style>
 </head>
-<body class="flex flex-col items-center">
+<body class="flex flex-col items-center select-none">
 
-    <header class="w-full p-5 flex justify-between items-center glass">
-        <div class="flex flex-col">
-            <h1 class="font-['Orbitron'] text-sm gold-glow font-black italic">MEME KRAL</h1>
-            <div id="lang-switch" class="flex gap-2 mt-1 opacity-50 text-[10px]">
-                <button onclick="changeLang('tr')" id="btn-tr" class="font-bold text-[#D4AF37]">TR</button>
-                <button onclick="changeLang('en')" id="btn-en" class="font-bold">EN</button>
+    <header class="w-full p-4 flex justify-between items-center glass border-b border-white/5 z-50">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full border border-[#D4AF37] flex items-center justify-center font-royal text-[10px] gold-glow">MK</div>
+            <div class="flex flex-col">
+                <h1 class="font-royal text-[12px] gold-glow tracking-widest font-black italic uppercase">Meme Kral</h1>
+                <div class="flex gap-2 text-[9px] font-bold">
+                    <button onclick="changeLang('tr')" id="btn-tr" class="text-[#D4AF37]">TR</button>
+                    <button onclick="changeLang('en')" id="btn-en" class="text-gray-600">EN</button>
+                </div>
             </div>
         </div>
-        <div class="flex flex-col items-end">
-            <span class="text-[9px] text-gray-500 font-bold uppercase" id="lbl-points">Kral Puanı</span>
-            <span id="score" class="text-xl font-black text-[#D4AF37]">0</span>
+        <div class="text-right">
+            <p id="lbl-points" class="text-[8px] text-gray-500 font-bold uppercase tracking-widest">Kral Puanı</p>
+            <p id="score" class="text-xl font-royal font-black text-[#D4AF37]">0</p>
         </div>
     </header>
 
-    <main class="flex-1 w-full overflow-y-auto pb-24">
+    <main class="flex-1 w-full overflow-y-auto pb-32 pt-4">
         
-        <div id="tab-game" class="h-full flex flex-col items-center justify-center space-y-8 p-6">
-            <div class="relative">
-                <div class="absolute -inset-10 bg-[#D4AF37]/10 blur-3xl rounded-full"></div>
-                <button onclick="handleTap()" class="tap-btn w-52 h-52 rounded-full bg-black border-[8px] border-[#D4AF37] shadow-[0_0_50px_rgba(212,175,55,0.3)] text-8xl relative z-10">👑</button>
+        <div id="tab-game" class="h-full flex flex-col items-center justify-between p-6">
+            <div class="w-full glass p-4 rounded-2xl flex justify-between items-center">
+                <span class="text-[10px] font-bold text-gray-400 uppercase" id="lbl-energy">Enerji</span>
+                <span class="text-[12px] font-black text-[#D4AF37]" id="energy-text">1000/1000</span>
             </div>
-            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-[0.3em] animate-pulse" id="lbl-tap">VIP Analiz İçin Dokun</p>
+            
+            <div class="relative flex-1 flex items-center justify-center">
+                <div class="absolute w-64 h-64 bg-[#D4AF37]/5 blur-[100px] rounded-full"></div>
+                <button onclick="handleTap(event)" class="tap-btn w-56 h-56 rounded-full bg-gradient-to-tr from-black to-[#1a1a1a] border-[8px] border-[#D4AF37]/80 shadow-[0_0_80px_rgba(212,175,55,0.2)] flex items-center justify-center relative z-10 floating">
+                    <span class="text-8xl">👑</span>
+                </button>
+            </div>
+
+            <div class="w-full space-y-2">
+                <div class="progress-bar"><div id="energy-bar" class="progress-fill" style="width: 100%"></div></div>
+                <p id="lbl-tap-hint" class="text-[10px] text-center text-gray-500 font-bold uppercase tracking-[0.2em]">Puan Toplamak İçin Dokun</p>
+            </div>
         </div>
 
-        <div id="tab-analiz" class="hidden p-6 space-y-4">
-            <h2 class="text-center font-['Orbitron'] text-[#D4AF37] text-lg mb-6" id="lbl-radar">BALİNA RADARI</h2>
-            <div class="glass p-5 rounded-[30px] space-y-4">
-                <input type="text" id="caInput" placeholder="SOLANA CA..." class="w-full bg-transparent border-b border-[#D4AF37]/30 p-3 text-xs outline-none text-[#D4AF37] font-mono">
-                <button onclick="runAnalysis()" class="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-black text-xs uppercase" id="btn-scan">TARAMAYI BAŞLAT</button>
+        <div id="tab-analiz" class="hidden p-6 space-y-6">
+            <div class="text-center space-y-1">
+                <h2 id="lbl-radar" class="font-royal text-[#D4AF37] text-lg font-black tracking-widest">BALİNA RADARI</h2>
+                <p class="text-[8px] text-gray-500 font-bold uppercase">Solana Mainnet Real-Time Data</p>
             </div>
-            <div id="analiz-result" class="space-y-3"></div>
+
+            <div class="glass p-5 rounded-[30px] border border-[#D4AF37]/20 shadow-inner">
+                <input type="text" id="caInput" placeholder="CONTRACT ADDRESS (CA)..." class="w-full bg-transparent border-b border-[#D4AF37]/20 p-4 text-[10px] outline-none text-[#D4AF37] font-mono tracking-tighter">
+                <button onclick="runAnalysis()" id="btn-scan" class="w-full mt-4 bg-gradient-to-r from-[#D4AF37] to-[#F9D423] text-black py-4 rounded-2xl font-black text-[11px] uppercase tracking-widest active:scale-95 transition-all shadow-lg shadow-[#D4AF37]/20">Taramayı Başlat</button>
+            </div>
+
+            <div id="analiz-result" class="space-y-4"></div>
         </div>
 
         <div id="tab-network" class="hidden p-6 space-y-6">
-            <h2 class="text-center font-['Orbitron'] text-[#D4AF37] text-lg mb-6" id="lbl-net-title">EKİP YÖNETİMİ</h2>
-            <div class="glass p-6 rounded-[35px] text-center space-y-4">
-                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest" id="lbl-ref">Referans Linkin</p>
-                <div class="bg-black/40 p-3 rounded-xl border border-white/5 text-[10px] text-[#D4AF37] break-all font-mono" id="refLink">t.me/memekralbot?start=USER_ID</div>
-                <button onclick="copyRef()" class="w-full bg-white text-black py-3 rounded-2xl font-black text-[10px] uppercase" id="btn-copy">LİNKİ KOPYALA</button>
+            <div class="text-center">
+                <h2 id="lbl-net-title" class="font-royal text-[#D4AF37] text-lg font-black italic">EKİP MERKEZİ</h2>
             </div>
+            
+            <div class="glass p-6 rounded-[35px] text-center border-dashed border-[#D4AF37]/30">
+                <p id="lbl-ref" class="text-[9px] text-gray-500 uppercase font-bold mb-4 tracking-widest italic">Referans Linkin ile Komisyon Kazan</p>
+                <div class="bg-black p-4 rounded-2xl border border-white/5 text-[9px] text-[#D4AF37] font-mono mb-4 select-all" id="refLink">t.me/memekralbot?start=USER_ID</div>
+                <button onclick="copyRef()" id="btn-copy" class="w-full bg-white text-black py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest active:opacity-70">Linki Kopyala</button>
+            </div>
+
             <div class="grid grid-cols-2 gap-4">
-                <div class="glass p-4 rounded-2xl text-center">
-                    <p class="text-[8px] text-gray-500 uppercase font-bold" id="lbl-team">Ekip</p>
-                    <p class="text-xl font-black">24</p>
+                <div class="glass p-5 rounded-[25px] flex flex-col items-center">
+                    <span id="lbl-team" class="text-[8px] text-gray-500 uppercase font-black mb-1">Aktif Ekip</span>
+                    <span class="text-2xl font-black text-white italic">0</span>
                 </div>
-                <div class="glass p-4 rounded-2xl text-center">
-                    <p class="text-[8px] text-gray-500 uppercase font-bold" id="lbl-earn">Kazanç</p>
-                    <p class="text-xl font-black text-green-500">2.4 SOL</p>
+                <div class="glass p-5 rounded-[25px] flex flex-col items-center">
+                    <span id="lbl-earn" class="text-[8px] text-gray-500 uppercase font-black mb-1">Toplam Kazanç</span>
+                    <span class="text-2xl font-black text-green-500 italic">0.00 <span class="text-xs">SOL</span></span>
                 </div>
             </div>
         </div>
     </main>
 
-    <nav class="fixed bottom-6 w-[90%] glass rounded-[35px] p-2 flex justify-around items-center z-50">
-        <button onclick="showTab('game')" id="nav-game" class="p-4 text-xl active-tab">🏠</button>
-        <button onclick="showTab('analiz')" id="nav-analiz" class="p-4 text-xl opacity-40">📡</button>
-        <button onclick="showTab('network')" id="nav-network" class="p-4 text-xl opacity-40">👥</button>
+    <nav class="fixed bottom-8 w-[92%] glass rounded-[40px] p-2 flex justify-between items-center z-[100] border-white/10 shadow-2xl">
+        <button onclick="showTab('game')" id="nav-game" class="flex-1 py-4 flex flex-col items-center gap-1 active-tab rounded-[35px]">
+            <span class="text-xl">🏠</span>
+            <span class="text-[8px] font-black uppercase">Home</span>
+        </button>
+        <button onclick="showTab('analiz')" id="nav-analiz" class="flex-1 py-4 flex flex-col items-center gap-1 opacity-30 rounded-[35px]">
+            <span class="text-xl">📡</span>
+            <span class="text-[8px] font-black uppercase tracking-tighter">Radar</span>
+        </button>
+        <button onclick="showTab('network')" id="nav-network" class="flex-1 py-4 flex flex-col items-center gap-1 opacity-30 rounded-[35px]">
+            <span class="text-xl">👥</span>
+            <span class="text-[8px] font-black uppercase tracking-tighter">Network</span>
+        </button>
     </nav>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
+        tg.headerColor = "#050505";
 
         let score = parseInt(localStorage.getItem('kScore') || 0);
-        document.getElementById('score').innerText = score;
+        let energy = parseInt(localStorage.getItem('kEnergy') || 1000);
+        
+        document.getElementById('score').innerText = score.toLocaleString();
+        document.getElementById('energy-text').innerText = `${energy}/1000`;
+        document.getElementById('energy-bar').style.width = (energy / 10) + '%';
 
-        // Dil Verileri
-        const lang = {
-            tr: { points: "Kral Puanı", tap: "VIP Analiz İçin Dokun", radar: "BALİNA RADARI", scan: "TARAMAYI BAŞLAT", net: "EKİP YÖNETİMİ", ref: "Referans Linkin", copy: "LİNKİ KOPYALA", team: "Ekip", earn: "Kazanç" },
-            en: { points: "King Points", tap: "Tap for VIP Analysis", radar: "WHALE RADAR", scan: "START SCAN", net: "TEAM MANAGEMENT", ref: "Your Referral Link", copy: "COPY LINK", team: "Team", earn: "Earnings" }
+        const langData = {
+            tr: { points: "Kral Puanı", energy: "Enerji", tap: "Puan Toplamak İçin Dokun", radar: "BALİNA RADARI", scan: "TARAMAYI BAŞLAT", net: "EKİP MERKEZİ", ref: "Referans Linkin ile Komisyon Kazan", copy: "LİNKİ KOPYALA", team: "Aktif Ekip", earn: "Toplam Kazanç" },
+            en: { points: "King Points", energy: "Energy", tap: "Tap to Collect Points", radar: "WHALE RADAR", scan: "START SCAN", net: "TEAM CENTER", ref: "Earn Commissions via Referral", copy: "COPY LINK", team: "Active Team", earn: "Total Earnings" }
         };
 
         function changeLang(l) {
-            document.getElementById('lbl-points').innerText = lang[l].points;
-            document.getElementById('lbl-tap').innerText = lang[l].tap;
-            document.getElementById('lbl-radar').innerText = lang[l].radar;
-            document.getElementById('btn-scan').innerText = lang[l].scan;
-            document.getElementById('lbl-net-title').innerText = lang[l].net;
-            document.getElementById('lbl-ref').innerText = lang[l].ref;
-            document.getElementById('btn-copy').innerText = lang[l].copy;
-            document.getElementById('lbl-team').innerText = lang[l].team;
-            document.getElementById('lbl-earn').innerText = lang[l].earn;
-            
-            document.getElementById('btn-tr').classList.toggle('text-[#D4AF37]', l === 'tr');
-            document.getElementById('btn-en').classList.toggle('text-[#D4AF37]', l === 'en');
+            Object.keys(langData[l]).forEach(key => {
+                const el = document.getElementById('lbl-' + key) || document.getElementById('btn-' + key);
+                if(el) el.innerText = langData[l][key];
+            });
+            document.getElementById('btn-tr').className = l === 'tr' ? 'text-[#D4AF37]' : 'text-gray-600';
+            document.getElementById('btn-en').className = l === 'en' ? 'text-[#D4AF37]' : 'text-gray-600';
         }
 
-        function handleTap() {
+        function handleTap(e) {
+            if(energy <= 0) {
+                tg.HapticFeedback.notificationOccurred('error');
+                return;
+            }
             score += 10;
-            document.getElementById('score').innerText = score;
+            energy -= 2;
+            document.getElementById('score').innerText = score.toLocaleString();
+            document.getElementById('energy-text').innerText = `${energy}/1000`;
+            document.getElementById('energy-bar').style.width = (energy / 10) + '%';
             localStorage.setItem('kScore', score);
-            if(window.Taptic) window.Taptic.impact('medium');
+            localStorage.setItem('kEnergy', energy);
+            tg.HapticFeedback.impactOccurred('medium');
         }
 
         function showTab(t) {
             ['game', 'analiz', 'network'].forEach(id => {
                 document.getElementById('tab-' + id).classList.add('hidden');
                 document.getElementById('nav-' + id).classList.remove('active-tab', 'opacity-100');
-                document.getElementById('nav-' + id).classList.add('opacity-40');
+                document.getElementById('nav-' + id).classList.add('opacity-30');
             });
             document.getElementById('tab-' + t).classList.remove('hidden');
             document.getElementById('nav-' + t).classList.add('active-tab', 'opacity-100');
+            tg.HapticFeedback.impactOccurred('light');
         }
 
         async function runAnalysis() {
-            const ca = document.getElementById('caInput').value;
+            const ca = document.getElementById('caInput').value.trim();
             const resDiv = document.getElementById('analiz-result');
-            if(!ca) return;
-            resDiv.innerHTML = `<p class="text-center text-[10px] animate-pulse">VERİLER ÇEKİLİYOR...</p>`;
+            if(ca.length < 30) { tg.showAlert("Geçerli bir Solana adresi gir kanka!"); return; }
+            
+            resDiv.innerHTML = `<div class="text-center py-10"><div class="animate-spin inline-block w-8 h-8 border-4 border-[#D4AF37] border-t-transparent rounded-full mb-2"></div><p class="text-[10px] font-black italic gold-glow">BALİNALAR İZLENİYOR...</p></div>`;
+            
             try {
                 const r = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${ca}`);
                 const d = await r.json();
+                if(!d.pairs) throw new Error();
                 const p = d.pairs[0];
                 resDiv.innerHTML = `
-                    <div class="glass p-4 rounded-2xl border-l-4 border-[#D4AF37]">
-                        <div class="flex justify-between font-black"><span>${p.baseToken.symbol}</span><span class="text-green-500">$${p.priceUsd}</span></div>
-                        <div class="text-[9px] text-gray-500 mt-2 uppercase font-bold">Market Cap: $${p.fdv.toLocaleString()}</div>
+                    <div class="glass p-5 rounded-[25px] border-l-[6px] border-[#D4AF37] animate-in fade-in duration-500">
+                        <div class="flex justify-between items-center mb-4">
+                            <div><p class="text-[14px] font-royal font-black text-[#D4AF37] leading-none">${p.baseToken.symbol}</p><p class="text-[8px] text-gray-500 font-bold mt-1 tracking-tighter">${p.baseToken.name}</p></div>
+                            <div class="text-right"><p class="text-[12px] font-black text-green-500">$${parseFloat(p.priceUsd).toFixed(8)}</p><p class="text-[7px] text-gray-600 font-bold uppercase">Live Price</p></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-white/5 p-3 rounded-xl"><p class="text-[7px] text-gray-500 uppercase font-black mb-1">Market Cap</p><p class="text-[10px] font-black">$${p.fdv.toLocaleString()}</p></div>
+                            <div class="bg-white/5 p-3 rounded-xl"><p class="text-[7px] text-gray-500 uppercase font-black mb-1">24H Vol</p><p class="text-[10px] font-black">$${p.volume.h24.toLocaleString()}</p></div>
+                        </div>
                     </div>`;
-            } catch(e) { resDiv.innerHTML = "Hata!"; }
+            } catch(e) { resDiv.innerHTML = `<div class="text-center text-red-500 font-black text-[10px] italic py-4">HATA: TOKEN BULUNAMADI VEYA API YOĞUN!</div>`; }
         }
 
         function copyRef() {
             navigator.clipboard.writeText(document.getElementById('refLink').innerText);
-            tg.showAlert("Kopyalandı kanka!");
+            tg.showAlert("Link kopyalandı! Şimdi ekibini kurma zamanı kanka.");
+            tg.HapticFeedback.notificationOccurred('success');
         }
+
+        // Energy Recovery
+        setInterval(() => {
+            if(energy < 1000) {
+                energy = Math.min(1000, energy + 1);
+                document.getElementById('energy-text').innerText = `${energy}/1000`;
+                document.getElementById('energy-bar').style.width = (energy / 10) + '%';
+                localStorage.setItem('kEnergy', energy);
+            }
+        }, 3000);
     </script>
 </body>
 </html>
