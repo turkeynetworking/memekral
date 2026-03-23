@@ -1,138 +1,1296 @@
+
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MEME KRAL | VIP</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-    <style>
-        body { background: #000; color: #fff; font-family: sans-serif; overflow: hidden; height: 100vh; margin: 0; }
-        .gold-glow { text-shadow: 0 0 15px #D4AF37; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(212, 175, 55, 0.2); }
-        .active-tab { color: #D4AF37; border-top: 3px solid #D4AF37; }
-        .tap-btn:active { transform: scale(0.92); }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>MemeKralTrade 👑</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --gold:#FFD700;--gold2:#FFA500;--gold3:#FF8C00;
+  --bg:#050508;--bg2:#0a0a10;--bg3:#0f0f18;--bg4:#13131f;
+  --card:#111120;--card2:#161628;
+  --green:#00FF88;--red:#FF3366;--blue:#00BFFF;--purple:#9D4EDD;
+  --text:#E8E8F0;--text2:#9898B0;--text3:#5a5a70;
+  --border:rgba(255,215,0,0.15);--border2:rgba(255,215,0,0.08);
+  --glow:0 0 20px rgba(255,215,0,0.3);--glow2:0 0 40px rgba(255,215,0,0.15);
+  --radius:14px;--radius2:20px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;min-height:100vh;background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;overflow-x:hidden}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:2px}
+
+/* ANIMATED BG */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse at 20% 0%,rgba(255,215,0,0.04) 0%,transparent 60%),
+             radial-gradient(ellipse at 80% 100%,rgba(157,78,221,0.04) 0%,transparent 60%);
+  pointer-events:none;z-index:0;
+}
+
+/* GRID NOISE */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(255,215,0,0.015) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,215,0,0.015) 1px,transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;z-index:0;
+}
+
+/* WRAPPER */
+#app{position:relative;z-index:1;min-height:100vh;padding-bottom:80px}
+
+/* HEADER */
+.header{
+  background:linear-gradient(180deg,rgba(10,10,16,0.98) 0%,rgba(5,5,8,0.95) 100%);
+  border-bottom:1px solid var(--border);
+  padding:14px 16px 10px;
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(20px);
+}
+.header-top{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-icon{font-size:28px;filter:drop-shadow(0 0 8px var(--gold))}
+.logo-text{font-family:'Orbitron',monospace;font-size:14px;font-weight:900;
+  background:linear-gradient(135deg,var(--gold),var(--gold2),var(--gold3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  letter-spacing:1px;line-height:1.1}
+.logo-sub{font-size:9px;color:var(--text3);font-family:'Share Tech Mono',monospace;letter-spacing:2px}
+.vip-badge{
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  color:#000;font-size:10px;font-weight:700;font-family:'Orbitron',monospace;
+  padding:4px 10px;border-radius:20px;letter-spacing:1px;
+  box-shadow:var(--glow);animation:pulse-gold 2s ease-in-out infinite;
+}
+.free-badge{
+  background:var(--card2);border:1px solid var(--border);
+  color:var(--text2);font-size:10px;font-weight:700;
+  padding:4px 10px;border-radius:20px;font-family:'Orbitron',monospace;
+}
+@keyframes pulse-gold{0%,100%{box-shadow:0 0 12px rgba(255,215,0,0.4)}50%{box-shadow:0 0 25px rgba(255,215,0,0.7)}}
+
+/* TABS */
+.nav{
+  display:flex;overflow-x:auto;gap:4px;padding:10px 16px 0;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{
+  flex-shrink:0;padding:6px 12px;border-radius:20px;border:1px solid var(--border2);
+  background:transparent;color:var(--text2);font-size:11px;font-weight:600;
+  font-family:'Rajdhani',sans-serif;cursor:pointer;transition:all 0.2s;white-space:nowrap;
+}
+.nav-btn.active{
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  color:#000;border-color:transparent;
+  box-shadow:0 0 12px rgba(255,215,0,0.3);
+}
+.nav-btn:not(.active):hover{border-color:var(--gold);color:var(--gold)}
+
+/* PAGES */
+.page{display:none;padding:16px;animation:fadeIn 0.3s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARD */
+.card{
+  background:var(--card);border:1px solid var(--border2);border-radius:var(--radius2);
+  padding:16px;margin-bottom:12px;position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:0.4;
+}
+.card-gold{border-color:rgba(255,215,0,0.25);box-shadow:var(--glow2)}
+.card-red{border-color:rgba(255,51,102,0.25)}
+.card-green{border-color:rgba(0,255,136,0.15)}
+
+/* SECTION TITLE */
+.section-title{
+  font-family:'Orbitron',monospace;font-size:11px;font-weight:700;
+  color:var(--gold2);letter-spacing:2px;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;margin-bottom:14px;
+}
+.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.stat-box{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:12px;
+  padding:10px 8px;text-align:center;
+}
+.stat-val{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--gold)}
+.stat-val.green{color:var(--green)}
+.stat-val.red{color:var(--red)}
+.stat-val.blue{color:var(--blue)}
+.stat-lbl{font-size:9px;color:var(--text3);letter-spacing:1px;margin-top:2px}
+
+/* INPUT */
+.input-wrap{position:relative;margin-bottom:12px}
+.input-wrap input{
+  width:100%;background:var(--bg3);border:1px solid var(--border);
+  border-radius:12px;padding:13px 48px 13px 16px;
+  color:var(--text);font-family:'Share Tech Mono',monospace;font-size:13px;
+  outline:none;transition:border-color 0.2s;
+}
+.input-wrap input:focus{border-color:var(--gold);box-shadow:0 0 12px rgba(255,215,0,0.1)}
+.input-wrap input::placeholder{color:var(--text3)}
+.input-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:18px;cursor:pointer}
+
+/* BUTTON */
+.btn{
+  width:100%;padding:13px;border-radius:12px;border:none;
+  font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:1px;
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-gold{
+  background:linear-gradient(135deg,var(--gold),var(--gold3));color:#000;
+  box-shadow:0 4px 20px rgba(255,165,0,0.3);
+}
+.btn-gold:hover{transform:translateY(-1px);box-shadow:0 6px 25px rgba(255,165,0,0.5)}
+.btn-gold:active{transform:translateY(0)}
+.btn-outline{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.btn-sm{width:auto;padding:8px 16px;font-size:10px;border-radius:8px}
+
+/* TOKEN ROW */
+.token-row{
+  display:flex;align-items:center;gap:10px;padding:12px;
+  background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:8px;
+  transition:border-color 0.2s;cursor:pointer;
+}
+.token-row:hover{border-color:var(--gold)}
+.token-rank{
+  font-family:'Orbitron',monospace;font-size:13px;font-weight:900;
+  color:var(--gold);min-width:22px;text-align:center;
+}
+.token-rank.r1{color:#FFD700}
+.token-rank.r2{color:#C0C0C0}
+.token-rank.r3{color:#CD7F32}
+.token-icon{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--purple));
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.token-info{flex:1;min-width:0}
+.token-name{font-weight:700;font-size:14px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.token-ca{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.token-right{text-align:right;flex-shrink:0}
+.token-vol{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:var(--text)}
+.token-change{font-size:11px;font-weight:600}
+.token-change.up{color:var(--green)}
+.token-change.down{color:var(--red)}
+
+/* RISK METER */
+.risk-meter{margin:12px 0}
+.risk-bar-bg{height:8px;background:var(--bg2);border-radius:4px;overflow:hidden}
+.risk-bar-fill{height:100%;border-radius:4px;transition:width 0.8s ease}
+.risk-labels{display:flex;justify-content:space-between;margin-top:4px}
+.risk-label{font-size:9px;color:var(--text3)}
+.risk-score-text{text-align:center;margin-top:6px;font-family:'Orbitron',monospace;font-size:20px;font-weight:900}
+
+/* ANALYSIS RESULT */
+.analysis-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.analysis-item{
+  background:var(--bg3);border:1px solid var(--border2);border-radius:10px;padding:10px;
+}
+.analysis-item-label{font-size:9px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.analysis-item-value{font-family:'Orbitron',monospace;font-size:12px;font-weight:700}
+
+/* WARNING TAGS */
+.warnings{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.warn-tag{
+  padding:4px 10px;border-radius:20px;font-size:10px;font-weight:600;
+  display:flex;align-items:center;gap:4px;
+}
+.warn-danger{background:rgba(255,51,102,0.15);border:1px solid rgba(255,51,102,0.4);color:var(--red)}
+.warn-caution{background:rgba(255,165,0,0.12);border:1px solid rgba(255,165,0,0.3);color:var(--gold2)}
+.warn-ok{background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.25);color:var(--green)}
+
+/* WHALE RADAR */
+.whale-item{
+  display:flex;align-items:center;gap:12px;padding:12px;
+  background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:8px;
+  position:relative;overflow:hidden;
+}
+.whale-item::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+}
+.whale-item.buy::before{background:var(--green)}
+.whale-item.sell::before{background:var(--red)}
+.whale-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.whale-avatar.buy{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3)}
+.whale-avatar.sell{background:rgba(255,51,102,0.1);border:1px solid rgba(255,51,102,0.3)}
+.whale-info{flex:1}
+.whale-wallet{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text2)}
+.whale-action{font-size:12px;font-weight:700;margin-top:2px}
+.whale-action.buy{color:var(--green)}
+.whale-action.sell{color:var(--red)}
+.whale-time{font-size:9px;color:var(--text3);margin-top:2px}
+.whale-amount{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;text-align:right;flex-shrink:0}
+
+/* KRAL ANALYSIS */
+.kral-token{
+  background:linear-gradient(135deg,rgba(255,215,0,0.08),rgba(255,140,0,0.04));
+  border:1px solid rgba(255,215,0,0.3);border-radius:var(--radius2);padding:16px;
+  margin-bottom:12px;position:relative;overflow:hidden;
+}
+.kral-crown{position:absolute;right:16px;top:16px;font-size:32px;opacity:0.3}
+.kral-fire{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));
+  color:#000;padding:4px 12px;border-radius:20px;
+  font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px;
+  margin-bottom:10px;
+}
+.kral-name{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;color:var(--gold);margin-bottom:4px}
+.kral-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.kral-stat{text-align:center;padding:8px;background:rgba(0,0,0,0.3);border-radius:10px}
+.kral-stat-val{font-family:'Orbitron',monospace;font-size:13px;font-weight:700;color:var(--gold)}
+.kral-stat-lbl{font-size:9px;color:var(--text3);letter-spacing:1px}
+
+/* VIP GATE */
+.vip-gate{
+  text-align:center;padding:30px 20px;
+  background:linear-gradient(135deg,rgba(255,215,0,0.05),rgba(157,78,221,0.05));
+  border:1px solid rgba(255,215,0,0.2);border-radius:var(--radius2);margin-bottom:12px;
+}
+.vip-gate-icon{font-size:48px;margin-bottom:12px;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.vip-gate-title{font-family:'Orbitron',monospace;font-size:16px;font-weight:900;
+  background:linear-gradient(135deg,var(--gold),var(--purple));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+.vip-gate-desc{font-size:13px;color:var(--text2);margin-bottom:16px;line-height:1.5}
+.vip-features{text-align:left;margin-bottom:16px}
+.vip-feature{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:12px;color:var(--text2)}
+.vip-feature span{color:var(--gold)}
+
+/* STAR BTN */
+.star-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,#7B61FF,var(--purple));
+  color:#fff;border:none;padding:13px 24px;border-radius:12px;
+  font-family:'Orbitron',monospace;font-size:12px;font-weight:700;
+  cursor:pointer;width:100%;justify-content:center;
+  box-shadow:0 4px 20px rgba(157,78,221,0.4);transition:all 0.2s;
+}
+.star-btn:hover{transform:translateY(-1px);box-shadow:0 6px 30px rgba(157,78,221,0.6)}
+
+/* LOADING */
+.loading{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px;color:var(--text2);
+}
+.spinner{
+  width:40px;height:40px;border:2px solid var(--border);
+  border-top-color:var(--gold);border-radius:50%;
+  animation:spin 0.8s linear infinite;margin-bottom:12px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* QUOTA */
+.quota-bar{
+  display:flex;align-items:center;gap:10px;padding:10px 14px;
+  background:var(--bg3);border:1px solid var(--border2);border-radius:10px;margin-bottom:14px;
+}
+.quota-dots{display:flex;gap:4px}
+.quota-dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--border);transition:all 0.3s}
+.quota-dot.used{background:var(--gold);border-color:var(--gold);box-shadow:0 0 6px var(--gold)}
+.quota-text{font-size:11px;color:var(--text2);flex:1}
+.quota-num{font-family:'Orbitron',monospace;font-size:12px;color:var(--gold);font-weight:700}
+
+/* COUNTER BADGE */
+.live-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);
+  color:var(--green);font-size:9px;padding:2px 8px;border-radius:20px;
+  font-family:'Orbitron',monospace;letter-spacing:1px;
+}
+.live-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:var(--card2);border:1px solid var(--border);border-radius:12px;
+  padding:10px 20px;font-size:12px;color:var(--text);
+  opacity:0;transition:all 0.3s;pointer-events:none;z-index:999;white-space:nowrap;
+  box-shadow:0 8px 30px rgba(0,0,0,0.5);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(5,5,8,0.97);border-top:1px solid var(--border2);
+  display:flex;z-index:200;backdrop-filter:blur(20px);
+  padding-bottom:env(safe-area-inset-bottom,0);
+}
+.bnav-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:10px 4px;border:none;background:transparent;cursor:pointer;transition:all 0.2s;
+}
+.bnav-icon{font-size:20px;margin-bottom:2px;transition:transform 0.2s}
+.bnav-label{font-size:9px;color:var(--text3);font-weight:600;letter-spacing:0.5px;transition:color 0.2s}
+.bnav-btn.active .bnav-icon{transform:scale(1.15)}
+.bnav-btn.active .bnav-label{color:var(--gold)}
+
+/* SEPARATOR */
+.sep{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:14px 0}
+
+/* FLIP COUNTER */
+.flip-num{
+  display:inline-block;font-family:'Orbitron',monospace;font-weight:700;
+  animation:flipIn 0.4s ease;
+}
+@keyframes flipIn{from{transform:rotateX(-90deg);opacity:0}to{transform:rotateX(0);opacity:1}}
+
+/* HOLDER BAR */
+.holder-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.holder-rank{font-size:10px;color:var(--text3);min-width:20px;font-family:'Share Tech Mono',monospace}
+.holder-bar-bg{flex:1;height:6px;background:var(--bg2);border-radius:3px;overflow:hidden}
+.holder-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold3))}
+.holder-pct{font-size:10px;color:var(--text2);min-width:36px;text-align:right;font-family:'Share Tech Mono',monospace}
+
+/* RESPONSIVE TWEAKS */
+@media(max-width:360px){.stats-row{grid-template-columns:repeat(2,1fr)}.analysis-grid{grid-template-columns:1fr}}
+</style>
 </head>
-<body class="flex flex-col items-center">
+<body>
+<div id="app">
 
-    <header class="w-full p-5 flex justify-between items-center glass">
-        <div class="flex flex-col">
-            <h1 class="font-['Orbitron'] text-sm gold-glow font-black italic">MEME KRAL</h1>
-            <div class="flex gap-2 mt-1 text-[10px] font-bold text-green-500 animate-pulse">● LIVE</div>
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo">
+      <div class="logo-icon">👑</div>
+      <div>
+        <div class="logo-text">MemeKralTrade</div>
+        <div class="logo-sub">MEME TOKEN ANALIZ</div>
+      </div>
+    </div>
+    <div id="userBadge" class="free-badge">FREE</div>
+  </div>
+  <div class="nav">
+    <button class="nav-btn active" onclick="showPage('home')">🏠 Ana Sayfa</button>
+    <button class="nav-btn" onclick="showPage('analyze')">🔍 Analiz</button>
+    <button class="nav-btn" onclick="showPage('top10')">🔥 Top 10</button>
+    <button class="nav-btn" onclick="showPage('whale')">🐋 Balina</button>
+    <button class="nav-btn" onclick="showPage('kral')">👑 Kral</button>
+    <button class="nav-btn" onclick="showPage('vip')">⭐ VIP</button>
+  </div>
+</div>
+
+<!-- PAGES -->
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div style="text-align:center;padding:20px 0 10px">
+    <div style="font-size:48px;margin-bottom:8px;animation:float 3s ease-in-out infinite">👑</div>
+    <div style="font-family:'Orbitron',monospace;font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent">MEME KRAL TRADE</div>
+    <div style="font-size:12px;color:var(--text2);margin-top:4px">Meme Token'ların Tek Kralı</div>
+  </div>
+
+  <div class="card card-gold">
+    <div class="section-title">📊 Piyasa Durumu</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-val blue" id="mkt-cap">$2.8T</div><div class="stat-lbl">Market Cap</div></div>
+      <div class="stat-box"><div class="stat-val green" id="mkt-vol">$89B</div><div class="stat-lbl">24h Hacim</div></div>
+      <div class="stat-box"><div class="stat-val" id="mkt-dom">55.2%</div><div class="stat-lbl">BTC Dom.</div></div>
+    </div>
+    <div class="live-badge" style="margin-top:8px"><div class="live-dot"></div>CANLI VERİ</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">⚡ Hızlı Analiz</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:14px">CA (Contract Address) girerek token analizini başlat</p>
+    <div class="input-wrap">
+      <input type="text" id="quickCA" placeholder="CA adresi yapıştır..." maxlength="44"/>
+      <div class="input-icon" onclick="quickAnalyze()">🔍</div>
+    </div>
+    <button class="btn btn-gold" onclick="quickAnalyze()">ANALİZİ BAŞLAT</button>
+  </div>
+
+  <div id="quotaHome" class="quota-bar">
+    <div>
+      <div style="font-size:9px;color:var(--text3);letter-spacing:1px;margin-bottom:4px">ÜCRETSİZ ANALİZ HAKKI</div>
+      <div class="quota-dots" id="quotaDotsHome"></div>
+    </div>
+    <div class="quota-text">Kalan hakkın</div>
+    <div class="quota-num" id="quotaNumHome">5/5</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">🔥 Trending Şu An</div>
+    <div id="trendingHome"></div>
+  </div>
+</div>
+
+<!-- ANALYZE PAGE -->
+<div id="page-analyze" class="page">
+  <div class="quota-bar">
+    <div>
+      <div style="font-size:9px;color:var(--text3);letter-spacing:1px;margin-bottom:4px">KALAN ANALİZ HAKKI</div>
+      <div class="quota-dots" id="quotaDots"></div>
+    </div>
+    <div class="quota-text" id="quotaInfo">Bugünkü ücretsiz hakkın</div>
+    <div class="quota-num" id="quotaNum">5/5</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">🔍 Token Analiz</div>
+    <div class="input-wrap">
+      <input type="text" id="caInput" placeholder="Contract Address (CA) gir..." maxlength="44"/>
+      <div class="input-icon" onclick="analyzeToken()">🔎</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-gold" style="flex:2" onclick="analyzeToken()">🚀 ANALİZ ET</button>
+      <button class="btn btn-outline btn-sm" style="flex:1;padding:13px 8px" onclick="pasteCA()">📋 YAPIŞTIR</button>
+    </div>
+  </div>
+
+  <div id="analysisResult" style="display:none"></div>
+  <div id="analysisLoading" style="display:none" class="loading">
+    <div class="spinner"></div>
+    <div style="font-size:12px">Zincir taranıyor...</div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <div class="section-title">📜 Son Analizler</div>
+    <div id="recentAnalyses"><div style="color:var(--text3);font-size:12px;text-align:center;padding:20px">Henüz analiz yapılmadı</div></div>
+  </div>
+</div>
+
+<!-- TOP 10 PAGE -->
+<div id="page-top10" class="page">
+  <div class="card card-gold">
+    <div class="section-title">🔥 En Yüksek Hacim – Top 10 Meme</div>
+    <div class="live-badge" style="margin-bottom:12px"><div class="live-dot"></div>DEX CANLI VERİ</div>
+    <div id="top10List"><div class="loading"><div class="spinner"></div><div style="font-size:12px">Veriler çekiliyor...</div></div></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">📊 Risk Dağılımı</div>
+    <div style="display:flex;justify-content:space-around;padding:10px 0">
+      <div style="text-align:center">
+        <div style="font-size:24px">3</div>
+        <div style="font-size:9px;color:var(--green)">DÜŞÜK RİSK</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:24px">4</div>
+        <div style="font-size:9px;color:var(--gold2)">ORTA RİSK</div>
+      </div>
+      <div style="text-align:center">
+        <div style="font-size:24px">3</div>
+        <div style="font-size:9px;color:var(--red)">YÜKSEK RİSK</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WHALE PAGE -->
+<div id="page-whale" class="page">
+  <div class="card card-gold">
+    <div class="section-title">🐋 Balina Radarı</div>
+    <div class="live-badge" style="margin-bottom:12px"><div class="live-dot"></div>GERÇEK ZAMANLI TAKİP</div>
+    <div id="whaleList"></div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">📈 Bugünkü Balina Özeti</div>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-val green" id="whaleBuy">$14.2M</div><div class="stat-lbl">Alış</div></div>
+      <div class="stat-box"><div class="stat-val red" id="whaleSell">$8.7M</div><div class="stat-lbl">Satış</div></div>
+      <div class="stat-box"><div class="stat-val blue" id="whaleNet">+$5.5M</div><div class="stat-lbl">Net Akış</div></div>
+    </div>
+  </div>
+
+  <div id="whaleVipGate" style="display:none">
+    <div class="vip-gate">
+      <div class="vip-gate-icon">🔒</div>
+      <div class="vip-gate-title">VIP Gerektiriyor</div>
+      <div class="vip-gate-desc">Balina radarının tamamı sadece VIP üyelerine açık. Canlı takip, cüzdan izleme ve anlık uyarılar için VIP ol!</div>
+      <button class="star-btn" onclick="showPage('vip')">⭐ VIP'E GEÇ</button>
+    </div>
+  </div>
+</div>
+
+<!-- KRAL PAGE -->
+<div id="page-kral" class="page">
+  <div style="text-align:center;padding:16px 0 8px">
+    <div style="font-size:36px;animation:pulse-gold 1.5s ease-in-out infinite">👑</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;color:var(--gold);letter-spacing:2px">KRALIN ANALİZİ</div>
+    <div style="font-size:11px;color:var(--text2);margin-top:4px">En hızlı hacim yapan tek token</div>
+  </div>
+
+  <div id="kralContent"></div>
+
+  <div id="kralVipGate" style="display:none">
+    <div class="vip-gate">
+      <div class="vip-gate-icon">👑</div>
+      <div class="vip-gate-title">Kral'ın Sırrı VIP'e Özel</div>
+      <div class="vip-gate-desc">Günün en hızlı hacim yapan token analizi, giriş noktaları ve Kral skoru sadece VIP üyelere açık.</div>
+      <button class="star-btn" onclick="showPage('vip')">⭐ VIP'E GEÇ</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIP PAGE -->
+<div id="page-vip" class="page">
+  <div class="kral-token" style="text-align:center">
+    <div style="font-size:40px;margin-bottom:8px">⭐</div>
+    <div style="font-family:'Orbitron',monospace;font-size:16px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">VIP ÜYELIK</div>
+    <div style="font-size:12px;color:var(--text2);margin-top:6px">Telegram Stars ile ödeme yap, hemen aktif ol</div>
+  </div>
+
+  <div class="card card-gold">
+    <div class="section-title">🏆 VIP Avantajları</div>
+    <div class="vip-features">
+      <div class="vip-feature"><span>✅</span> Sınırsız token analizi</div>
+      <div class="vip-feature"><span>✅</span> Gelişmiş risk skoru & detaylı rapor</div>
+      <div class="vip-feature"><span>✅</span> Balina Radarı – gerçek zamanlı</div>
+      <div class="vip-feature"><span>✅</span> Kral'ın Analizi – günlük en iyi token</div>
+      <div class="vip-feature"><span>✅</span> Holder dağılım haritası</div>
+      <div class="vip-feature"><span>✅</span> LP kilidi & rug pull dedektörü</div>
+      <div class="vip-feature"><span>✅</span> Anlık balina uyarıları</div>
+      <div class="vip-feature"><span>✅</span> Öncelikli destek</div>
+    </div>
+    <button class="star-btn" id="vipBtn" onclick="buyVIP()">⭐ 299 STAR İLE VIP OL</button>
+    <div style="text-align:center;margin-top:10px;font-size:10px;color:var(--text3)">Aylık abonelik • İstediğin zaman iptal</div>
+  </div>
+
+  <div class="card">
+    <div class="section-title">📦 Planlar</div>
+    <div id="planGrid">
+      <div class="token-row" onclick="selectPlan(1)" id="plan1">
+        <div style="flex:1">
+          <div style="font-weight:700">7 Günlük VIP</div>
+          <div style="font-size:11px;color:var(--text2)">Deneme için ideal</div>
         </div>
-        <div class="text-right">
-            <span class="text-[9px] text-gray-500 font-bold uppercase">KRAL PUANI</span>
-            <p id="score" class="text-xl font-black text-[#D4AF37]">0</p>
+        <div style="font-family:'Orbitron',monospace;color:var(--gold)">⭐ 99</div>
+      </div>
+      <div class="token-row" onclick="selectPlan(2)" id="plan2" style="border-color:var(--gold)">
+        <div style="flex:1">
+          <div style="font-weight:700">Aylık VIP <span style="background:var(--gold);color:#000;padding:2px 6px;border-radius:4px;font-size:9px;margin-left:4px">POPÜLER</span></div>
+          <div style="font-size:11px;color:var(--text2)">En çok tercih edilen</div>
         </div>
-    </header>
-
-    <main class="flex-1 w-full overflow-y-auto pb-24">
-        
-        <div id="tab-game" class="h-full flex flex-col items-center justify-center space-y-8 p-6">
-            <button onclick="handleTap()" class="tap-btn w-52 h-52 rounded-full bg-black border-[8px] border-[#D4AF37] shadow-[0_0_50px_rgba(212,175,55,0.3)] text-8xl">👑</button>
-            <div class="w-full max-w-[200px] space-y-2">
-                <div class="flex justify-between text-[10px] font-black text-[#D4AF37]">
-                    <span>ENERJİ</span>
-                    <span id="energy-txt">1000/1000</span>
-                </div>
-                <div class="w-full h-1.5 bg-gray-800 rounded-full overflow-hidden">
-                    <div id="energy-bar" class="h-full bg-[#D4AF37]" style="width: 100%"></div>
-                </div>
-            </div>
+        <div style="font-family:'Orbitron',monospace;color:var(--gold)">⭐ 299</div>
+      </div>
+      <div class="token-row" onclick="selectPlan(3)" id="plan3">
+        <div style="flex:1">
+          <div style="font-weight:700">Yıllık VIP</div>
+          <div style="font-size:11px;color:var(--green)">%60 Tasarruf</div>
         </div>
+        <div style="font-family:'Orbitron',monospace;color:var(--gold)">⭐ 1499</div>
+      </div>
+    </div>
+  </div>
 
-        <div id="tab-analiz" class="hidden p-6 space-y-4">
-            <h2 class="text-center font-['Orbitron'] text-[#D4AF37] text-lg">BALİNA RADARI</h2>
-            <div class="glass p-5 rounded-[30px] space-y-4">
-                <input type="text" id="caInput" placeholder="SOLANA CA..." class="w-full bg-transparent border-b border-[#D4AF37]/30 p-3 text-xs outline-none text-[#D4AF37]">
-                <button onclick="runAnalysis()" class="w-full bg-[#D4AF37] text-black py-4 rounded-2xl font-black text-xs uppercase">TARAMAYI BAŞLAT</button>
-            </div>
-            <div id="analiz-result" class="space-y-3 pt-4 text-center text-[10px] text-gray-500">
-                Özel analiz için CA adresini yapıştır kanka.
-            </div>
+  <div class="card" id="vipActiveInfo" style="display:none;border-color:rgba(0,255,136,0.3)">
+    <div class="section-title">✅ VIP Aktif</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="font-size:36px">🏆</div>
+      <div>
+        <div style="font-weight:700;color:var(--green)">VIP Üyesin!</div>
+        <div style="font-size:12px;color:var(--text2)" id="vipExpiry">Bitiş: Hesaplanıyor...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="bnav-btn active" onclick="showPage('home')" id="bnav-home">
+    <div class="bnav-icon">🏠</div><div class="bnav-label">ANA</div>
+  </button>
+  <button class="bnav-btn" onclick="showPage('analyze')" id="bnav-analyze">
+    <div class="bnav-icon">🔍</div><div class="bnav-label">ANALİZ</div>
+  </button>
+  <button class="bnav-btn" onclick="showPage('top10')" id="bnav-top10">
+    <div class="bnav-icon">🔥</div><div class="bnav-label">TOP10</div>
+  </button>
+  <button class="bnav-btn" onclick="showPage('whale')" id="bnav-whale">
+    <div class="bnav-icon">🐋</div><div class="bnav-label">BALİNA</div>
+  </button>
+  <button class="bnav-btn" onclick="showPage('kral')" id="bnav-kral">
+    <div class="bnav-icon">👑</div><div class="bnav-label">KRAL</div>
+  </button>
+  <button class="bnav-btn" onclick="showPage('vip')" id="bnav-vip">
+    <div class="bnav-icon">⭐</div><div class="bnav-label">VIP</div>
+  </button>
+</div>
+
+</div><!-- /app -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================================================================
+   MemeKralTrade – Tam Uygulama Mantığı
+   ================================================================ */
+
+// ── STATE ──────────────────────────────────────────────────────────
+const STATE = {
+  isVIP: false,
+  analysisQuota: 5,
+  maxFreeAnalysis: 5,
+  analyses: [],
+  selectedPlan: 2,
+  currentPage: 'home',
+  tgUser: null,
+};
+
+const PLANS = {
+  1: { label: '7 Günlük VIP', stars: 99, days: 7 },
+  2: { label: 'Aylık VIP',    stars: 299, days: 30 },
+  3: { label: 'Yıllık VIP',   stars: 1499, days: 365 },
+};
+
+// ── TELEGRAM INIT ─────────────────────────────────────────────────
+const tg = window.Telegram?.WebApp;
+if (tg) {
+  tg.ready();
+  tg.expand();
+  tg.setHeaderColor('#050508');
+  tg.setBackgroundColor('#050508');
+  STATE.tgUser = tg.initDataUnsafe?.user;
+}
+
+// ── LOCAL STORAGE ─────────────────────────────────────────────────
+function loadState() {
+  try {
+    const s = localStorage.getItem('mkt_state');
+    if (s) {
+      const p = JSON.parse(s);
+      STATE.isVIP = p.isVIP || false;
+      STATE.analysisQuota = p.analysisQuota ?? 5;
+      STATE.analyses = p.analyses || [];
+      STATE.selectedPlan = p.selectedPlan || 2;
+      // Reset daily quota
+      const today = new Date().toDateString();
+      if (p.lastReset !== today) {
+        STATE.analysisQuota = STATE.maxFreeAnalysis;
+        saveState();
+      }
+    }
+  } catch(e) {}
+}
+function saveState() {
+  try {
+    localStorage.setItem('mkt_state', JSON.stringify({
+      ...STATE,
+      lastReset: new Date().toDateString(),
+    }));
+  } catch(e) {}
+}
+loadState();
+
+// ── NAVIGATION ────────────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+
+  document.getElementById('page-' + id)?.classList.add('active');
+  const bnav = document.getElementById('bnav-' + id);
+  if (bnav) bnav.classList.add('active');
+
+  // Sync nav bar buttons
+  const nav = document.querySelector('.nav');
+  if (nav) {
+    nav.querySelectorAll('.nav-btn').forEach(b => {
+      if (b.getAttribute('onclick')?.includes("'"+id+"'")) b.classList.add('active');
+    });
+  }
+
+  STATE.currentPage = id;
+  if (id === 'top10') loadTop10();
+  if (id === 'whale') loadWhaleRadar();
+  if (id === 'kral') loadKralAnalysis();
+  if (id === 'analyze') updateQuotaUI();
+  if (id === 'home') { updateQuotaUI(); loadTrending(); }
+  if (id === 'vip') updateVIPUI();
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────
+function showToast(msg, dur=2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+// ── QUOTA UI ──────────────────────────────────────────────────────
+function updateQuotaUI() {
+  const quota = STATE.isVIP ? '∞' : STATE.analysisQuota;
+  const max   = STATE.maxFreeAnalysis;
+
+  ['quotaNum','quotaNumHome'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = STATE.isVIP ? '∞ VIP' : `${quota}/${max}`;
+  });
+  ['quotaDots','quotaDotsHome'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.innerHTML = '';
+    for (let i=0; i<max; i++) {
+      const d = document.createElement('div');
+      d.className = 'quota-dot' + (i < (STATE.isVIP ? max : max - STATE.analysisQuota) ? ' used' : '');
+      el.appendChild(d);
+    }
+  });
+  ['quotaInfo'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = STATE.isVIP ? 'Sınırsız VIP analizi' : 'Bugünkü ücretsiz hakkın';
+  });
+}
+
+// ── MOCK DEX DATA (Real API endpoints for production) ─────────────
+// In production: fetch from https://api.dexscreener.com/latest/dex/tokens/{ca}
+//                and https://api.dexscreener.com/latest/dex/search?q={query}
+
+function genMockTokenData(ca) {
+  const seed = ca.split('').reduce((a,c) => a + c.charCodeAt(0), 0);
+  const rnd = (min,max,s=seed) => Math.floor(((s * 9301 + 49297) % 233280) / 233280 * (max-min) + min);
+  const names = ['PEPE','DOGE','SHIB','FLOKI','BONK','WIF','POPCAT','MEME','TURBO','BRETT'];
+  const name = names[seed % names.length];
+  const vol24h = rnd(50000, 50000000);
+  const liq = rnd(10000, 5000000);
+  const mcap = rnd(500000, 500000000);
+  const holders = rnd(200, 50000);
+  const price = (rnd(1, 99999, seed+1) / 100000000).toFixed(10);
+  const change = ((seed % 200) - 100) / 10;
+  const top10pct = rnd(20, 85);
+  const lpBurned = seed % 3 === 0;
+  const mintable = seed % 4 === 0;
+  const age = rnd(1, 365);
+  const txCount = rnd(500, 200000);
+
+  // Risk calculation
+  let risk = 0;
+  if (top10pct > 60) risk += 30;
+  else if (top10pct > 40) risk += 15;
+  if (!lpBurned) risk += 25;
+  if (mintable) risk += 20;
+  if (liq < 50000) risk += 15;
+  if (holders < 500) risk += 10;
+  if (age < 7) risk += 10;
+  risk = Math.min(100, risk + rnd(0,10));
+
+  return { name, ca, vol24h, liq, mcap, holders, price, change, top10pct, lpBurned, mintable, age, txCount, risk, seed };
+}
+
+function fmtNum(n) {
+  if (n >= 1e9) return '$' + (n/1e9).toFixed(2) + 'B';
+  if (n >= 1e6) return '$' + (n/1e6).toFixed(2) + 'M';
+  if (n >= 1e3) return '$' + (n/1e3).toFixed(1) + 'K';
+  return '$' + n.toFixed(0);
+}
+function shortCA(ca) {
+  if (!ca || ca.length < 10) return ca;
+  return ca.slice(0,6) + '...' + ca.slice(-4);
+}
+function riskColor(r) {
+  if (r < 30) return 'var(--green)';
+  if (r < 60) return 'var(--gold2)';
+  return 'var(--red)';
+}
+function riskLabel(r) {
+  if (r < 30) return 'DÜŞÜK';
+  if (r < 60) return 'ORTA';
+  return 'YÜKSEK';
+}
+function riskGrad(r) {
+  if (r < 30) return 'linear-gradient(90deg,var(--green),#00cc66)';
+  if (r < 60) return 'linear-gradient(90deg,var(--gold),var(--gold3))';
+  return 'linear-gradient(90deg,var(--red),#cc0033)';
+}
+
+// ── PASTE CA ──────────────────────────────────────────────────────
+async function pasteCA() {
+  try {
+    const text = await navigator.clipboard.readText();
+    const el = document.getElementById('caInput');
+    if (el) el.value = text.trim();
+  } catch(e) {
+    showToast('Panoya erişim reddedildi');
+  }
+}
+
+// ── ANALYZE TOKEN ─────────────────────────────────────────────────
+function quickAnalyze() {
+  const ca = document.getElementById('quickCA')?.value.trim();
+  if (!ca) { showToast('⚠️ CA adresi gir'); return; }
+  document.getElementById('caInput').value = ca;
+  showPage('analyze');
+  setTimeout(analyzeToken, 300);
+}
+
+async function analyzeToken() {
+  const ca = document.getElementById('caInput')?.value.trim();
+  if (!ca || ca.length < 10) { showToast('⚠️ Geçerli bir CA gir (min 10 karakter)'); return; }
+
+  if (!STATE.isVIP && STATE.analysisQuota <= 0) {
+    showToast('❌ Ücretsiz hakkın doldu! VIP ol →');
+    setTimeout(() => showPage('vip'), 1200);
+    return;
+  }
+
+  // Show loading
+  document.getElementById('analysisResult').style.display = 'none';
+  document.getElementById('analysisLoading').style.display = 'flex';
+
+  // Simulate API call delay
+  await new Promise(r => setTimeout(r, 1800));
+
+  // In production, fetch from DexScreener:
+  // const res = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${ca}`);
+  // const data = await res.json();
+  const d = genMockTokenData(ca);
+
+  document.getElementById('analysisLoading').style.display = 'none';
+
+  if (!STATE.isVIP) {
+    STATE.analysisQuota--;
+    saveState();
+    updateQuotaUI();
+  }
+
+  // Save to history
+  STATE.analyses.unshift({ ca, name: d.name, ts: Date.now(), risk: d.risk });
+  if (STATE.analyses.length > 20) STATE.analyses.pop();
+  saveState();
+  updateRecentAnalyses();
+
+  renderAnalysis(d);
+  if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+}
+
+function renderAnalysis(d) {
+  const isVIP = STATE.isVIP;
+  const el = document.getElementById('analysisResult');
+  el.style.display = 'block';
+
+  const warnings = [];
+  if (d.top10pct > 60) warnings.push({type:'danger', icon:'🚨', text:`Top 10 holder %${d.top10pct} tutuyor – Yüksek konsantrasyon`});
+  if (!d.lpBurned) warnings.push({type:'danger', icon:'⚠️', text:'Likidite kilidi yok – Rug pull riski!'});
+  if (d.mintable) warnings.push({type:'danger', icon:'🔴', text:'Token mint edilebilir – Dikkat!'});
+  if (d.liq < 50000) warnings.push({type:'caution', icon:'⚡', text:'Düşük likidite – Slippage yüksek olabilir'});
+  if (d.age < 7) warnings.push({type:'caution', icon:'🆕', text:`${d.age} günlük yeni token – Dikkatli ol`});
+  if (d.risk < 30) warnings.push({type:'ok', icon:'✅', text:'Temel güvenlik kontrolleri geçildi'});
+
+  const warnHTML = warnings.map(w =>
+    `<div class="warn-tag warn-${w.type}">${w.icon} ${w.text}</div>`
+  ).join('');
+
+  // Holder bars (top 5)
+  const holderPcts = [d.top10pct * 0.25, d.top10pct * 0.18, d.top10pct * 0.15, d.top10pct * 0.12, d.top10pct * 0.1];
+  const holderBarsHTML = holderPcts.map((p,i) =>
+    `<div class="holder-row">
+      <div class="holder-rank">#${i+1}</div>
+      <div class="holder-bar-bg"><div class="holder-bar-fill" style="width:${p}%"></div></div>
+      <div class="holder-pct">${p.toFixed(1)}%</div>
+    </div>`
+  ).join('');
+
+  const vipExtra = isVIP ? `
+    <div class="sep"></div>
+    <div class="section-title">🔬 Gelişmiş Analiz (VIP)</div>
+    <div class="analysis-grid">
+      <div class="analysis-item">
+        <div class="analysis-item-label">İşlem Sayısı</div>
+        <div class="analysis-item-value" style="color:var(--blue)">${d.txCount.toLocaleString()}</div>
+      </div>
+      <div class="analysis-item">
+        <div class="analysis-item-label">Token Yaşı</div>
+        <div class="analysis-item-value" style="color:var(--text)">${d.age} GÜN</div>
+      </div>
+      <div class="analysis-item">
+        <div class="analysis-item-label">Mint Durumu</div>
+        <div class="analysis-item-value" style="color:${d.mintable?'var(--red)':'var(--green)'}">${d.mintable?'AÇIK':'KAPALI'}</div>
+      </div>
+      <div class="analysis-item">
+        <div class="analysis-item-label">LP Kilidi</div>
+        <div class="analysis-item-value" style="color:${d.lpBurned?'var(--green)':'var(--red)'}">${d.lpBurned?'KİLİTLİ':'KİLİTSİZ'}</div>
+      </div>
+    </div>
+    <div class="section-title">👥 Holder Dağılımı (Top 5)</div>
+    ${holderBarsHTML}
+    <div style="font-size:10px;color:var(--text3);margin-top:6px">Top 10 holder toplamda %${d.top10pct} tutuyor</div>
+  ` : `
+    <div style="margin-top:12px">
+      <div class="vip-gate" style="padding:16px">
+        <div style="font-size:24px;margin-bottom:6px">🔒</div>
+        <div style="font-family:'Orbitron',monospace;font-size:12px;color:var(--gold);margin-bottom:6px">Gelişmiş Analiz VIP'e Özel</div>
+        <div style="font-size:11px;color:var(--text2);margin-bottom:10px">Holder haritası, LP analizi, mint kontrolü ve daha fazlası</div>
+        <button class="btn btn-gold btn-sm" onclick="showPage('vip')">⭐ VIP OL</button>
+      </div>
+    </div>
+  `;
+
+  el.innerHTML = `
+    <div class="card card-gold">
+      <div class="kral-fire">${d.name} ANALİZİ</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text3);margin-bottom:12px">${d.ca}</div>
+      
+      <div class="section-title">📊 Temel Veriler</div>
+      <div class="analysis-grid">
+        <div class="analysis-item">
+          <div class="analysis-item-label">24s Hacim</div>
+          <div class="analysis-item-value" style="color:var(--gold)">${fmtNum(d.vol24h)}</div>
         </div>
-
-        <div id="tab-network" class="hidden p-6 space-y-6">
-            <h2 class="text-center font-['Orbitron'] text-[#D4AF37] text-lg uppercase font-black">Ekip Merkezi</h2>
-            <div class="glass p-6 rounded-[35px] text-center space-y-4 border-dashed border-[#D4AF37]/50">
-                <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Referans Linkin</p>
-                <div class="bg-black/40 p-3 rounded-xl border border-white/5 text-[10px] text-[#D4AF37] break-all font-mono" id="refLink">Yükleniyor...</div>
-                <button onclick="copyRef()" class="w-full bg-white text-black py-3 rounded-2xl font-black text-[10px] uppercase tracking-widest">LİNKİ KOPYALA</button>
-            </div>
+        <div class="analysis-item">
+          <div class="analysis-item-label">Likidite</div>
+          <div class="analysis-item-value" style="color:var(--blue)">${fmtNum(d.liq)}</div>
         </div>
-    </main>
+        <div class="analysis-item">
+          <div class="analysis-item-label">Market Cap</div>
+          <div class="analysis-item-value" style="color:var(--text)">${fmtNum(d.mcap)}</div>
+        </div>
+        <div class="analysis-item">
+          <div class="analysis-item-label">Holder</div>
+          <div class="analysis-item-value" style="color:var(--text)">${d.holders.toLocaleString()}</div>
+        </div>
+        <div class="analysis-item">
+          <div class="analysis-item-label">Fiyat</div>
+          <div class="analysis-item-value" style="color:${d.change>=0?'var(--green)':'var(--red)'};font-size:10px">$${parseFloat(d.price).toExponential(2)}</div>
+        </div>
+        <div class="analysis-item">
+          <div class="analysis-item-label">24s Değişim</div>
+          <div class="analysis-item-value" style="color:${d.change>=0?'var(--green)':'var(--red)'}">${d.change>=0?'+':''}${d.change.toFixed(1)}%</div>
+        </div>
+      </div>
 
-    <nav class="fixed bottom-6 w-[90%] glass rounded-[35px] p-2 flex justify-around items-center z-50 shadow-2xl">
-        <button onclick="showTab('game')" id="nav-game" class="p-4 text-xl active-tab">🏠</button>
-        <button onclick="showTab('analiz')" id="nav-analiz" class="p-4 text-xl opacity-40">📡</button>
-        <button onclick="showTab('network')" id="nav-network" class="p-4 text-xl opacity-40">👥</button>
-    </nav>
+      <div class="section-title">⚠️ Risk Analizi</div>
+      <div class="risk-meter">
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:${d.risk}%;background:${riskGrad(d.risk)}"></div></div>
+        <div class="risk-labels"><span class="risk-label">GÜVENLI</span><span class="risk-label">TEHLİKE</span></div>
+        <div class="risk-score-text" style="color:${riskColor(d.risk)}">${d.risk}<span style="font-size:12px">/100</span></div>
+        <div style="text-align:center;font-size:11px;color:${riskColor(d.risk)};font-weight:700;letter-spacing:2px">${riskLabel(d.risk)} RİSK</div>
+      </div>
 
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
+      <div class="section-title">🚨 Uyarılar</div>
+      <div class="warnings">${warnHTML}</div>
 
-        // KULLANICIYI TANI
-        const user = tg.initDataUnsafe?.user || { id: "0000" };
-        const refUrl = `t.me/memekralbot?start=${user.id}`;
-        document.getElementById('refLink').innerText = refUrl;
+      ${vipExtra}
 
-        // PUAN VE ENERJİ
-        let score = parseInt(localStorage.getItem('kScore') || 0);
-        let energy = 1000;
-        
-        function updateUI() {
-            document.getElementById('score').innerText = score.toLocaleString();
-            document.getElementById('energy-txt').innerText = energy + "/1000";
-            document.getElementById('energy-bar').style.width = (energy / 10) + "%";
-        }
-        updateUI();
+      <div style="margin-top:14px;display:flex;gap:8px">
+        <button class="btn btn-outline btn-sm" style="flex:1;font-size:10px" onclick="copyCA('${d.ca}')">📋 CA Kopyala</button>
+        <button class="btn btn-gold btn-sm" style="flex:1;font-size:10px" onclick="openDex('${d.ca}')">📈 DEX'te Aç</button>
+      </div>
+    </div>
+  `;
+}
 
-        function handleTap() {
-            if(energy < 5) return;
-            score += 10; energy -= 5;
-            updateUI();
-            localStorage.setItem('kScore', score);
-            tg.HapticFeedback.impactOccurred('medium');
-        }
+function copyCA(ca) {
+  navigator.clipboard.writeText(ca).then(() => showToast('✅ CA kopyalandı!'));
+}
+function openDex(ca) {
+  const url = `https://dexscreener.com/solana/${ca}`;
+  if (tg?.openLink) tg.openLink(url);
+  else window.open(url, '_blank');
+}
 
-        function showTab(t) {
-            ['game', 'analiz', 'network'].forEach(id => {
-                document.getElementById('tab-' + id).classList.add('hidden');
-                document.getElementById('nav-' + id).classList.remove('active-tab');
-                document.getElementById('nav-' + id).classList.add('opacity-40');
-            });
-            document.getElementById('tab-' + t).classList.remove('hidden');
-            document.getElementById('nav-' + t).classList.add('active-tab');
-            document.getElementById('nav-' + t).classList.remove('opacity-40');
-        }
+function updateRecentAnalyses() {
+  const el = document.getElementById('recentAnalyses');
+  if (!el) return;
+  if (!STATE.analyses.length) {
+    el.innerHTML = '<div style="color:var(--text3);font-size:12px;text-align:center;padding:20px">Henüz analiz yapılmadı</div>';
+    return;
+  }
+  el.innerHTML = STATE.analyses.slice(0,5).map(a => `
+    <div class="token-row" onclick="document.getElementById('caInput').value='${a.ca}';analyzeToken()">
+      <div class="token-icon">🔍</div>
+      <div class="token-info">
+        <div class="token-name">${a.name}</div>
+        <div class="token-ca">${shortCA(a.ca)}</div>
+      </div>
+      <div class="token-right">
+        <div style="font-size:10px;color:${riskColor(a.risk)};font-family:'Orbitron',monospace">RİSK ${a.risk}</div>
+        <div style="font-size:9px;color:var(--text3)">${new Date(a.ts).toLocaleTimeString('tr-TR')}</div>
+      </div>
+    </div>
+  `).join('');
+}
 
-        async function runAnalysis() {
-            const ca = document.getElementById('caInput').value;
-            const resDiv = document.getElementById('analiz-result');
-            if(!ca) return;
-            resDiv.innerHTML = `<p class="text-[10px] animate-pulse">TARANIYOR...</p>`;
-            try {
-                const r = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${ca}`);
-                const d = await r.json();
-                const p = d.pairs[0];
-                resDiv.innerHTML = `
-                    <div class="glass p-4 rounded-2xl border-l-4 border-[#D4AF37] text-left">
-                        <div class="flex justify-between font-black"><span>${p.baseToken.symbol}</span><span class="text-green-500">$${p.priceUsd}</span></div>
-                        <div class="text-[9px] text-gray-500 mt-1 uppercase font-bold">Mkt Cap: $${p.fdv.toLocaleString()}</div>
-                    </div>`;
-            } catch(e) { resDiv.innerHTML = "Hata oluştu!"; }
-        }
+// ── TOP 10 ────────────────────────────────────────────────────────
+const MOCK_TOP10 = [
+  {name:'PEPE',   vol:'$47.2M',  liq:'$8.3M',  chg:+12.4, risk:28, emoji:'🐸', ca:'7GCihgDB8fe6KNjn2MktkpwD7JcDBGqThJ6HRpTf23EL'},
+  {name:'WIF',    vol:'$38.9M',  liq:'$6.1M',  chg:+8.7,  risk:35, emoji:'🐕', ca:'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm'},
+  {name:'BONK',   vol:'$31.5M',  liq:'$5.9M',  chg:-3.2,  risk:42, emoji:'🔨', ca:'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263'},
+  {name:'FLOKI',  vol:'$28.7M',  liq:'$4.2M',  chg:+5.1,  risk:55, emoji:'⚡', ca:'43VWkd99HjqkhFTZbWBpMpRhjG469nWa7x7uEsgSH7We'},
+  {name:'SHIB',   vol:'$22.3M',  liq:'$9.7M',  chg:+1.8,  risk:22, emoji:'🦊', ca:'CiKu4eHsVrc1eueVQeHn7qhXTcVu95gSQmBpX4utjL9z'},
+  {name:'TURBO',  vol:'$18.6M',  liq:'$2.8M',  chg:+22.3, risk:68, emoji:'🚀', ca:'5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK31CF9bny'},
+  {name:'POPCAT', vol:'$15.4M',  liq:'$3.1M',  chg:-8.4,  risk:61, emoji:'🐱', ca:'7i5KKsX2weiTkry7jA4ZwSuXGhs5eJBEjY8vVxR4pfRx'},
+  {name:'BRETT',  vol:'$12.2M',  liq:'$2.4M',  chg:+4.5,  risk:45, emoji:'🤠', ca:'BRETTgMp7H4RKqnQi7RMRzfArH2WBk8bC6iGrJyiswf6'},
+  {name:'MEME',   vol:'$9.8M',   liq:'$1.8M',  chg:-1.2,  risk:52, emoji:'😂', ca:'MEMEFLwBKBVRKxJGJNeq1H2MCkS5eBKJ6xnLZxiZo6yc'},
+  {name:'DOGE',   vol:'$7.4M',   liq:'$15.2M', chg:+0.9,  risk:18, emoji:'🐶', ca:'DoGEKSFa7EoKHSeTfFHwgYbqFmMeQ22cBmERPdchkMKK'},
+];
 
-        function copyRef() {
-            navigator.clipboard.writeText(document.getElementById('refLink').innerText);
-            tg.showAlert("Link kopyalandı!");
-        }
+function loadTop10() {
+  const el = document.getElementById('top10List');
+  if (!el) return;
+  el.innerHTML = MOCK_TOP10.map((t,i) => `
+    <div class="token-row" onclick="openDex('${t.ca}')">
+      <div class="token-rank ${i<3?'r'+(i+1):''}">
+        ${i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)}
+      </div>
+      <div class="token-icon">${t.emoji}</div>
+      <div class="token-info">
+        <div class="token-name">${t.name}</div>
+        <div class="token-ca">${shortCA(t.ca)}</div>
+      </div>
+      <div class="token-right">
+        <div class="token-vol">${t.vol}</div>
+        <div class="token-change ${t.chg>=0?'up':'down'}">${t.chg>=0?'+':''}${t.chg}%</div>
+        <div style="font-size:9px;margin-top:2px;color:${riskColor(t.risk)};font-family:'Orbitron',monospace">R:${t.risk}</div>
+      </div>
+    </div>
+  `).join('');
+}
 
-        // Enerji Dolumu
-        setInterval(() => { if(energy < 1000) { energy += 1; updateUI(); } }, 2000);
-    </script>
+// ── TRENDING HOME ─────────────────────────────────────────────────
+function loadTrending() {
+  const el = document.getElementById('trendingHome');
+  if (!el) return;
+  el.innerHTML = MOCK_TOP10.slice(0,3).map((t,i) => `
+    <div class="token-row" onclick="document.getElementById('quickCA').value='${t.ca}'">
+      <div class="token-rank ${i<3?'r'+(i+1):''}">${['🔥','⚡','💎'][i]}</div>
+      <div class="token-icon">${t.emoji}</div>
+      <div class="token-info">
+        <div class="token-name">${t.name}</div>
+        <div style="font-size:10px;color:var(--text2)">Hacim: ${t.vol}</div>
+      </div>
+      <div class="token-change ${t.chg>=0?'up':'down'}">${t.chg>=0?'+':''}${t.chg}%</div>
+    </div>
+  `).join('');
+}
+
+// ── WHALE RADAR ───────────────────────────────────────────────────
+const WHALE_TRANSACTIONS = [
+  {wallet:'Gx9KmL...4pRs',action:'ALDI',token:'PEPE',amount:'$284,000',time:'2 dk önce',type:'buy'},
+  {wallet:'7TnBw2...9aKl',action:'SATTI',token:'WIF',amount:'$156,000',time:'5 dk önce',type:'sell'},
+  {wallet:'3PqR8f...2mNt',action:'ALDI',token:'BONK',amount:'$421,000',time:'8 dk önce',type:'buy'},
+  {wallet:'KwZx5L...7bPq',action:'SATTI',token:'TURBO',amount:'$89,000',time:'12 dk önce',type:'sell'},
+  {wallet:'9YmCv1...3sRk',action:'ALDI',token:'FLOKI',amount:'$632,000',time:'15 dk önce',type:'buy'},
+  {wallet:'BnLp4W...6tXf',action:'ALDI',token:'SHIB',amount:'$1,200,000',time:'22 dk önce',type:'buy'},
+  {wallet:'Xq8Rt3...1nKm',action:'SATTI',token:'MEME',amount:'$204,000',time:'31 dk önce',type:'sell'},
+];
+
+function loadWhaleRadar() {
+  const el = document.getElementById('whaleList');
+  if (!el) return;
+  const showAll = STATE.isVIP;
+  const items = showAll ? WHALE_TRANSACTIONS : WHALE_TRANSACTIONS.slice(0,3);
+  el.innerHTML = items.map(w => `
+    <div class="whale-item ${w.type}">
+      <div class="whale-avatar ${w.type}">${w.type==='buy'?'🐋':'🦈'}</div>
+      <div class="whale-info">
+        <div class="whale-wallet">${w.wallet}</div>
+        <div class="whale-action ${w.type}">${w.action} ${w.token}</div>
+        <div class="whale-time">⏱ ${w.time}</div>
+      </div>
+      <div class="whale-amount" style="color:${w.type==='buy'?'var(--green)':'var(--red)'}">${w.amount}</div>
+    </div>
+  `).join('');
+  if (!showAll) {
+    el.innerHTML += `
+      <div style="text-align:center;padding:16px">
+        <div style="font-size:12px;color:var(--text2);margin-bottom:10px">+${WHALE_TRANSACTIONS.length-3} daha fazla balina hareketi VIP'de</div>
+        <button class="btn btn-gold btn-sm" onclick="showPage('vip')">⭐ VIP OL</button>
+      </div>
+    `;
+  }
+  // Update stats
+  setTimeout(() => {
+    animateNumber('whaleBuy', '$14.2M');
+    animateNumber('whaleSell', '$8.7M');
+    animateNumber('whaleNet', '+$5.5M');
+  }, 100);
+}
+
+function animateNumber(id, val) {
+  const el = document.getElementById(id);
+  if (el) { el.style.animation='none'; el.textContent=val; void el.offsetWidth; el.style.animation='flipIn 0.4s ease'; }
+}
+
+// ── KRAL ANALYSIS ─────────────────────────────────────────────────
+function loadKralAnalysis() {
+  const kralEl = document.getElementById('kralContent');
+  const gateEl = document.getElementById('kralVipGate');
+  if (!STATE.isVIP) {
+    if (kralEl) kralEl.innerHTML = '';
+    if (gateEl) gateEl.style.display = 'block';
+    return;
+  }
+  if (gateEl) gateEl.style.display = 'none';
+  if (!kralEl) return;
+
+  // Today's king token (in production: fetch fastest volume gainer from DexScreener)
+  const king = { name:'TURBO', emoji:'🚀', ca:'5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK31CF9bny',
+    vol:'$18.6M', liq:'$2.8M', mcap:'$42M', holders:'4,200',
+    change:+22.3, risk:68, score:94, entry:'$0.00000312',
+    target1:'$0.00000450', target2:'$0.00000680', stop:'$0.00000280'};
+
+  kralEl.innerHTML = `
+    <div class="kral-token">
+      <div class="kral-crown">👑</div>
+      <div class="kral-fire">🔥 GÜNÜN KRALI</div>
+      <div class="kral-name">${king.emoji} ${king.name}</div>
+      <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text3)">${shortCA(king.ca)}</div>
+      <div class="kral-stats">
+        <div class="kral-stat"><div class="kral-stat-val">${king.vol}</div><div class="kral-stat-lbl">HACIM</div></div>
+        <div class="kral-stat"><div class="kral-stat-val">${king.liq}</div><div class="kral-stat-lbl">LİKİDİTE</div></div>
+        <div class="kral-stat"><div class="kral-stat-val" style="color:var(--green)">+${king.change}%</div><div class="kral-stat-lbl">24s</div></div>
+      </div>
+    </div>
+
+    <div class="card card-green">
+      <div class="section-title">🎯 Kral Skoru</div>
+      <div style="text-align:center">
+        <div style="font-family:'Orbitron',monospace;font-size:48px;font-weight:900;color:var(--gold);line-height:1">${king.score}</div>
+        <div style="font-size:10px;color:var(--text2);letter-spacing:2px">/ 100 KRAL PUANI</div>
+      </div>
+      <div class="risk-meter" style="margin-top:14px">
+        <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:${king.score}%;background:linear-gradient(90deg,var(--gold),var(--green))"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">📍 Giriş Noktaları (VIP)</div>
+      <div class="analysis-grid">
+        <div class="analysis-item">
+          <div class="analysis-item-label">Giriş</div>
+          <div class="analysis-item-value" style="color:var(--gold)">${king.entry}</div>
+        </div>
+        <div class="analysis-item">
+          <div class="analysis-item-label">Hedef 1</div>
+          <div class="analysis-item-value" style="color:var(--green)">${king.target1}</div>
+        </div>
+        <div class="analysis-item">
+          <div class="analysis-item-label">Hedef 2</div>
+          <div class="analysis-item-value" style="color:var(--green)">${king.target2}</div>
+        </div>
+        <div class="analysis-item">
+          <div class="analysis-item-label">Stop Loss</div>
+          <div class="analysis-item-value" style="color:var(--red)">${king.stop}</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:10px;background:rgba(255,215,0,0.05);border-radius:10px;border:1px solid var(--border2)">
+        <div style="font-size:10px;color:var(--text2);line-height:1.6">⚠️ Bu analiz yatırım tavsiyesi değildir. Kendi araştırmanı yap (DYOR). Meme tokenlar yüksek risk taşır.</div>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn btn-gold btn-sm" style="flex:1" onclick="openDex('${king.ca}')">📈 DEX'te İzle</button>
+        <button class="btn btn-outline btn-sm" style="flex:1" onclick="copyCA('${king.ca}')">📋 CA Kopyala</button>
+      </div>
+    </div>
+  `;
+}
+
+// ── VIP UI ────────────────────────────────────────────────────────
+function updateVIPUI() {
+  const badge = document.getElementById('userBadge');
+  const vipInfo = document.getElementById('vipActiveInfo');
+  const vipBtn = document.getElementById('vipBtn');
+  if (STATE.isVIP) {
+    if (badge) { badge.className = 'vip-badge'; badge.textContent = '👑 VIP'; }
+    if (vipInfo) vipInfo.style.display = 'block';
+    if (vipBtn) { vipBtn.textContent = '✅ VIP Aktif'; vipBtn.style.opacity='0.6'; vipBtn.style.cursor='default'; }
+    const expiry = document.getElementById('vipExpiry');
+    if (expiry && STATE.vipExpiry) {
+      expiry.textContent = 'Bitiş: ' + new Date(STATE.vipExpiry).toLocaleDateString('tr-TR');
+    }
+  } else {
+    if (badge) { badge.className = 'free-badge'; badge.textContent = 'FREE'; }
+    if (vipInfo) vipInfo.style.display = 'none';
+  }
+  highlightPlan(STATE.selectedPlan);
+}
+
+function selectPlan(n) {
+  STATE.selectedPlan = n;
+  highlightPlan(n);
+  saveState();
+  const p = PLANS[n];
+  const btn = document.getElementById('vipBtn');
+  if (btn) btn.innerHTML = `⭐ ${p.stars} STAR İLE VIP OL`;
+}
+
+function highlightPlan(n) {
+  [1,2,3].forEach(i => {
+    const el = document.getElementById('plan'+i);
+    if (el) el.style.borderColor = i===n ? 'var(--gold)' : 'var(--border2)';
+  });
+}
+
+async function buyVIP() {
+  if (STATE.isVIP) { showToast('✅ Zaten VIP üyesin!'); return; }
+  const p = PLANS[STATE.selectedPlan];
+
+  if (tg?.openInvoice) {
+    // Real Telegram Stars payment – your bot must handle the 'pre_checkout_query' and 'successful_payment' updates
+    tg.openInvoice(`your_invoice_link_here`, (status) => {
+      if (status === 'paid') {
+        activateVIP(p.days);
+      }
+    });
+  } else {
+    // Demo mode (no Telegram)
+    showToast(`⭐ ${p.stars} Stars ile ${p.label} satın alınıyor...`);
+    setTimeout(() => { activateVIP(p.days); }, 1500);
+  }
+}
+
+function activateVIP(days) {
+  STATE.isVIP = true;
+  STATE.vipExpiry = Date.now() + days * 86400000;
+  saveState();
+  updateVIPUI();
+  updateQuotaUI();
+  showToast('🎉 VIP aktif! Tüm özellikler açıldı.');
+  if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+}
+
+// ── MARKET DATA (simulated live updates) ─────────────────────────
+function updateMarketTicker() {
+  const caps = ['$2.8T','$2.81T','$2.79T','$2.82T'];
+  const vols = ['$89B','$91B','$87B','$93B'];
+  const doms = ['55.2%','55.4%','55.1%','55.6%'];
+  const i = Math.floor(Date.now()/30000) % 4;
+  const mc = document.getElementById('mkt-cap');
+  const mv = document.getElementById('mkt-vol');
+  const md = document.getElementById('mkt-dom');
+  if (mc) mc.textContent = caps[i];
+  if (mv) mv.textContent = vols[i];
+  if (md) md.textContent = doms[i];
+}
+
+// ── INIT ──────────────────────────────────────────────────────────
+function init() {
+  updateQuotaUI();
+  updateVIPUI();
+  loadTop10();
+  loadTrending();
+  updateRecentAnalyses();
+  updateMarketTicker();
+  setInterval(updateMarketTicker, 30000);
+
+  // Auto-refresh whale data every 15s
+  setInterval(() => {
+    if (STATE.currentPage === 'whale') loadWhaleRadar();
+  }, 15000);
+
+  // Telegram theme integration
+  if (tg) {
+    const params = tg.initDataUnsafe;
+    if (params?.start_param === 'vip') showPage('vip');
+  }
+}
+
+init();
+</script>
 </body>
 </html>
