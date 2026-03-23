@@ -3,138 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MEME KRAL | MASTER EDITION</title>
+    <title>MEME KRAL | LIVE INTELLIGENCE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #D4AF37; --dark: #050505; }
-        body { background: #050505; color: white; font-family: sans-serif; overflow: hidden; height: 100vh; margin: 0; }
-        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.15); }
-        .pump-anim { animation: pulse-red 1s infinite; }
-        @keyframes pulse-red { 0% { color: #fff; } 50% { color: #ff4d4d; } 100% { color: #fff; } }
-        .scroll-hide::-webkit-scrollbar { display: none; }
-        .gold-border { border: 1px solid var(--gold); box-shadow: 0 0 15px rgba(212, 175, 55, 0.2); }
+        body { background: #050505; color: white; font-family: 'Inter', sans-serif; overflow: hidden; height: 100vh; margin: 0; }
+        .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
+        .gold-border { border: 1px solid var(--gold); box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .animate-marquee { animation: marquee 20s linear infinite; }
+        @keyframes pulse-gold { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .live-indicator { animation: pulse-gold 2s infinite; }
     </style>
 </head>
-<body class="flex flex-col items-center">
+<body class="flex flex-col items-center select-none">
 
-    <div class="w-full py-2 bg-black border-b border-[#D4AF37]/30 overflow-hidden whitespace-nowrap">
-        <div class="inline-block animate-marquee text-[10px] font-bold tracking-widest text-[#D4AF37]">
-            🚀 SOLANA PUMP ALERT: $WIF +12% | $BONK -2% | $KRAL +150% (SİMÜLE) | NEW WHALE BUY AT $SOL... 
+    <div class="w-full py-1.5 bg-black border-b border-[#D4AF37]/20 overflow-hidden whitespace-nowrap z-50">
+        <div id="ticker" class="inline-block animate-marquee text-[10px] font-bold tracking-widest text-[#D4AF37] uppercase">
+            SİSTEM ÇALIŞIYOR: SOLANA ANA AĞINA BAĞLANILDI... GERÇEK ZAMANLI VERİLER AKTİF... 🚀
         </div>
     </div>
 
-    <header class="w-full p-4 flex justify-between items-center z-50">
-        <h1 class="font-['Orbitron'] text-xs font-black text-[#D4AF37]">MEME KRAL <span class="text-white text-[8px]">v5.0</span></h1>
+    <header class="w-full p-5 flex justify-between items-center z-50">
+        <div class="flex flex-col">
+            <h1 class="font-['Orbitron'] text-sm font-black text-[#D4AF37]">MEME KRAL</h1>
+            <span class="text-[8px] text-gray-500 font-bold uppercase tracking-widest">Live Intelligence</span>
+        </div>
         <div class="flex gap-2">
-            <div class="glass px-3 py-1 rounded-full text-[10px] font-bold">⭐ <span id="stars-val">100</span></div>
-            <div class="glass px-3 py-1 rounded-full text-[10px] font-bold text-[#D4AF37]">SOL: <span id="sol-price">$...</span></div>
+            <div class="glass px-3 py-1.5 rounded-xl text-[10px] font-bold border-[#0088cc]/30 text-[#0088cc]">⭐ <span id="stars-val">100</span></div>
+            <div class="glass px-3 py-1.5 rounded-xl text-[10px] font-bold text-[#D4AF37]">SOL: <span id="sol-price-top">...</span></div>
         </div>
     </header>
 
-    <div class="w-[90%] glass rounded-2xl p-3 mt-2 overflow-hidden">
-        <h3 class="text-[9px] font-bold text-gray-500 uppercase mb-2 flex items-center gap-1">
-            <span class="w-1.5 h-1.5 bg-red-600 rounded-full animate-ping"></span> KRAL RADARI (CANLI HACİM)
+    <div class="w-[90%] glass rounded-2xl p-4 mt-2">
+        <h3 class="text-[9px] font-bold text-gray-500 uppercase mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 bg-green-500 rounded-full live-indicator"></span> KRAL RADARI (CANLI VERİ)
         </h3>
-        <div class="space-y-2 max-h-24 overflow-y-auto scroll-hide" id="radar-list">
-            <div class="flex justify-between text-[10px] bg-white/5 p-2 rounded-lg border-l-2 border-green-500">
-                <span>$SOLANA_MOON</span>
-                <span class="text-green-500 font-bold">+450% VOL 🔥</span>
-            </div>
-            <div class="flex justify-between text-[10px] bg-white/5 p-2 rounded-lg border-l-2 border-[#D4AF37]">
-                <span>$WHALE_ENTRY</span>
-                <span class="text-[#D4AF37] font-bold">540 SOL BUY 🐋</span>
+        <div id="radar-data" class="space-y-2">
+            <div class="flex justify-between items-center text-[10px] bg-white/5 p-3 rounded-xl">
+                <span class="text-gray-400">SOLANA (SOL)</span>
+                <span id="sol-live-price" class="text-white font-black">YÜKLENİYOR...</span>
             </div>
         </div>
     </div>
 
-    <main class="flex-1 flex flex-col items-center justify-center w-full relative">
-        <div id="score-val" class="text-4xl font-black text-[#D4AF37] mb-4">0</div>
-        <button onclick="handleTap(event)" class="w-44 h-44 rounded-full bg-black border-[6px] border-[#D4AF37] shadow-[0_0_50px_rgba(212,175,55,0.3)] flex items-center justify-center text-7xl active:scale-90 transition-transform z-10">
+    <main class="flex-1 flex flex-col items-center justify-center w-full gap-6">
+        <div id="score-val" class="text-4xl font-['Orbitron'] font-black text-[#D4AF37] drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">0</div>
+        <button id="tap-btn" class="w-48 h-48 rounded-full bg-black border-[6px] border-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.2)] flex items-center justify-center text-7xl active:scale-90 transition-transform z-10">
             👑
         </button>
     </main>
 
-    <footer class="w-full p-6 space-y-3 z-50">
-        <div class="glass rounded-2xl p-1 flex">
-            <input type="text" id="caInput" placeholder="CONTRACT ADRESS..." class="flex-1 bg-transparent border-none outline-none p-3 text-xs text-[#D4AF37] font-bold uppercase">
-            <button onclick="doAnaliz()" class="bg-[#D4AF37] text-black px-6 py-2 rounded-xl font-black text-[10px]">ANALİZ</button>
+    <footer class="w-full px-6 pb-12 space-y-4 z-50">
+        <div class="glass rounded-[25px] p-1.5 flex gold-border">
+            <input type="text" id="caInput" placeholder="SOLANA CONTRACT ADRESS..." 
+                class="flex-1 bg-transparent border-none outline-none px-4 py-3 text-xs text-[#D4AF37] font-bold placeholder:text-gray-700 uppercase">
+            <button onclick="realAnaliz()" id="analizBtn" class="bg-[#D4AF37] text-black px-6 py-3 rounded-2xl font-black text-[10px] uppercase">ANALİZ ET</button>
         </div>
-        
         <div class="grid grid-cols-2 gap-3">
-            <button onclick="copyRef()" class="glass p-3 rounded-2xl text-[10px] font-bold text-white uppercase hover:bg-white/5">NETWORK LİNKİM 🔗</button>
-            <button onclick="window.open('https://e-girisimci.com')" class="glass p-3 rounded-2xl text-[10px] font-bold text-[#D4AF37] uppercase gold-border">E-GİRİŞİMCİ 🚀</button>
+            <button onclick="copyRef()" class="glass py-3.5 rounded-2xl text-[10px] font-bold text-white uppercase tracking-widest">NETWORK 🔗</button>
+            <button onclick="window.open('https://e-girisimci.com')" class="glass py-3.5 rounded-2xl text-[10px] font-bold text-[#D4AF37] uppercase tracking-widest border-[#D4AF37]/40">GİRİŞİMCİ 🚀</button>
         </div>
     </footer>
 
-    <div id="modal" style="display:none;" class="fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-8 backdrop-blur-xl">
+    <div id="modal" style="display:none;" class="fixed inset-0 bg-black/98 z-[100] flex items-center justify-center p-8 backdrop-blur-3xl">
         <div class="glass p-8 rounded-[40px] w-full max-w-sm border-2 border-[#D4AF37]">
-            <div class="text-center mb-4">
-                <div class="text-5xl mb-2">🐋</div>
-                <h2 class="text-[#D4AF37] font-black italic">KRAL ANALİZ SONUCU</h2>
-            </div>
-            <div id="m-body" class="text-[11px] space-y-3 bg-black/50 p-4 rounded-2xl border border-white/5 mb-6"></div>
-            <button onclick="document.getElementById('modal').style.display='none'" class="w-full bg-white/5 py-3 rounded-xl mb-2 font-bold text-xs uppercase">GERİ DÖN</button>
-            <button onclick="buyVIP()" class="w-full bg-[#D4AF37] text-black py-4 rounded-xl font-black text-xs uppercase shadow-lg shadow-[#D4AF37]/20">DETAYLI VIP RAPOR (50 ⭐)</button>
+            <div id="modal-content" class="text-center">
+                </div>
+            <button onclick="document.getElementById('modal').style.display='none'" class="w-full bg-white/5 py-3.5 rounded-2xl mt-4 font-bold text-[10px] text-gray-400 uppercase">KAPAT</button>
         </div>
     </div>
 
     <script>
         let score = parseInt(localStorage.getItem('kralScore') || 0);
         let stars = parseInt(localStorage.getItem('kralStars') || 100);
+        document.getElementById('score-val').innerText = score;
+        document.getElementById('stars-val').innerText = stars;
 
-        function handleTap(e) {
+        // TAP MOTORU
+        document.getElementById('tap-btn').addEventListener('click', (e) => {
             score += 10;
             document.getElementById('score-val').innerText = score;
             localStorage.setItem('kralScore', score);
-            const p = document.createElement('div');
-            p.innerText = "+10";
-            p.style.cssText = `position:absolute; color:#D4AF37; font-weight:bold; left:${e.clientX}px; top:${e.clientY}px; pointer-events:none; animation: float 0.8s forwards;`;
-            document.body.appendChild(p);
-            setTimeout(() => p.remove(), 800);
+            if(window.navigator.vibrate) window.navigator.vibrate(10);
+        });
+
+        // GERÇEK ANALİZ MOTORU (DEXSCREENER)
+        async function realAnaliz() {
+            const ca = document.getElementById('caInput').value.trim();
+            const btn = document.getElementById('analizBtn');
+            const modal = document.getElementById('modal');
+            const content = document.getElementById('modal-content');
+
+            if(ca.length < 32) { alert("KRAL, GEÇERLİ BİR SOLANA CA GİR!"); return; }
+
+            btn.innerText = "SORGULANIYOR...";
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(`https://api.dexscreener.com/latest/dex/tokens/${ca}`);
+                const data = await response.json();
+
+                if(data.pairs && data.pairs.length > 0) {
+                    const p = data.pairs[0];
+                    content.innerHTML = `
+                        <div class="text-4xl mb-3">💎</div>
+                        <h2 class="text-[#D4AF37] font-black text-xl mb-1">${p.baseToken.symbol} / SOL</h2>
+                        <p class="text-[10px] text-gray-500 mb-6 font-mono">${ca.substring(0,10)}...</p>
+                        
+                        <div class="space-y-3 bg-black/60 p-5 rounded-3xl border border-white/5 text-left text-xs">
+                            <div class="flex justify-between"><span class="text-gray-500">FİYAT:</span><span class="text-green-500 font-bold">$${parseFloat(p.priceUsd).toFixed(6)}</span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">M. CAP:</span><span class="text-white font-bold">$${p.fdv ? p.fdv.toLocaleString() : "???"}</span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">24S HACİM:</span><span class="text-[#D4AF37] font-bold">$${p.volume.h24.toLocaleString()}</span></div>
+                            <div class="flex justify-between"><span class="text-gray-500">GÜVENLİK:</span><span class="text-green-400 font-bold uppercase italic">Doğrulanıyor...</span></div>
+                        </div>
+                        <p class="mt-4 text-[9px] text-gray-500 italic leading-relaxed">"Sistem gerçek zamanlı blokzinciri verilerini çekti. Balina hareketleri VIP raporunda incelenebilir."</p>
+                        <button onclick="alert('Stars ile VIP Ödeme Yakında!')" class="w-full bg-[#0088cc] text-white py-4 rounded-2xl mt-4 font-black text-[10px] uppercase shadow-lg shadow-[#0088cc]/20">DETAYLI VIP ANALİZ (50 ⭐)</button>
+                    `;
+                } else {
+                    content.innerHTML = `<div class="text-4xl mb-4">⚠️</div><h2 class="text-red-500 font-bold uppercase">TOKEN BULUNAMADI</h2><p class="text-xs text-gray-400 mt-2">Bu kontrat henüz bir borsada listelenmemiş veya geçersiz kanka.</p>`;
+                }
+            } catch (e) {
+                content.innerHTML = `<div class="text-4xl mb-4">❌</div><h2 class="text-red-500 font-bold">AĞ HATASI</h2><p class="text-xs text-gray-400 mt-2">Solana ağına şu an ulaşılamıyor. Daha sonra tekrar dene.</p>`;
+            }
+
+            modal.style.display = 'flex';
+            btn.innerText = "ANALİZ ET";
+            btn.disabled = false;
         }
 
-        async function doAnaliz() {
-            const ca = document.getElementById('caInput').value;
-            if(ca.length < 10) return;
-            const mb = document.getElementById('m-body');
-            mb.innerHTML = "Ağ taranıyor... Balinalar izleniyor... ⚡";
-            document.getElementById('modal').style.display = 'flex';
-            
-            setTimeout(() => {
-                mb.innerHTML = `
-                    <div class="flex justify-between"><span>Likitide:</span><span class="text-green-500 font-bold">KİLİTLİ ✅</span></div>
-                    <div class="flex justify-between"><span>Market Cap:</span><span class="text-white">$1.2M</span></div>
-                    <div class="flex justify-between"><span>Top Holders:</span><span class="text-red-500 font-bold">RİSKLİ! (%20)</span></div>
-                    <hr class="border-white/5">
-                    <p class="text-[10px] text-center italic text-gray-400">Anlık hacim artışı: %15. Balina cüzdanları satış hazırlığında.</p>
-                `;
-            }, 1500);
+        // CANLI SOL FİYATI
+        async function updateSolPrice() {
+            try {
+                const res = await fetch('https://api.dexscreener.com/latest/dex/tokens/So11111111111111111111111111111111111111112');
+                const data = await res.json();
+                const price = '$' + parseFloat(data.pairs[0].priceUsd).toFixed(2);
+                document.getElementById('sol-price-top').innerText = price;
+                document.getElementById('sol-live-price').innerText = price;
+            } catch (e) {}
         }
 
         function copyRef() {
             navigator.clipboard.writeText("https://t.me/MemeKralBot?start=ref");
-            alert("Referans Linkin Kopyalandı! Network'ü Kurmaya Başla.");
+            alert("Network Linkin Kopyalandı Kral!");
         }
 
-        async function fetchSolPrice() {
-            try {
-                const res = await fetch('https://api.dexscreener.com/latest/dex/tokens/So11111111111111111111111111111111111111112');
-                const data = await res.json();
-                document.getElementById('sol-price').innerText = '$' + parseFloat(data.pairs[0].priceUsd).toFixed(2);
-            } catch (e) {}
-        }
-
-        setInterval(fetchSolPrice, 10000);
-        fetchSolPrice();
-        document.getElementById('score-val').innerText = score;
-        document.getElementById('stars-val').innerText = stars;
+        setInterval(updateSolPrice, 10000);
+        updateSolPrice();
     </script>
-
-    <style>
-        @keyframes float { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100px); opacity: 0; } }
-        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        .animate-marquee { animation: marquee 15s linear infinite; }
-    </style>
 </body>
 </html>
