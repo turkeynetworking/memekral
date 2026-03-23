@@ -3,73 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Meme Kral | VIP Trade & Analyze</title>
+    <title>Meme Kral | VIP Trade</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-[#050505] text-white font-['Inter'] select-none">
+<body class="bg-[#050505] text-white font-['Inter'] select-none overflow-hidden">
 
-    <div class="fixed top-0 w-full p-4 flex justify-between items-center bg-black/50 backdrop-blur-md border-b border-[#D4AF37]/20 z-50">
+    <div class="fixed top-0 w-full p-4 flex justify-between items-center bg-black/60 backdrop-blur-md border-b border-[#D4AF37]/20 z-50">
         <div class="flex items-center gap-2">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#D4AF37] to-black border border-[#D4AF37] flex items-center justify-center">
-                <span class="text-[10px]">👑</span>
-            </div>
-            <span class="text-xs font-bold tracking-widest text-[#D4AF37]">KRAL LEVEL: 1</span>
+            <span class="text-xl">👑</span>
+            <span class="text-[10px] font-bold tracking-widest text-[#D4AF37] uppercase">Kral Level: 1</span>
         </div>
-        <div class="text-[#D4AF37] font-['Orbitron'] text-sm tracking-tighter">
+        <div class="text-[#D4AF37] font-['Orbitron'] text-sm">
             SCORE: <span id="main-score">0</span>
         </div>
     </div>
 
-    <main class="pt-20 pb-10 px-6 flex flex-col items-center min-h-screen overflow-x-hidden">
+    <main class="pt-24 pb-10 px-6 flex flex-col items-center min-h-screen overflow-y-auto">
         
-        <div class="relative mb-8 group">
-            <div class="absolute -inset-4 bg-[#D4AF37] rounded-full opacity-10 blur-2xl group-hover:opacity-20 transition-all"></div>
-            <div class="text-[100px] drop-shadow-[0_0_20px_rgba(212,175,55,0.5)]">👑</div>
-        </div>
+        <div class="text-[80px] mb-6 drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">👑</div>
 
-        <div class="relative mb-12">
-            <button id="tap-btn" class="w-56 h-56 rounded-full bg-gradient-to-b from-[#1a1a1a] to-black border-4 border-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.2)] active:scale-95 transition-transform flex items-center justify-center relative overflow-hidden">
-                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,175,55,0.1)_0%,_transparent_70%)]"></div>
-                <span class="text-7xl drop-shadow-lg">💰</span>
+        <div class="relative mb-10">
+            <button id="tap-btn" class="w-52 h-52 rounded-full bg-gradient-to-b from-[#1a1a1a] to-black border-4 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.2)] active:scale-90 transition-transform flex items-center justify-center relative overflow-hidden">
+                <span class="text-6xl select-none">💰</span>
             </button>
             <div id="tap-anim-container" class="absolute inset-0 pointer-events-none"></div>
         </div>
 
-        <div class="w-full max-w-sm bg-gradient-to-b from-[#111] to-[#000] border border-[#D4AF37]/30 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-2 text-[10px] text-[#D4AF37]/50 font-bold uppercase tracking-widest">v2.0 Beta</div>
-            <h2 class="text-[#D4AF37] font-['Orbitron'] text-xs mb-4 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span>
-                CANLI SOLANA ANALİZ
+        <div class="w-full max-w-sm bg-gradient-to-b from-[#111] to-black border border-[#D4AF37]/30 rounded-3xl p-5 shadow-2xl">
+            <h2 class="text-[#D4AF37] font-['Orbitron'] text-[10px] mb-3 tracking-widest flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span> CANLI ANALİZ MOTORU
             </h2>
-            <input type="text" id="sol-ca" placeholder="Solana CA (Contract Address) Yapıştır..." 
-                class="w-full bg-black/50 border border-[#D4AF37]/20 rounded-xl py-4 px-4 text-center text-sm text-[#D4AF37] placeholder:text-gray-600 outline-none focus:border-[#D4AF37] transition-all mb-4">
+            <input type="text" id="sol-ca" placeholder="Solana CA Yapıştır..." 
+                class="w-full bg-black/50 border border-[#D4AF37]/20 rounded-xl py-3 px-4 text-center text-sm text-[#D4AF37] outline-none mb-4">
             
-            <button onclick="kralAnaliz()" class="w-full bg-[#D4AF37] text-black font-black py-4 rounded-xl hover:bg-[#FFD700] active:bg-[#B8860B] transition-all shadow-[0_4px_15px_rgba(212,175,55,0.4)] uppercase tracking-tighter">
+            <button onclick="kralAnaliz()" id="analiz-btn" class="w-full bg-[#D4AF37] text-black font-black py-4 rounded-xl shadow-lg active:scale-95 transition-all uppercase text-sm tracking-tighter">
                 ANALİZ ET & RAPOR AL
             </button>
         </div>
 
         <div class="grid grid-cols-2 gap-4 w-full max-w-sm mt-6">
-            <div class="bg-[#111] border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center">
-                <span class="text-2xl mb-1">👥</span>
-                <span class="text-[10px] text-gray-400 uppercase">Ekibim</span>
-                <span class="text-sm font-bold text-[#D4AF37]">0 ÜYE</span>
+            <div class="bg-[#0f0f0f] border border-gray-900 p-4 rounded-2xl text-center">
+                <div class="text-xl mb-1">👥</div>
+                <div class="text-[9px] text-gray-500 uppercase">Ekibim</div>
+                <div class="text-xs font-bold text-[#D4AF37]">0 ÜYE</div>
             </div>
-            <div class="bg-[#111] border border-gray-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center opacity-50">
-                <span class="text-2xl mb-1">💎</span>
-                <span class="text-[10px] text-gray-400 uppercase">VIP Durumu</span>
-                <span class="text-sm font-bold text-gray-500">PASİF</span>
+            <div class="bg-[#0f0f0f] border border-gray-900 p-4 rounded-2xl text-center opacity-50">
+                <div class="text-xl mb-1">💎</div>
+                <div class="text-[9px] text-gray-500 uppercase">VIP Durumu</div>
+                <div class="text-xs font-bold text-gray-500">PASİF</div>
             </div>
         </div>
-
     </main>
 
-    <div id="modal-overlay" class="fixed inset-0 bg-black/90 backdrop-blur-xl hidden z-[100] flex items-center justify-center p-6 text-center">
-        <div class="bg-[#111] border border-[#D4AF37] p-8 rounded-[40px] max-w-xs w-full shadow-[0_0_50px_rgba(212,175,55,0.3)]">
-            <div class="text-5xl mb-4">⚠️</div>
-            <h3 class="text-[#D4AF37] font-['Orbitron'] text-xl mb-4">DİKKAT! RİSKLİ</h3>
-            <p id="modal-text" class="text-gray-400 text-sm mb-6 leading-relaxed"></p>
-            <button onclick="closeModal()" class="w-full bg-white/10 py-3 rounded-xl font-bold mb-3">KAPAT</button>
-            <button class="w
+    <div id="modal-overlay" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[100] hidden flex-col items-center justify-center p-8">
+        <div class="bg-[#111] border border-[#D4AF37] p-6 rounded-[32px] w-full max-w-xs text-center">
+            <div class="text-4xl mb-4">⚠️</div>
+            <h3 class="text-[#D4AF37] font-['Orbitron'] text-lg mb-4">KRAL ANALİZ BİTTİ</h3>
+            <div id="modal-text" class="text-gray-300 text-xs mb-6 leading-relaxed"></div>
+            <button onclick="closeModal()" class="w-full bg-white/5 py-3 rounded-xl font-bold text-sm mb-2">KAPAT</button>
+            <button class="w-full bg-[#D4AF37] text-black py-3 rounded-xl font-black text-sm">50 ⭐ VIP DETAY GÖR</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
