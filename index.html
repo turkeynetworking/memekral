@@ -3,70 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Meme Kral | VIP Trade</title>
+    <title>Meme Kral VIP</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        @keyframes float { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-100px); opacity: 0; } }
+        .animate-float { animation: float 0.7s ease-out forwards; }
+        body { background-color: #050505; color: white; -webkit-tap-highlight-color: transparent; overflow: hidden; height: 100vh; }
+        /* Klavye açılınca kaymayı önleyen sabitleyici */
+        .safe-area { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 20px; }
+    </style>
 </head>
-<body class="bg-[#050505] text-white font-['Inter'] select-none overflow-hidden">
+<body>
 
-    <div class="fixed top-0 w-full p-4 flex justify-between items-center bg-black/60 backdrop-blur-md border-b border-[#D4AF37]/20 z-50">
-        <div class="flex items-center gap-2">
+    <div class="safe-area">
+        <div class="w-full flex justify-between items-center px-4 py-2 border-b border-[#D4AF37]/20">
             <span class="text-xl">👑</span>
-            <span class="text-[10px] font-bold tracking-widest text-[#D4AF37] uppercase">Kral Level: 1</span>
+            <div class="text-[#D4AF37] font-bold">SCORE: <span id="score">0</span></div>
         </div>
-        <div class="text-[#D4AF37] font-['Orbitron'] text-sm">
-            SCORE: <span id="main-score">0</span>
-        </div>
-    </div>
 
-    <main class="pt-24 pb-10 px-6 flex flex-col items-center min-h-screen overflow-y-auto">
-        
-        <div class="text-[80px] mb-6 drop-shadow-[0_0_20px_rgba(212,175,55,0.4)]">👑</div>
-
-        <div class="relative mb-10">
-            <button id="tap-btn" class="w-52 h-52 rounded-full bg-gradient-to-b from-[#1a1a1a] to-black border-4 border-[#D4AF37] shadow-[0_0_30px_rgba(212,175,55,0.2)] active:scale-90 transition-transform flex items-center justify-center relative overflow-hidden">
-                <span class="text-6xl select-none">💰</span>
+        <div class="relative">
+            <button onclick="handleTap(event)" class="w-48 h-48 rounded-full bg-black border-4 border-[#D4AF37] shadow-[0_0_20px_rgba(212,175,55,0.3)] active:scale-90 transition-transform flex items-center justify-center">
+                <span class="text-6xl">💰</span>
             </button>
-            <div id="tap-anim-container" class="absolute inset-0 pointer-events-none"></div>
+            <div id="anim-container" class="absolute inset-0 pointer-events-none"></div>
         </div>
 
-        <div class="w-full max-w-sm bg-gradient-to-b from-[#111] to-black border border-[#D4AF37]/30 rounded-3xl p-5 shadow-2xl">
-            <h2 class="text-[#D4AF37] font-['Orbitron'] text-[10px] mb-3 tracking-widest flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span> CANLI ANALİZ MOTORU
-            </h2>
-            <input type="text" id="sol-ca" placeholder="Solana CA Yapıştır..." 
-                class="w-full bg-black/50 border border-[#D4AF37]/20 rounded-xl py-3 px-4 text-center text-sm text-[#D4AF37] outline-none mb-4">
-            
-            <button onclick="kralAnaliz()" id="analiz-btn" class="w-full bg-[#D4AF37] text-black font-black py-4 rounded-xl shadow-lg active:scale-95 transition-all uppercase text-sm tracking-tighter">
+        <div class="w-full max-w-xs bg-[#111] border border-[#D4AF37]/30 p-4 rounded-2xl mb-4">
+            <h2 class="text-[#D4AF37] text-[10px] font-bold mb-2">SOLANA ANALİZ (v2.5)</h2>
+            <input type="text" id="caInput" placeholder="CA Yapıştır..." 
+                class="w-full bg-black border border-gray-800 rounded-lg py-3 px-3 text-sm text-[#D4AF37] outline-none mb-3">
+            <button onclick="startAnalysis()" id="mainBtn" class="w-full bg-[#D4AF37] text-black font-bold py-3 rounded-lg uppercase text-xs">
                 ANALİZ ET & RAPOR AL
             </button>
         </div>
+    </div>
 
-        <div class="grid grid-cols-2 gap-4 w-full max-w-sm mt-6">
-            <div class="bg-[#0f0f0f] border border-gray-900 p-4 rounded-2xl text-center">
-                <div class="text-xl mb-1">👥</div>
-                <div class="text-[9px] text-gray-500 uppercase">Ekibim</div>
-                <div class="text-xs font-bold text-[#D4AF37]">0 ÜYE</div>
+    <div id="modal" style="display:none;" class="fixed inset-0 bg-black/95 z-[999] flex flex-col items-center justify-center p-6 text-center">
+        <div class="bg-[#111] border border-[#D4AF37] p-6 rounded-3xl w-full">
+            <div class="text-4xl mb-2">🛡️</div>
+            <h3 class="text-[#D4AF37] font-bold mb-4">ANALİZ TAMAMLANDI</h3>
+            <div class="text-left text-xs space-y-2 bg-black/40 p-4 rounded-xl border border-white/5 mb-6">
+                <p>✅ <span class="text-gray-400">Balina Durumu:</span> Hareketli</p>
+                <p>✅ <span class="text-gray-400">Likidite:</span> %92 Kilitli</p>
+                <p>⚠️ <span class="text-red-500 font-bold italic">BÜYÜK RİSK: Dev cüzdanı satmaya hazır!</span></p>
             </div>
-            <div class="bg-[#0f0f0f] border border-gray-900 p-4 rounded-2xl text-center opacity-50">
-                <div class="text-xl mb-1">💎</div>
-                <div class="text-[9px] text-gray-500 uppercase">VIP Durumu</div>
-                <div class="text-xs font-bold text-gray-500">PASİF</div>
-            </div>
-        </div>
-    </main>
-
-    <div id="modal-overlay" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[100] hidden flex-col items-center justify-center p-8">
-        <div class="bg-[#111] border border-[#D4AF37] p-6 rounded-[32px] w-full max-w-xs text-center">
-            <div class="text-4xl mb-4">⚠️</div>
-            <h3 class="text-[#D4AF37] font-['Orbitron'] text-lg mb-4">KRAL ANALİZ BİTTİ</h3>
-            <div id="modal-text" class="text-gray-300 text-xs mb-6 leading-relaxed"></div>
-            <button onclick="closeModal()" class="w-full bg-white/5 py-3 rounded-xl font-bold text-sm mb-2">KAPAT</button>
-            <button class="w-full bg-[#D4AF37] text-black py-3 rounded-xl font-black text-sm">50 ⭐ VIP DETAY GÖR</button>
+            <button onclick="closeModal()" class="w-full bg-white/5 py-3 rounded-xl mb-2">KAPAT</button>
+            <button onclick="alert('Stars Ödemesi Yakında!')" class="w-full bg-[#D4AF37] text-black py-3 rounded-xl font-bold">50 ⭐ VIP RAPOR</button>
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        let count = 0;
+        function handleTap(e) {
+            count += 10;
+            document.getElementById('score').innerText = count;
+            
+            // Puan Uçurma
+            const floating = document.createElement('div');
+            floating.innerText = "+10";
+            floating.className = "absolute text-[#D4AF37] font-bold animate-float";
+            floating.style.left = "50%";
+            floating.style.top = "20%";
+            document.getElementById('anim-container').appendChild(floating);
+            setTimeout(() => floating.remove(), 700);
+        }
+
+        function startAnalysis() {
+            const val = document.getElementById('caInput').value;
+            if(val.length < 5) { alert("CA Gir Kral!"); return; }
+
+            const btn = document.getElementById('mainBtn');
+            btn.innerText = "AĞA BAĞLANILIYOR...";
+            btn.disabled = true;
+
+            // Simüle edilmiş Dexscreener/Solana Bağlantısı
+            setTimeout(() => {
+                document.getElementById('modal').style.display = 'flex';
+                btn.innerText = "ANALİZ ET & RAPOR AL";
+                btn.disabled = false;
+            }, 2000);
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
