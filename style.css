@@ -1,0 +1,19 @@
+body {
+    background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+    overflow-x: hidden;
+}
+
+#tap-btn {
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+    animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+    0% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-10px) scale(1.05); }
+    100% { transform: translateY(0px) scale(1); }
+}
+
+.gold-glow {
+    text-shadow: 0 0 10px #D4AF37;
+}
