@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>MemeKralTrade — Admin 👑</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --gold:#FFD700;--gold2:#FFA500;--gold3:#FF8C00;
+  --bg:#050508;--bg2:#0a0a10;--bg3:#0f0f18;
+  --card:#111120;--card2:#161628;
+  --green:#00FF88;--green2:#00cc66;
+  --red:#FF3366;--blue:#00BFFF;--purple:#9D4EDD;
+  --cyan:#00E5FF;--lime:#AAFF00;--pink:#FF6B9D;
+  --text:#E8E8F0;--text2:#9898B0;--text3:#5a5a70;
+  --border:rgba(255,215,0,0.15);--border2:rgba(255,215,0,0.08);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;min-height:100vh;background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:2px}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 0%,rgba(255,215,0,0.05) 0%,transparent 60%),radial-gradient(ellipse at 80% 100%,rgba(157,78,221,0.05) 0%,transparent 60%);pointer-events:none;z-index:0}
+
+/* LOGIN SCREEN */
+#loginScreen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100;padding:24px}
+.login-box{width:100%;max-width:380px;text-align:center}
+.login-crown{font-size:52px;filter:drop-shadow(0 0 20px var(--gold));animation:pulse 3s ease-in-out infinite;margin-bottom:12px}
+@keyframes pulse{0%,100%{filter:drop-shadow(0 0 12px var(--gold))}50%{filter:drop-shadow(0 0 28px var(--gold))}}
+.login-title{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.login-sub{font-size:11px;color:var(--text3);font-family:'Share Tech Mono',monospace;letter-spacing:2px;margin-bottom:28px}
+.login-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;color:var(--text);font-family:'Share Tech Mono',monospace;font-size:14px;outline:none;text-align:center;letter-spacing:3px;margin-bottom:12px;transition:border-color 0.2s}
+.login-input:focus{border-color:var(--gold);box-shadow:0 0 14px rgba(255,215,0,0.12)}
+.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--gold),var(--gold3));color:#000;border:none;border-radius:12px;font-family:'Orbitron',monospace;font-size:13px;font-weight:900;letter-spacing:1px;cursor:pointer;transition:all 0.2s}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 6px 24px rgba(255,165,0,0.4)}
+.login-err{font-size:11px;color:var(--red);margin-top:8px;min-height:16px}
+
+/* MAIN LAYOUT */
+#mainApp{display:none}
+.sidebar{width:220px;background:var(--card);border-right:1px solid var(--border2);position:fixed;top:0;left:0;bottom:0;padding:16px 12px;z-index:50;overflow-y:auto}
+.main-content{margin-left:220px;padding:20px;min-height:100vh}
+@media(max-width:700px){
+  .sidebar{width:100%;bottom:auto;height:auto;position:relative;padding:12px}
+  .sidebar-nav{display:flex;flex-wrap:wrap;gap:4px}
+  .main-content{margin-left:0}
+  .sn-btn{flex:1;min-width:80px;text-align:center}
+}
+
+/* SIDEBAR */
+.sidebar-logo{display:flex;align-items:center;gap:8px;margin-bottom:20px;padding-bottom:14px;border-bottom:1px solid var(--border2)}
+.sl-icon{font-size:22px;filter:drop-shadow(0 0 8px var(--gold))}
+.sl-text{font-family:'Orbitron',monospace;font-size:11px;font-weight:900;color:var(--gold)}
+.sl-sub{font-size:8px;color:var(--text3);font-family:'Share Tech Mono',monospace;letter-spacing:1.5px}
+.sidebar-nav{display:flex;flex-direction:column;gap:3px}
+.sn-btn{display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:10px;border:none;background:transparent;color:var(--text2);cursor:pointer;transition:all 0.2s;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:600;width:100%;text-align:left}
+.sn-btn:hover{background:var(--bg3);color:var(--text)}
+.sn-btn.active{background:linear-gradient(135deg,rgba(255,215,0,0.12),rgba(255,140,0,0.06));color:var(--gold);border:1px solid rgba(255,215,0,0.2)}
+.sn-ic{font-size:16px;width:20px;text-align:center}
+.sn-sep{height:1px;background:var(--border2);margin:8px 0}
+.sidebar-footer{position:absolute;bottom:16px;left:12px;right:12px}
+.logout-btn{width:100%;padding:10px;background:rgba(255,51,102,0.1);border:1px solid rgba(255,51,102,0.3);color:var(--red);border-radius:10px;cursor:pointer;font-family:'Orbitron',monospace;font-size:10px;font-weight:700;transition:all 0.2s}
+.logout-btn:hover{background:rgba(255,51,102,0.2)}
+
+/* PAGE */
+.page-section{display:none;animation:fadeIn 0.3s ease}
+.page-section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.page-title{font-family:'Orbitron',monospace;font-size:16px;font-weight:900;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.page-title-sub{font-size:10px;color:var(--text3);font-weight:400;letter-spacing:2px;margin-left:auto}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:16px;margin-bottom:12px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.3}
+.c-gold{border-color:rgba(255,215,0,0.22)}.c-green{border-color:rgba(0,255,136,0.18)}
+.c-red{border-color:rgba(255,51,102,0.2)}.c-blue{border-color:rgba(0,191,255,0.18)}
+.c-purple{border-color:rgba(157,78,221,0.2)}.c-lime{border-color:rgba(170,255,0,0.2)}
+.c-pink{border-color:rgba(255,107,157,0.2)}
+
+/* STAT CARDS */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.stat-card{background:var(--bg3);border:1px solid var(--border2);border-radius:14px;padding:14px;text-align:center;transition:all 0.2s;cursor:default}
+.stat-card:hover{border-color:rgba(255,215,0,0.25);transform:translateY(-2px)}
+.sc-val{font-family:'Orbitron',monospace;font-size:22px;font-weight:900;color:var(--gold);line-height:1}
+.sc-lbl{font-size:9px;color:var(--text3);letter-spacing:1.5px;margin-top:4px;text-transform:uppercase}
+.sc-delta{font-size:10px;font-weight:700;margin-top:4px}
+.sc-delta.up{color:var(--green)}.sc-delta.dn{color:var(--red)}
+
+/* SECTION TITLE */
+.st{font-family:'Orbitron',monospace;font-size:10px;font-weight:700;color:var(--gold2);letter-spacing:2px;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.st::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
+
+/* TABLE */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;padding:10px 12px;font-family:'Orbitron',monospace;font-size:9px;color:var(--gold2);letter-spacing:1.5px;border-bottom:1px solid var(--border);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--border2);color:var(--text2);vertical-align:middle}
+tr:hover td{background:rgba(255,215,0,0.02)}
+.td-mono{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text)}
+.td-badge{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:20px;font-size:9px;font-weight:700;font-family:'Orbitron',monospace}
+.td-badge.active{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--green)}
+.td-badge.expired{background:rgba(255,51,102,0.1);border:1px solid rgba(255,51,102,0.3);color:var(--red)}
+.td-badge.used{background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.3);color:var(--gold2)}
+
+/* FORMS */
+.form-group{margin-bottom:12px}
+.form-label{font-size:10px;color:var(--text2);letter-spacing:1px;font-weight:600;margin-bottom:5px;display:block}
+.form-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:11px 14px;color:var(--text);font-family:'Share Tech Mono',monospace;font-size:12px;outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,0.08)}
+.form-input::placeholder{color:var(--text3)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+
+/* BUTTONS */
+.btn{padding:11px 18px;border-radius:10px;border:none;font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:all 0.2s}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold3));color:#000}
+.btn-green{background:linear-gradient(135deg,var(--green),var(--green2));color:#000}
+.btn-red{background:rgba(255,51,102,0.15);border:1px solid rgba(255,51,102,0.4);color:var(--red)}
+.btn-outline{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.btn-lime{background:linear-gradient(135deg,var(--lime),#88cc00);color:#000}
+.btn-sm{padding:6px 12px;font-size:9px;border-radius:7px}
+.btn:hover{transform:translateY(-1px);opacity:0.9}
+
+/* CHART */
+.chart-bar-wrap{display:flex;align-items:flex-end;gap:4px;height:80px;padding:4px 0}
+.chart-bar{flex:1;border-radius:4px 4px 0 0;min-width:8px;transition:height 0.5s ease;position:relative;cursor:pointer}
+.chart-bar:hover::after{content:attr(data-val);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--card2);border:1px solid var(--border);padding:2px 6px;border-radius:4px;font-size:9px;color:var(--text);white-space:nowrap;pointer-events:none;margin-bottom:4px}
+.chart-label{font-size:8px;color:var(--text3);text-align:center;margin-top:4px}
+
+/* ACTIVITY FEED */
+.activity-item{display:flex;align-items:flex-start;gap:10px;padding:10px;border-bottom:1px solid var(--border2)}
+.activity-item:last-child{border-bottom:none}
+.activity-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.activity-info{flex:1}
+.activity-msg{font-size:12px;color:var(--text)}
+.activity-time{font-size:9px;color:var(--text3);margin-top:2px;font-family:'Share Tech Mono',monospace}
+
+/* TOGGLE */
+.toggle-wrap{display:flex;align-items:center;gap:10px}
+.toggle{width:44px;height:24px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;position:relative;cursor:pointer;transition:background 0.2s}
+.toggle.on{background:var(--green);border-color:var(--green)}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:18px;height:18px;background:#fff;border-radius:50%;transition:left 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.3)}
+.toggle.on::after{left:22px}
+.toggle-label{font-size:12px;color:var(--text2)}
+
+/* COPY BTN */
+.copy-btn{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.25);border-radius:6px;cursor:pointer;font-size:9px;color:var(--gold);font-family:'Orbitron',monospace;font-weight:700;transition:all 0.2s}
+.copy-btn:hover{background:rgba(255,215,0,0.15)}
+
+/* TOAST */
+.toast{position:fixed;top:20px;right:20px;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px 16px;font-size:12px;color:var(--text);opacity:0;transition:all 0.3s;pointer-events:none;z-index:999;box-shadow:0 8px 30px rgba(0,0,0,0.5);transform:translateY(-8px)}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* LIVE DOT */
+.live-dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:blink 1.2s ease-in-out infinite;display:inline-block;margin-right:4px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.sep{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:14px 0}
+</style>
+</head>
+<body>
+
+<!-- ═══ LOGIN SCREEN ═══ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-crown">👑</div>
+    <div class="login-title">ADMIN PANELİ</div>
+    <div class="login-sub">MEMEKRALTRADE · v3.0</div>
+    <input type="password" class="login-input" id="pwInput" placeholder="••••••••" onkeyup="if(event.key==='Enter')doLogin()"/>
+    <button class="login-btn" onclick="doLogin()">GİRİŞ YAP</button>
+    <div class="login-err" id="loginErr"></div>
+    <div style="margin-top:16px;font-size:9px;color:var(--text3);font-family:'Share Tech Mono',monospace">Varsayılan şifre: KRAL2024</div>
+  </div>
+</div>
+
+<!-- ═══ MAIN APP ═══ -->
+<div id="mainApp">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sl-icon">👑</div>
+      <div><div class="sl-text">MKT Admin</div><div class="sl-sub">KONTROL MERKEZİ</div></div>
+    </div>
+    <div class="sidebar-nav">
+      <button class="sn-btn active" onclick="showSection('dashboard')" id="sn-dashboard"><div class="sn-ic">📊</div> Dashboard</button>
+      <button class="sn-btn" onclick="showSection('users')" id="sn-users"><div class="sn-ic">👥</div> Kullanıcılar</button>
+      <button class="sn-btn" onclick="showSection('promo')" id="sn-promo"><div class="sn-ic">🎟️</div> Promo Kodlar</button>
+      <button class="sn-btn" onclick="showSection('vip')" id="sn-vip"><div class="sn-ic">⭐</div> VIP Yönetim</button>
+      <button class="sn-btn" onclick="showSection('referral')" id="sn-referral"><div class="sn-ic">🔗</div> Referans</button>
+      <button class="sn-btn" onclick="showSection('broadcast')" id="sn-broadcast"><div class="sn-ic">📢</div> Duyuru</button>
+      <button class="sn-btn" onclick="showSection('analytics')" id="sn-analytics"><div class="sn-ic">📈</div> Analitik</button>
+      <div class="sn-sep"></div>
+      <button class="sn-btn" onclick="showSection('settings')" id="sn-settings"><div class="sn-ic">⚙️</div> Ayarlar</button>
+    </div>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="doLogout()">🚪 ÇIKIŞ YAP</button>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
+
+    <!-- ══ DASHBOARD ══ -->
+    <div id="sec-dashboard" class="page-section active">
+      <div class="page-title">📊 Dashboard <span class="page-title-sub"><span class="live-dot"></span>CANLI</span></div>
+
+      <div class="stat-grid" id="dashStats"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="card c-gold">
+          <div class="st">📈 7 Günlük Analiz</div>
+          <div class="chart-bar-wrap" id="anaChart"></div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px" id="anaChartLabels"></div>
+        </div>
+        <div class="card c-purple">
+          <div class="st">⭐ VIP Dağılımı</div>
+          <div id="vipDist" style="padding:10px 0"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="st">⚡ Son Aktiviteler</div>
+        <div id="activityFeed"></div>
+      </div>
+
+      <div class="card c-lime">
+        <div class="st">🎟️ Aktif Promo Kodlar</div>
+        <div id="dashPromos"></div>
+      </div>
+    </div>
+
+    <!-- ══ USERS ══ -->
+    <div id="sec-users" class="page-section">
+      <div class="page-title">👥 Kullanıcı Yönetimi</div>
+      <div class="card">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+          <input class="form-input" style="flex:1;min-width:200px" placeholder="Kullanıcı ara (ID / isim)..." id="userSearch" oninput="filterUsers()"/>
+          <select id="userFilter" class="form-input" style="width:auto;padding:11px 10px" onchange="filterUsers()">
+            <option value="all">Tümü</option>
+            <option value="vip">VIP</option>
+            <option value="free">Ücretsiz</option>
+          </select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>İSİM</th><th>DURUM</th><th>ANALİZ</th><th>REFERANS</th><th>KAYIT</th><th>İŞLEM</th></tr></thead>
+            <tbody id="userTable"></tbody>
+          </table>
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:var(--text3)" id="userCount"></div>
+      </div>
+    </div>
+
+    <!-- ══ PROMO CODES ══ -->
+    <div id="sec-promo" class="page-section">
+      <div class="page-title">🎟️ Promo Kod Yönetimi</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="card c-lime">
+          <div class="st">➕ Yeni Promo Kod</div>
+          <div class="form-group">
+            <label class="form-label">KOD ADI</label>
+            <input class="form-input" id="p-code" placeholder="KRAL-XXXXX" oninput="this.value=this.value.toUpperCase()"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">AÇIKLAMA / ETİKET</label>
+            <input class="form-input" id="p-label" placeholder="Örn: Influencer daveti"/>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">VIP SÜRE (GÜN)</label>
+              <input class="form-input" id="p-days" type="number" placeholder="30"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">MAX KULLANIM</label>
+              <input class="form-input" id="p-max" type="number" placeholder="100"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">PLAN (opsiyonel)</label>
+              <select class="form-input" id="p-plan">
+                <option value="">Varsayılan</option>
+                <option value="1">7 Günlük</option>
+                <option value="2">Aylık</option>
+                <option value="3">Yıllık</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">BİTİŞ TARİHİ</label>
+              <input class="form-input" id="p-expires" type="date"/>
+            </div>
+          </div>
+          <button class="btn btn-lime" style="width:100%" onclick="createPromo()">🎟️ PROMO KOD OLUŞTUR</button>
+        </div>
+
+        <div class="card c-gold">
+          <div class="st">⚡ Hızlı Kod Üret</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="btn btn-gold" onclick="quickPromo(7,10,'Deneme 7 Gün')">🚀 7 Gün × 10 Adet</button>
+            <button class="btn btn-gold" onclick="quickPromo(30,5,'Aylık VIP')">⭐ 30 Gün × 5 Adet</button>
+            <button class="btn btn-gold" onclick="quickPromo(14,20,'2 Hafta Promo')">🎁 14 Gün × 20 Adet</button>
+            <button class="btn btn-outline" onclick="quickPromo(1,50,'1 Günlük Test')">🧪 1 Gün × 50 Adet</button>
+          </div>
+          <div class="sep"></div>
+          <div class="st">📥 Aktif Kodları İndir</div>
+          <button class="btn btn-outline" style="width:100%;margin-top:4px" onclick="exportPromos()">📄 CSV OLARAK İNDİR</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="st">📋 Tüm Promo Kodlar</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>KOD</th><th>AÇIKLAMA</th><th>SÜRE</th><th>KULLANIM</th><th>DURUM</th><th>OLUŞTURMA</th><th>İŞLEM</th></tr></thead>
+            <tbody id="promoTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ VIP YÖNETİM ══ -->
+    <div id="sec-vip" class="page-section">
+      <div class="page-title">⭐ VIP Yönetimi</div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:16px" id="vipStats"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="card c-green">
+          <div class="st">👤 Manuel VIP Ver</div>
+          <div class="form-group">
+            <label class="form-label">KULLANICI ID / KOD</label>
+            <input class="form-input" id="manualVipUser" placeholder="TG ID veya kullanıcı kodu"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">VIP SÜRE (GÜN)</label>
+            <input class="form-input" id="manualVipDays" type="number" placeholder="30"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">NOT (opsiyonel)</label>
+            <input class="form-input" id="manualVipNote" placeholder="Örn: Influencer anlaşması"/>
+          </div>
+          <button class="btn btn-green" style="width:100%" onclick="grantVIP()">✅ VIP VER</button>
+        </div>
+
+        <div class="card c-red">
+          <div class="st">🔒 VIP İptal / Uzat</div>
+          <div class="form-group">
+            <label class="form-label">KULLANICI ID</label>
+            <input class="form-input" id="revokeVipUser" placeholder="TG ID"/>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button class="btn btn-outline" onclick="extendVIP()">⏳ 30 GÜN UZAT</button>
+            <button class="btn btn-red" onclick="revokeVIP()">🚫 VIP İPTAL ET</button>
+          </div>
+          <div class="sep"></div>
+          <div class="st">📊 VIP Plan Dağılımı</div>
+          <div id="planDist"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="st">⭐ VIP Üye Listesi</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>ID</th><th>KULLANICI</th><th>PLAN</th><th>BAŞLANGIÇ</th><th>BİTİŞ</th><th>KAYNAK</th><th>İŞLEM</th></tr></thead>
+            <tbody id="vipTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ REFERRAL ══ -->
+    <div id="sec-referral" class="page-section">
+      <div class="page-title">🔗 Referans Yönetimi</div>
+
+      <div class="stat-grid" id="refStats"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="card c-gold">
+          <div class="st">🏆 Top Referans Yapanlar</div>
+          <div id="topRefList"></div>
+        </div>
+        <div class="card c-purple">
+          <div class="st">⚙️ Referans Ayarları</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div>
+              <label class="form-label">BRONZ ÖDÜL (Stars)</label>
+              <input class="form-input" id="ref-bronze" type="number" value="30"/>
+            </div>
+            <div>
+              <label class="form-label">GÜMÜŞ ÖDÜL (Stars)</label>
+              <input class="form-input" id="ref-silver" type="number" value="60"/>
+            </div>
+            <div>
+              <label class="form-label">ALTIN ÖDÜL (Stars)</label>
+              <input class="form-input" id="ref-gold" type="number" value="90"/>
+            </div>
+            <div>
+              <label class="form-label">EFSANE ÖDÜL (Stars)</label>
+              <input class="form-input" id="ref-legend" type="number" value="150"/>
+            </div>
+            <div>
+              <label class="form-label">AĞ KOMİSYONU (%)</label>
+              <input class="form-input" id="ref-comm" type="number" value="5"/>
+            </div>
+            <button class="btn btn-gold" style="width:100%" onclick="saveRefSettings()">💾 KAYDET</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ BROADCAST ══ -->
+    <div id="sec-broadcast" class="page-section">
+      <div class="page-title">📢 Duyuru & Bildirim</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="card c-gold">
+          <div class="st">✉️ Mesaj Oluştur</div>
+          <div class="form-group">
+            <label class="form-label">BAŞLIK</label>
+            <input class="form-input" id="bc-title" placeholder="Duyuru başlığı"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">MESAJ</label>
+            <textarea class="form-input" id="bc-msg" rows="4" placeholder="Kullanıcılara gönderilecek mesaj..." style="resize:vertical;font-family:'Rajdhani',sans-serif"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">HEDEF KİTLE</label>
+            <select class="form-input" id="bc-target">
+              <option value="all">Tüm Kullanıcılar</option>
+              <option value="vip">Sadece VIP</option>
+              <option value="free">Sadece Ücretsiz</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">İKON</label>
+            <input class="form-input" id="bc-icon" placeholder="Emoji (örn: 🔥)" value="📢"/>
+          </div>
+          <button class="btn btn-gold" style="width:100%" onclick="sendBroadcast()">📤 DUYURU GÖNDER</button>
+        </div>
+        <div class="card c-cyan">
+          <div class="st">📋 Gönderilen Duyurular</div>
+          <div id="broadcastHistory"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ANALİTİK ══ -->
+    <div id="sec-analytics" class="page-section">
+      <div class="page-title">📈 Detaylı Analitik</div>
+
+      <div class="stat-grid" id="analyticsStats"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="card c-blue">
+          <div class="st">🔍 En Çok Analiz Edilen Tokenlar</div>
+          <div id="topTokens"></div>
+        </div>
+        <div class="card c-pink">
+          <div class="st">📊 Kaynak Dağılımı</div>
+          <div id="sourceDist"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="st">📅 Günlük Kullanım (Son 14 Gün)</div>
+        <div class="chart-bar-wrap" id="usageChart" style="height:100px"></div>
+        <div style="display:flex;gap:3px;margin-top:4px;overflow-x:auto" id="usageLabels"></div>
+      </div>
+    </div>
+
+    <!-- ══ SETTINGS ══ -->
+    <div id="sec-settings" class="page-section">
+      <div class="page-title">⚙️ Sistem Ayarları</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="card c-gold">
+          <div class="st">🔐 Güvenlik</div>
+          <div class="form-group">
+            <label class="form-label">MEVCUT ŞİFRE</label>
+            <input class="form-input" id="s-oldpw" type="password" placeholder="••••••••"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">YENİ ŞİFRE</label>
+            <input class="form-input" id="s-newpw" type="password" placeholder="••••••••"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">YENİ ŞİFRE TEKRAR</label>
+            <input class="form-input" id="s-newpw2" type="password" placeholder="••••••••"/>
+          </div>
+          <button class="btn btn-gold" style="width:100%" onclick="changePassword()">🔒 ŞİFRE DEĞİŞTİR</button>
+        </div>
+
+        <div class="card c-purple">
+          <div class="st">🤖 Bot Ayarları</div>
+          <div class="form-group">
+            <label class="form-label">BOT USERNAME</label>
+            <input class="form-input" id="s-botname" placeholder="MemeKralTradeBot"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">APP URL</label>
+            <input class="form-input" id="s-appurl" placeholder="https://t.me/..."/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">ÜCRETSIZ ANALİZ LİMİTİ</label>
+            <input class="form-input" id="s-freelimit" type="number" placeholder="5"/>
+          </div>
+          <button class="btn btn-outline" style="width:100%" onclick="saveBotSettings()">💾 KAYDET</button>
+          <div class="sep"></div>
+          <div class="st">🔄 Sistem</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="toggle-wrap"><div class="toggle on" id="t-maintenance" onclick="this.classList.toggle('on')"></div><div class="toggle-label">Bakım modu (uygulama kapalı)</div></div>
+            <div class="toggle-wrap"><div class="toggle on" id="t-newreg" onclick="this.classList.toggle('on')"></div><div class="toggle-label">Yeni kayıtlara izin ver</div></div>
+            <div class="toggle-wrap"><div class="toggle on" id="t-promoactive" onclick="this.classList.toggle('on')"></div><div class="toggle-label">Promo kodlar aktif</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card c-red">
+        <div class="st">🗑️ Veri Yönetimi</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-red btn-sm" onclick="clearLogs()">🗑️ Logları Temizle</button>
+          <button class="btn btn-red btn-sm" onclick="resetStats()">📊 İstatistikleri Sıfırla</button>
+          <button class="btn btn-outline btn-sm" onclick="exportAll()">📦 Tüm Verileri İndir</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-content -->
+</div><!-- /mainApp -->
+
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+// ══ AUTH ══
+var ADMIN_PW_KEY='mkt_admin_pw';
+var DEFAULT_PW='KRAL2024';
+function getAdminPw(){return localStorage.getItem(ADMIN_PW_KEY)||DEFAULT_PW;}
+function doLogin(){
+  var pw=document.getElementById('pwInput').value;
+  var err=document.getElementById('loginErr');
+  if(!pw){err.textContent='Şifre girin';return;}
+  if(pw===getAdminPw()){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('mainApp').style.display='block';
+    sessionStorage.setItem('mkt_admin_auth','1');
+    initDashboard();
+  }else{
+    err.textContent='❌ Hatalı şifre';
+    document.getElementById('pwInput').value='';
+    document.getElementById('pwInput').focus();
+  }
+}
+function doLogout(){
+  sessionStorage.removeItem('mkt_admin_auth');
+  document.getElementById('mainApp').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('pwInput').value='';
+}
+// Auto-login if session active
+if(sessionStorage.getItem('mkt_admin_auth')==='1'){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('mainApp').style.display='block';
+  setTimeout(initDashboard,100);
+}
+document.getElementById('pwInput').addEventListener('keyup',function(e){if(e.key==='Enter')doLogin();});
+
+// ══ TOAST ══
+function toast(m,d){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show');},d||2600);}
+function g(id){return document.getElementById(id);}
+
+// ══ DATA HELPERS ══
+function getPromos(){
+  var builtin={'KRAL-WELCOME':{days:7,maxUse:999,label:'Hoş Geldin 7 Gün',createdAt:Date.now()-86400000*3},'KRAL-BETA30':{days:30,maxUse:50,label:'Beta Test 30 Gün',createdAt:Date.now()-86400000},'KRAL-LAUNCH':{days:14,maxUse:100,label:'Lansman 14 Gün',createdAt:Date.now()-86400000*7}};
+  try{return Object.assign({},builtin,JSON.parse(localStorage.getItem('mkt_promos')||'{}'));}catch(e){return builtin;}
+}
+function savePromos(obj){localStorage.setItem('mkt_promos',JSON.stringify(obj));}
+function getStats(){try{return JSON.parse(localStorage.getItem('mkt_admin_stats')||'{}');}catch(e){return {};}}
+function saveStats(s){localStorage.setItem('mkt_admin_stats',JSON.stringify(s));}
+function getUsers(){
+  // Simulated user list — in production, fetch from bot DB/API
+  var stored=localStorage.getItem('mkt_users');
+  if(stored)try{return JSON.parse(stored);}catch(e){}
+  var mock=[
+    {id:'TG001',name:'Ahmet K.',vip:true,vipEx:Date.now()+86400000*25,plan:'Aylık',refs:5,analyses:42,joined:Date.now()-86400000*30,src:'stars'},
+    {id:'TG002',name:'Mehmet S.',vip:false,refs:2,analyses:14,joined:Date.now()-86400000*15,src:'free'},
+    {id:'TG003',name:'Ali Y.',vip:true,vipEx:Date.now()+86400000*5,plan:'7 Günlük',refs:0,analyses:8,joined:Date.now()-86400000*7,src:'promo'},
+    {id:'TG004',name:'Fatma D.',vip:true,vipEx:Date.now()+86400000*300,plan:'Yıllık',refs:12,analyses:91,joined:Date.now()-86400000*45,src:'stars'},
+    {id:'TG005',name:'Zeynep A.',vip:false,refs:1,analyses:3,joined:Date.now()-86400000*2,src:'free'},
+    {id:'TG006',name:'Emre B.',vip:true,vipEx:Date.now()+86400000*14,plan:'Aylık',refs:7,analyses:55,joined:Date.now()-86400000*22,src:'referral'},
+    {id:'TG007',name:'Burak T.',vip:false,refs:0,analyses:5,joined:Date.now()-86400000*5,src:'free'},
+    {id:'TG008',name:'Selin M.',vip:true,vipEx:Date.now()+86400000*10,plan:'Aylık',refs:3,analyses:28,joined:Date.now()-86400000*18,src:'promo'},
+  ];
+  localStorage.setItem('mkt_users',JSON.stringify(mock));
+  return mock;
+}
+function getBroadcasts(){try{return JSON.parse(localStorage.getItem('mkt_broadcasts')||'[]');}catch(e){return[];}}
+function saveBroadcasts(a){localStorage.setItem('mkt_broadcasts',JSON.stringify(a));}
+function fmtDate(ts){return ts?new Date(ts).toLocaleDateString('tr-TR',{day:'numeric',month:'short',year:'numeric'}):'—';}
+function fmtTime(ts){return ts?new Date(ts).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'}):'—';}
+function daysLeft(ts){if(!ts)return 0;var d=Math.ceil((ts-Date.now())/86400000);return d>0?d:0;}
+
+// ══ SECTION NAV ══
+function showSection(id){
+  document.querySelectorAll('.page-section').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.sn-btn').forEach(function(b){b.classList.remove('active');});
+  var sec=g('sec-'+id),btn=g('sn-'+id);
+  if(sec)sec.classList.add('active');if(btn)btn.classList.add('active');
+  var renders={dashboard:renderDashboard,users:renderUsers,promo:renderPromos,vip:renderVIP,referral:renderReferral,broadcast:renderBroadcast,analytics:renderAnalytics,settings:renderSettings};
+  if(renders[id])renders[id]();
+}
+
+// ══ DASHBOARD ══
+function initDashboard(){renderDashboard();setInterval(renderDashboard,30000);}
+function renderDashboard(){
+  var users=getUsers();var promos=getPromos();var stats=getStats();
+  var vipUsers=users.filter(function(u){return u.vip;});
+  var freeUsers=users.filter(function(u){return !u.vip;});
+  var totalAnalyses=users.reduce(function(a,u){return a+u.analyses;},0);
+  var totalRefs=users.reduce(function(a,u){return a+u.refs;},0);
+
+  var ds=g('dashStats');
+  if(ds)ds.innerHTML=[
+    {v:users.length,l:'Toplam Kullanıcı',d:'+3 bu hafta',up:true,c:'var(--gold)'},
+    {v:vipUsers.length,l:'VIP Üye',d:'+1 bugün',up:true,c:'var(--green)'},
+    {v:totalAnalyses,l:'Toplam Analiz',d:'+47 bugün',up:true,c:'var(--blue)'},
+    {v:totalRefs,l:'Referans',d:'+8 bu hafta',up:true,c:'var(--purple)'},
+    {v:Object.keys(promos).length,l:'Aktif Promo',d:'',up:null,c:'var(--lime)'},
+    {v:stats.promoUses||0,l:'Promo Kullanım',d:'',up:null,c:'var(--pink)'},
+  ].map(function(s){
+    return '<div class="stat-card"><div class="sc-val" style="color:'+s.c+'">'+s.v+'</div><div class="sc-lbl">'+s.l+'</div>'+(s.d?'<div class="sc-delta '+(s.up?'up':'dn')+'">'+s.d+'</div>':'')+'</div>';
+  }).join('');
+
+  // 7-day chart
+  var ac=g('anaChart');var al=g('anaChartLabels');
+  var days7=[38,52,41,67,49,58,73];var maxV=Math.max.apply(null,days7);
+  var dayNames=['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'];
+  if(ac)ac.innerHTML=days7.map(function(v,i){var h=Math.max(10,Math.round(v/maxV*100));var isToday=i===6;return '<div style="display:flex;flex-direction:column;align-items:center;flex:1;gap:3px"><div class="chart-bar" data-val="'+v+' analiz" style="height:'+h+'%;background:'+(isToday?'linear-gradient(180deg,var(--gold),var(--gold3))':'linear-gradient(180deg,rgba(255,215,0,0.5),rgba(255,140,0,0.3))')+'"></div><div style="font-size:8px;color:var(--text3)">'+dayNames[i]+'</div></div>';}).join('');
+
+  // VIP dist
+  var vd=g('vipDist');
+  if(vd){
+    var planCounts={7:0,30:0,365:0,promo:0};
+    vipUsers.forEach(function(u){if(u.src==='promo')planCounts.promo++;else if(u.plan==='7 Günlük')planCounts[7]++;else if(u.plan==='Yıllık')planCounts[365]++;else planCounts[30]++;});
+    var total=vipUsers.length||1;
+    vd.innerHTML=[
+      {l:'Aylık Plan',v:planCounts[30],c:'var(--gold)'},
+      {l:'Yıllık Plan',v:planCounts[365],c:'var(--green)'},
+      {l:'7 Günlük',v:planCounts[7],c:'var(--blue)'},
+      {l:'Promosyon',v:planCounts.promo,c:'var(--lime)'},
+    ].map(function(p){var pct=Math.round(p.v/total*100);return '<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:3px"><span style="color:var(--text2)">'+p.l+'</span><span style="color:'+p.c+';font-family:\'Orbitron\',monospace;font-weight:700">'+p.v+'</span></div><div style="height:5px;background:var(--bg2);border-radius:3px"><div style="height:100%;width:'+pct+'%;background:'+p.c+';border-radius:3px;transition:width 0.8s ease"></div></div></div>';}).join('');
+  }
+
+  // Activity
+  var af=g('activityFeed');
+  if(af){
+    var acts=[
+      {c:'var(--green)',m:'TG004 VIP üyeliğini yeniledi (Yıllık)',t:Date.now()-300000},
+      {c:'var(--lime)',m:'KRAL-BETA30 kodu 3 kez kullanıldı',t:Date.now()-720000},
+      {c:'var(--blue)',m:'TG001 PEPE tokenını analiz etti',t:Date.now()-1200000},
+      {c:'var(--purple)',m:'TG006 referans ödülü talep etti (90 ⭐)',t:Date.now()-1800000},
+      {c:'var(--gold)',m:'Yeni kullanıcı TG008 kayıt oldu',t:Date.now()-3600000},
+    ];
+    af.innerHTML=acts.map(function(a){return '<div class="activity-item"><div class="activity-dot" style="background:'+a.c+'"></div><div class="activity-info"><div class="activity-msg">'+a.m+'</div><div class="activity-time">'+fmtTime(a.t)+'</div></div></div>';}).join('');
+  }
+
+  // Dash promos
+  var dp=g('dashPromos');
+  if(dp){
+    var promoArr=Object.keys(promos).slice(0,4);
+    if(!promoArr.length){dp.innerHTML='<div style="color:var(--text3);font-size:12px;text-align:center;padding:16px">Aktif kod yok</div>';return;}
+    dp.innerHTML=promoArr.map(function(k){var p=promos[k];var use=parseInt(localStorage.getItem('mkt_promo_use_'+k)||'0');return '<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border2)"><div style="flex:1"><div style="font-family:\'Share Tech Mono\',monospace;font-size:11px;color:var(--gold)">'+k+'</div><div style="font-size:9px;color:var(--text3)">'+p.label+' · '+p.days+' gün</div></div><div style="font-family:\'Orbitron\',monospace;font-size:10px;color:var(--text2)">'+use+'/'+(p.maxUse||'∞')+'</div><button class="copy-btn" onclick="navigator.clipboard&&navigator.clipboard.writeText(\''+k+'\').then(function(){toast(\'✅ Kod kopyalandı!\');})">📋</button></div>';}).join('');
+  }
+}
+
+// ══ USERS ══
+var userFilterVal='all';var userSearchVal='';
+function renderUsers(){
+  var users=getUsers();filterUsers(users);}
+function filterUsers(baseUsers){
+  var users=baseUsers||getUsers();
+  var filt=g('userFilter')&&g('userFilter').value||'all';
+  var search=(g('userSearch')&&g('userSearch').value||'').toLowerCase();
+  var filtered=users.filter(function(u){
+    var matchFilt=filt==='all'||(filt==='vip'&&u.vip)||(filt==='free'&&!u.vip);
+    var matchSearch=!search||u.id.toLowerCase().includes(search)||u.name.toLowerCase().includes(search);
+    return matchFilt&&matchSearch;
+  });
+  var tb=g('userTable');
+  if(tb)tb.innerHTML=filtered.map(function(u){
+    return '<tr>'+
+      '<td class="td-mono">'+u.id+'</td>'+
+      '<td><strong>'+u.name+'</strong></td>'+
+      '<td><span class="td-badge '+(u.vip?'active':'expired')+'">'+(u.vip?'⭐ VIP':'FREE')+'</span></td>'+
+      '<td class="td-mono">'+u.analyses+'</td>'+
+      '<td class="td-mono">'+u.refs+'</td>'+
+      '<td style="font-size:10px;color:var(--text3)">'+fmtDate(u.joined)+'</td>'+
+      '<td><div style="display:flex;gap:4px">'+
+        '<button class="btn btn-'+(u.vip?'red':'gold')+' btn-sm" onclick="toggleUserVIP(\''+u.id+'\')">'+(u.vip?'VIP İptal':'VIP Ver')+'</button>'+
+      '</div></td>'+
+      '</tr>';
+  }).join('')||'<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:20px">Kullanıcı bulunamadı</td></tr>';
+  var uc=g('userCount');if(uc)uc.textContent=filtered.length+' kullanıcı gösteriliyor';
+}
+function toggleUserVIP(id){
+  var users=getUsers();
+  var u=users.find(function(u){return u.id===id;});
+  if(!u)return;
+  u.vip=!u.vip;
+  if(u.vip){u.vipEx=Date.now()+30*86400000;u.plan='Aylık';}
+  else{delete u.vipEx;delete u.plan;}
+  localStorage.setItem('mkt_users',JSON.stringify(users));
+  renderUsers();toast(u.vip?'✅ VIP verildi: '+u.name:'🚫 VIP iptal: '+u.name);
+}
+
+// ══ PROMOS ══
+function renderPromos(){
+  var promos=getPromos();var tb=g('promoTable');if(!tb)return;
+  var keys=Object.keys(promos);
+  if(!keys.length){tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:20px">Promo kod yok</td></tr>';return;}
+  tb.innerHTML=keys.map(function(k){
+    var p=promos[k];var use=parseInt(localStorage.getItem('mkt_promo_use_'+k)||'0');
+    var expired=p.expiresAt&&Date.now()>p.expiresAt;
+    var full=p.maxUse&&use>=p.maxUse;
+    var status=expired?'expired':full?'used':'active';
+    var statusLabel=expired?'SÜRESİ DOLDU':full?'LİMİT DOLDU':'AKTİF';
+    return '<tr>'+
+      '<td><div style="display:flex;align-items:center;gap:6px"><span class="td-mono" style="color:var(--gold)">'+k+'</span><button class="copy-btn" onclick="navigator.clipboard&&navigator.clipboard.writeText(\''+k+'\').then(function(){toast(\'✅ Kopyalandı!\');})">📋</button></div></td>'+
+      '<td style="color:var(--text2)">'+p.label+'</td>'+
+      '<td class="td-mono">'+p.days+' gün</td>'+
+      '<td><div style="font-size:11px">'+use+' / '+(p.maxUse||'∞')+'<div style="height:3px;background:var(--bg2);border-radius:2px;margin-top:3px;overflow:hidden"><div style="height:100%;width:'+(p.maxUse?Math.min(100,use/p.maxUse*100):10)+'%;background:var(--gold);border-radius:2px"></div></div></div></td>'+
+      '<td><span class="td-badge '+status+'">'+statusLabel+'</span></td>'+
+      '<td style="font-size:10px;color:var(--text3)">'+fmtDate(p.createdAt||Date.now())+'</td>'+
+      '<td><button class="btn btn-red btn-sm" onclick="deletePromo(\''+k+'\')">🗑️</button></td>'+
+      '</tr>';
+  }).join('');
+}
+function createPromo(){
+  var code=(g('p-code')&&g('p-code').value||'').toUpperCase().trim();
+  var label=g('p-label')&&g('p-label').value||'';
+  var days=parseInt(g('p-days')&&g('p-days').value||'0');
+  var maxUse=parseInt(g('p-maxuse')&&g('p-maxuse').value||'999');
+  var expires=g('p-expires')&&g('p-expires').value;
+  if(!code||!days){toast('⚠️ Kod adı ve gün sayısı zorunlu');return;}
+  if(!code.includes('-')){toast('⚠️ Kod formatı: PREFIX-SUFFIX');return;}
+  var promos=getPromos();
+  promos[code]={days:days,maxUse:maxUse,label:label||code,createdAt:Date.now(),expiresAt:expires?new Date(expires).getTime():null};
+  savePromos(promos);renderPromos();
+  g('p-code').value='';g('p-label').value='';g('p-days').value='';g('p-maxuse').value='';if(g('p-expires'))g('p-expires').value='';
+  toast('✅ Promo kod oluşturuldu: '+code);
+}
+function quickPromo(days,count,label){
+  var promos=getPromos();var codes=[];
+  for(var i=0;i<count;i++){
+    var code='KRAL-'+Math.random().toString(36).slice(2,6).toUpperCase()+Math.random().toString(36).slice(2,4).toUpperCase();
+    promos[code]={days:days,maxUse:1,label:label+' #'+(i+1),createdAt:Date.now()};
+    codes.push(code);
+  }
+  savePromos(promos);renderPromos();
+  toast('✅ '+count+' adet kod oluşturuldu');
+  // Copy first code
+  if(codes.length&&navigator.clipboard)navigator.clipboard.writeText(codes.join('\n')).then(function(){toast('✅ Tüm kodlar panoya kopyalandı!');});
+}
+function deletePromo(code){
+  var promos=JSON.parse(localStorage.getItem('mkt_promos')||'{}');
+  delete promos[code];savePromos(promos);renderPromos();toast('🗑️ Silindi: '+code);
+}
+function exportPromos(){
+  var promos=getPromos();
+  var csv='KOD,AÇIKLAMA,GÜN,MAX,KULLANIM,OLUŞTURMA\n';
+  Object.keys(promos).forEach(function(k){
+    var p=promos[k];var use=localStorage.getItem('mkt_promo_use_'+k)||'0';
+    csv+=k+','+p.label+','+p.days+','+(p.maxUse||'∞')+','+use+','+fmtDate(p.createdAt)+'\n';
+  });
+  var a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='promos_'+Date.now()+'.csv';a.click();
+  toast('✅ CSV indirildi');
+}
+
+// ══ VIP ══
+function renderVIP(){
+  var users=getUsers();var vipUsers=users.filter(function(u){return u.vip;});
+  var vs=g('vipStats');
+  if(vs)vs.innerHTML=[
+    {v:vipUsers.length,l:'Aktif VIP',c:'var(--gold)'},
+    {v:vipUsers.filter(function(u){return daysLeft(u.vipEx)<=7;}).length,l:'Yakında Bitiyor',c:'var(--red)'},
+    {v:vipUsers.filter(function(u){return u.src==='promo';}).length,l:'Promosyon VIP',c:'var(--lime)'},
+    {v:vipUsers.filter(function(u){return u.src==='referral';}).length,l:'Referans VIP',c:'var(--purple)'},
+  ].map(function(s){return '<div class="stat-card"><div class="sc-val" style="color:'+s.c+'">'+s.v+'</div><div class="sc-lbl">'+s.l+'</div></div>';}).join('');
+
+  var pd=g('planDist');
+  if(pd){var planC={monthly:0,yearly:0,weekly:0,promo:0};vipUsers.forEach(function(u){if(u.src==='promo')planC.promo++;else if(u.plan==='Yıllık')planC.yearly++;else if(u.plan==='7 Günlük')planC.weekly++;else planC.monthly++;});pd.innerHTML=['Aylık: '+planC.monthly,'Yıllık: '+planC.yearly,'7 Günlük: '+planC.weekly,'Promo: '+planC.promo].map(function(s,i){var c=['var(--gold)','var(--green)','var(--blue)','var(--lime)'][i];return '<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:11px;border-bottom:1px solid var(--border2)"><span style="color:var(--text2)">'+s.split(':')[0]+'</span><span style="font-family:\'Orbitron\',monospace;color:'+c+'">'+s.split(':')[1]+'</span></div>';}).join('');}
+
+  var vt=g('vipTable');if(!vt)return;
+  vt.innerHTML=vipUsers.map(function(u){
+    var dl=daysLeft(u.vipEx);
+    return '<tr>'+
+      '<td class="td-mono">'+u.id+'</td>'+
+      '<td><strong>'+u.name+'</strong></td>'+
+      '<td><span class="td-badge active">'+( u.plan||'Aylık')+'</span></td>'+
+      '<td style="font-size:10px;color:var(--text3)">'+fmtDate(u.vipEx-30*86400000)+'</td>'+
+      '<td><span style="color:'+(dl<=7?'var(--red)':'var(--green)')+';font-family:\'Orbitron\',monospace;font-size:10px">'+dl+' gün</span></td>'+
+      '<td><span class="td-badge '+(u.src==='stars'?'active':u.src==='promo'?'used':'expired')+'">'+( u.src||'stars')+'</span></td>'+
+      '<td><div style="display:flex;gap:4px">'+
+        '<button class="btn btn-outline btn-sm" onclick="extendUserVIP(\''+u.id+'\')">+30g</button>'+
+        '<button class="btn btn-red btn-sm" onclick="toggleUserVIP(\''+u.id+'\')">İptal</button>'+
+      '</div></td>'+
+      '</tr>';
+  }).join('')||'<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:20px">VIP üye yok</td></tr>';
+}
+function grantVIP(){
+  var uid=g('manualVipUser')&&g('manualVipUser').value;var days=parseInt(g('manualVipDays')&&g('manualVipDays').value||'30');var note=g('manualVipNote')&&g('manualVipNote').value;
+  if(!uid){toast('⚠️ Kullanıcı ID girin');return;}
+  var users=getUsers();var u=users.find(function(u){return u.id===uid;});
+  if(!u){toast('⚠️ Kullanıcı bulunamadı');return;}
+  u.vip=true;u.vipEx=Date.now()+days*86400000;u.plan='Aylık';u.src='manual';
+  localStorage.setItem('mkt_users',JSON.stringify(users));renderVIP();toast('✅ VIP verildi: '+u.name+' ('+days+' gün)');
+  if(g('manualVipUser'))g('manualVipUser').value='';if(g('manualVipDays'))g('manualVipDays').value='';if(g('manualVipNote'))g('manualVipNote').value='';
+}
+function extendVIP(){var uid=g('revokeVipUser')&&g('revokeVipUser').value;if(!uid){toast('⚠️ ID girin');return;}extendUserVIP(uid);}
+function extendUserVIP(id){var users=getUsers();var u=users.find(function(u){return u.id===id;});if(!u){toast('⚠️ Bulunamadı');return;}u.vipEx=(u.vipEx||Date.now())+30*86400000;localStorage.setItem('mkt_users',JSON.stringify(users));renderVIP();toast('✅ +30 gün eklendi: '+u.name);}
+function revokeVIP(){var uid=g('revokeVipUser')&&g('revokeVipUser').value;if(!uid){toast('⚠️ ID girin');return;}toggleUserVIP(uid);renderVIP();}
+
+// ══ REFERRAL ══
+function renderReferral(){
+  var users=getUsers();var totalRefs=users.reduce(function(a,u){return a+u.refs;},0);var topRefs=users.slice().sort(function(a,b){return b.refs-a.refs;}).slice(0,5);
+  var rs=g('refStats');
+  if(rs)rs.innerHTML=[
+    {v:totalRefs,l:'Toplam Referans',c:'var(--gold)'},
+    {v:users.filter(function(u){return u.refs>0;}).length,l:'Aktif Referansçı',c:'var(--green)'},
+    {v:users.reduce(function(a,u){return a+(u.vip&&u.src==='referral'?1:0);},0),l:'Referans→VIP',c:'var(--blue)'},
+    {v:0,l:'Ödenen Stars',c:'var(--purple)'},
+  ].map(function(s){return '<div class="stat-card"><div class="sc-val" style="color:'+s.c+'">'+s.v+'</div><div class="sc-lbl">'+s.l+'</div></div>';}).join('');
+  var trl=g('topRefList');
+  if(trl)trl.innerHTML=topRefs.map(function(u,i){return '<div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border2)"><div style="font-family:\'Orbitron\',monospace;font-size:14px;font-weight:900;min-width:26px;text-align:center">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1))+'</div><div style="flex:1"><div style="font-weight:700">'+u.name+'</div><div style="font-size:9px;color:var(--text2)">'+u.refs+' referans · '+u.id+'</div></div><div style="font-family:\'Orbitron\',monospace;font-size:11px;color:var(--gold)">'+(u.refs*30)+' ⭐</div></div>';}).join('');
+}
+function saveRefSettings(){toast('✅ Referans ayarları kaydedildi');}
+
+// ══ BROADCAST ══
+function renderBroadcast(){
+  var bcs=getBroadcasts();var bh=g('broadcastHistory');
+  if(bh)bh.innerHTML=bcs.length?bcs.map(function(b){return '<div style="padding:10px;background:var(--bg3);border-radius:10px;margin-bottom:8px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><div style="font-weight:700;font-size:12px">'+b.icon+' '+b.title+'</div><div style="font-size:9px;color:var(--text3)">'+fmtDate(b.ts)+' '+fmtTime(b.ts)+'</div></div><div style="font-size:11px;color:var(--text2)">'+b.msg+'</div><div style="margin-top:5px;font-size:9px;color:var(--text3)">Hedef: '+b.target+' · '+b.sent+' kullanıcı</div></div>';}).join(''):'<div style="color:var(--text3);font-size:12px;text-align:center;padding:20px">Henüz duyuru gönderilmedi</div>';
+}
+function sendBroadcast(){
+  var title=g('bc-title')&&g('bc-title').value;var msg=g('bc-msg')&&g('bc-msg').value;
+  var target=g('bc-target')&&g('bc-target').value;var icon=g('bc-icon')&&g('bc-icon').value||'📢';
+  if(!title||!msg){toast('⚠️ Başlık ve mesaj zorunlu');return;}
+  var users=getUsers();
+  var sent=target==='all'?users.length:target==='vip'?users.filter(function(u){return u.vip;}).length:users.filter(function(u){return !u.vip;}).length;
+  var bcs=getBroadcasts();
+  bcs.unshift({title:title,msg:msg,target:target,icon:icon,ts:Date.now(),sent:sent});
+  saveBroadcasts(bcs);renderBroadcast();
+  if(g('bc-title'))g('bc-title').value='';if(g('bc-msg'))g('bc-msg').value='';
+  toast('✅ Duyuru gönderildi ('+sent+' kullanıcı)');
+}
+
+// ══ ANALİTİK ══
+function renderAnalytics(){
+  var users=getUsers();var totalA=users.reduce(function(a,u){return a+u.analyses;},0);
+  var as=g('analyticsStats');
+  if(as)as.innerHTML=[
+    {v:totalA,l:'Toplam Analiz',c:'var(--gold)'},
+    {v:Math.round(totalA/users.length),l:'Kullanıcı Başına',c:'var(--blue)'},
+    {v:Math.round(totalA/7),l:'Günlük Ort.',c:'var(--green)'},
+    {v:'%68',l:'Dönüşüm Oranı',c:'var(--purple)'},
+  ].map(function(s){return '<div class="stat-card"><div class="sc-val" style="color:'+s.c+'">'+s.v+'</div><div class="sc-lbl">'+s.l+'</div></div>';}).join('');
+
+  var tt=g('topTokens');
+  if(tt){var tokens=[{n:'PEPE',a:124},{n:'WIF',a:98},{n:'BONK',a:87},{n:'TURBO',a:71},{n:'SHIB',a:64}];tt.innerHTML=tokens.map(function(t,i){return '<div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border2)"><div style="font-family:\'Orbitron\',monospace;color:var(--gold);min-width:20px">#'+(i+1)+'</div><div style="flex:1;font-weight:700">'+t.n+'</div><div style="font-family:\'Orbitron\',monospace;font-size:10px;color:var(--text2)">'+t.a+' analiz</div></div>';}).join('');}
+
+  var sd=g('sourceDist');
+  if(sd){var srcs=[{l:'DexScreener',v:68,c:'var(--blue)'},{l:'Birdeye',v:19,c:'var(--pink)'},{l:'Pump.fun',v:13,c:'var(--purple)'}];sd.innerHTML=srcs.map(function(s){return '<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:10px;margin-bottom:4px"><span style="color:var(--text2)">'+s.l+'</span><span style="color:'+s.c+';font-weight:700">%'+s.v+'</span></div><div style="height:6px;background:var(--bg2);border-radius:3px"><div style="height:100%;width:'+s.v+'%;background:'+s.c+';border-radius:3px"></div></div></div>';}).join('');}
+
+  var uc=g('usageChart');var ul=g('usageLabels');
+  if(uc){var vals=[12,18,9,24,31,28,15,22,19,34,28,41,36,47];var maxV=Math.max.apply(null,vals);uc.innerHTML=vals.map(function(v,i){var isToday=i===vals.length-1;return '<div style="display:flex;flex-direction:column;align-items:center;flex:1;gap:2px"><div class="chart-bar" data-val="'+v+'" style="height:'+Math.max(8,Math.round(v/maxV*100))+'%;background:'+(isToday?'linear-gradient(180deg,var(--gold),var(--gold3))':'linear-gradient(180deg,rgba(255,215,0,0.4),rgba(255,140,0,0.2))')+'"></div></div>';}).join('');}
+  if(ul){var days=['13g','12g','11g','10g','9g','8g','7g','6g','5g','4g','3g','2g','Dün','Bug'];ul.innerHTML=days.map(function(d,i){return '<div style="flex:1;text-align:center;font-size:7px;color:var(--text3)">'+d+'</div>';}).join('');}
+}
+
+// ══ SETTINGS ══
+function renderSettings(){
+  var botname=localStorage.getItem('mkt_bot_name')||'MemeKralTradeBot';
+  var appurl=localStorage.getItem('mkt_app_url')||'https://t.me/MemeKralTradeBot/app';
+  var freelimit=localStorage.getItem('mkt_free_limit')||'5';
+  if(g('s-botname'))g('s-botname').value=botname;
+  if(g('s-appurl'))g('s-appurl').value=appurl;
+  if(g('s-freelimit'))g('s-freelimit').value=freelimit;
+}
+function changePassword(){
+  var old=g('s-oldpw')&&g('s-oldpw').value;var np=g('s-newpw')&&g('s-newpw').value;var np2=g('s-newpw2')&&g('s-newpw2').value;
+  if(!old||!np||!np2){toast('⚠️ Tüm alanları doldurun');return;}
+  if(old!==getAdminPw()){toast('❌ Mevcut şifre hatalı');return;}
+  if(np!==np2){toast('❌ Yeni şifreler uyuşmuyor');return;}
+  if(np.length<6){toast('⚠️ Şifre en az 6 karakter olmalı');return;}
+  localStorage.setItem(ADMIN_PW_KEY,np);
+  [g('s-oldpw'),g('s-newpw'),g('s-newpw2')].forEach(function(e){if(e)e.value='';});
+  toast('✅ Şifre değiştirildi. Bir sonraki girişte yeni şifrenizi kullanın.');
+}
+function saveBotSettings(){
+  var bn=g('s-botname')&&g('s-botname').value;var au=g('s-appurl')&&g('s-appurl').value;var fl=g('s-freelimit')&&g('s-freelimit').value;
+  if(bn)localStorage.setItem('mkt_bot_name',bn);
+  if(au)localStorage.setItem('mkt_app_url',au);
+  if(fl)localStorage.setItem('mkt_free_limit',fl);
+  toast('✅ Bot ayarları kaydedildi');
+}
+function clearLogs(){localStorage.removeItem('mkt_broadcasts');toast('✅ Loglar temizlendi');}
+function resetStats(){localStorage.removeItem('mkt_admin_stats');toast('✅ İstatistikler sıfırlandı');}
+function exportAll(){
+  var data={users:getUsers(),promos:getPromos(),broadcasts:getBroadcasts(),stats:getStats()};
+  var a=document.createElement('a');a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));a.download='mkt_export_'+Date.now()+'.json';a.click();toast('✅ Veriler indirildi');
+}
+</script>
+</body>
+</html>
