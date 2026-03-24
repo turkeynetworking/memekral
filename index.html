@@ -337,6 +337,7 @@ body::after{content:'';position:fixed;inset:0;
     <button class="nav-btn" onclick="nav('kral')">👑 Kral</button>
     <button class="nav-btn" onclick="nav('signals')">⚡ Sinyal</button>
     <button class="nav-btn" onclick="nav('portfolio')">💼 Portföy</button>
+    <button class="nav-btn" onclick="nav('trade')">💹 Swap</button>
     <button class="nav-btn" onclick="nav('referral')">🔗 Referans</button>
     <button class="nav-btn" onclick="nav('vip')">⭐ VIP</button>
   </div>
@@ -597,14 +598,171 @@ body::after{content:'';position:fixed;inset:0;
   <div class="card c-purple" style="cursor:pointer" onclick="nav('referral')"><div style="display:flex;align-items:center;gap:10px"><div style="font-size:26px">🔗</div><div><div style="font-weight:700;font-size:13px">VIP + Referans = Çift Kazanç</div><div style="font-size:10px;color:var(--text2);margin-top:2px">Her getirdiğin VIP üyeden 30–150 ⭐ →</div></div></div></div>
 </div>
 
+<!-- ══════════ TRADE ══════════ -->
+<div id="page-trade" class="page">
+  <!-- Hero -->
+  <div style="text-align:center;padding:12px 0 10px">
+    <div style="font-size:36px;animation:float 3s ease-in-out infinite;filter:drop-shadow(0 0 12px var(--green))">💹</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px">KRAL SWAP</div>
+    <div style="font-size:10px;color:var(--text2);margin-top:3px">Uygulama içi Solana token alım-satım · Jupiter DEX</div>
+  </div>
+
+  <!-- Commission info banner -->
+  <div class="card" style="background:linear-gradient(135deg,rgba(0,255,136,0.06),rgba(0,229,255,0.04));border-color:rgba(0,255,136,0.2);padding:10px 14px;margin-bottom:10px">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="font-size:22px">ℹ️</div>
+      <div style="font-size:10px;color:var(--text2);line-height:1.5;flex:1">Her işlemde Jupiter DEX standart ücreti + <strong style="color:var(--green)">%0.75 platform komisyonu</strong> otomatik uygulanır. Komisyon referans kazancına da yansır.</div>
+    </div>
+  </div>
+
+  <!-- VIP Gate for trade -->
+  <div id="tradeVipGate" style="display:none">
+    <div class="vgate">
+      <div class="vg-icon">💹</div>
+      <div class="vg-title">Kral Swap VIP'e Özel</div>
+      <div class="vg-desc">Uygulama içi token alım-satım özelliği sadece VIP üyelere açık. Sınırsız swap, düşük komisyon ve anlık fiyat akışı seni bekliyor.</div>
+      <button class="star-btn" onclick="nav('vip')">⭐ VIP OL – 299 STAR</button>
+    </div>
+  </div>
+
+  <!-- TRADE PANEL -->
+  <div id="tradePanel" style="display:none">
+
+    <!-- Wallet Connect -->
+    <div id="walletSection" class="card c-cyan">
+      <div class="st">👛 Cüzdan</div>
+      <div id="walletConnected" style="display:none">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--cyan));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px">👛</div>
+          <div style="flex:1">
+            <div style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text)" id="walletAddr">—</div>
+            <div style="font-size:9px;color:var(--text2);margin-top:1px">SOL: <strong id="walletSOL" style="color:var(--green)">—</strong> · USDC: <strong id="walletUSDC" style="color:var(--blue)">—</strong></div>
+          </div>
+          <button class="btn bo bsm" onclick="disconnectWallet()">Çıkış</button>
+        </div>
+      </div>
+      <div id="walletDisconnected">
+        <div style="font-size:11px;color:var(--text2);margin-bottom:10px">Phantom, Solflare veya başka bir Solana cüzdanına bağlan</div>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <button class="btn bg" onclick="connectWallet('phantom')">👻 Phantom ile Bağlan</button>
+          <button class="btn bo" onclick="connectWallet('solflare')">☀️ Solflare ile Bağlan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Swap Form -->
+    <div class="card c-green" id="swapCard" style="display:none">
+      <div class="st">🔄 Token Swap</div>
+
+      <!-- From -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:8px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-size:9px;color:var(--text3);letter-spacing:1px">SATIYOR</div>
+          <div style="font-size:9px;color:var(--text2)">Bakiye: <span id="fromBal">—</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div id="fromTokenBtn" style="display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:8px 12px;cursor:pointer;min-width:120px" onclick="openTokenPicker('from')">
+            <div id="fromTokenIcon" style="font-size:18px">◎</div>
+            <div>
+              <div id="fromTokenName" style="font-weight:700;font-size:12px">SOL</div>
+              <div id="fromTokenPrice" style="font-size:8px;color:var(--text3)">$178.40</div>
+            </div>
+            <div style="color:var(--text3);font-size:10px;margin-left:auto">▼</div>
+          </div>
+          <div style="flex:1;position:relative">
+            <input type="number" id="fromAmt" placeholder="0.00" oninput="calcSwap()" style="width:100%;background:transparent;border:none;outline:none;font-family:'Orbitron',monospace;font-size:18px;font-weight:700;color:var(--text);text-align:right"/>
+            <div id="fromUSD" style="font-size:9px;color:var(--text3);text-align:right;margin-top:2px">≈ $0.00</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:5px;margin-top:8px">
+          <button class="btn bo bsm" style="flex:1;padding:4px;font-size:8px" onclick="setPct(25)">25%</button>
+          <button class="btn bo bsm" style="flex:1;padding:4px;font-size:8px" onclick="setPct(50)">50%</button>
+          <button class="btn bo bsm" style="flex:1;padding:4px;font-size:8px" onclick="setPct(75)">75%</button>
+          <button class="btn bg bsm" style="flex:1;padding:4px;font-size:8px" onclick="setPct(100)">MAX</button>
+        </div>
+      </div>
+
+      <!-- Swap arrow -->
+      <div style="text-align:center;margin:-4px 0;position:relative;z-index:1">
+        <div style="display:inline-flex;width:36px;height:36px;background:var(--bg3);border:2px solid var(--bg2);border-radius:50%;align-items:center;justify-content:center;cursor:pointer;font-size:16px" onclick="switchTokens()">⇅</div>
+      </div>
+
+      <!-- To -->
+      <div style="background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:14px;margin-top:8px;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div style="font-size:9px;color:var(--text3);letter-spacing:1px">ALIYOR</div>
+          <div style="font-size:9px;color:var(--text2)">Bakiye: <span id="toBal">—</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div id="toTokenBtn" style="display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:8px 12px;cursor:pointer;min-width:120px" onclick="openTokenPicker('to')">
+            <div id="toTokenIcon" style="font-size:18px">🐸</div>
+            <div>
+              <div id="toTokenName" style="font-weight:700;font-size:12px">PEPE</div>
+              <div id="toTokenPrice" style="font-size:8px;color:var(--text3)">$0.0000123</div>
+            </div>
+            <div style="color:var(--text3);font-size:10px;margin-left:auto">▼</div>
+          </div>
+          <div style="flex:1;text-align:right">
+            <div id="toAmt" style="font-family:'Orbitron',monospace;font-size:18px;font-weight:700;color:var(--green)">0.00</div>
+            <div id="toUSD" style="font-size:9px;color:var(--text3);margin-top:2px">≈ $0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Swap details -->
+      <div id="swapDetails" style="background:var(--bg3);border-radius:10px;padding:10px;margin-bottom:12px;font-size:10px">
+        <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border2)"><span style="color:var(--text2)">Kur</span><span id="swapRate" style="color:var(--text);font-family:'Share Tech Mono',monospace">—</span></div>
+        <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border2)"><span style="color:var(--text2)">Slippage</span><div style="display:flex;gap:4px" id="slippageBtns">
+          <span onclick="setSlippage(0.5)" id="sl-0.5" style="padding:1px 6px;border-radius:4px;cursor:pointer;background:rgba(255,215,0,0.15);border:1px solid var(--gold);color:var(--gold);font-weight:700">0.5%</span>
+          <span onclick="setSlippage(1)" id="sl-1" style="padding:1px 6px;border-radius:4px;cursor:pointer;background:var(--bg2);border:1px solid var(--border2);color:var(--text2)">1%</span>
+          <span onclick="setSlippage(3)" id="sl-3" style="padding:1px 6px;border-radius:4px;cursor:pointer;background:var(--bg2);border:1px solid var(--border2);color:var(--text2)">3%</span>
+        </div></div>
+        <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border2)"><span style="color:var(--text2)">DEX Ücreti</span><span style="color:var(--text2)">%0.25</span></div>
+        <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border2)"><span style="color:var(--text2)">Platform Komisyonu</span><span style="color:var(--gold);font-weight:700">%0.75</span></div>
+        <div style="display:flex;justify-content:space-between;padding:3px 0"><span style="color:var(--text2)">Toplam Ücret</span><span id="totalFee" style="color:var(--text);font-weight:700">—</span></div>
+      </div>
+
+      <button class="btn bgreen" id="swapBtn" onclick="executeSwap()" disabled style="opacity:0.5;font-size:13px">💹 SWAP ET</button>
+      <div id="swapMsg" style="font-size:10px;text-align:center;margin-top:8px;min-height:14px;color:var(--text2)"></div>
+    </div>
+
+    <!-- Trade History -->
+    <div class="card" id="tradeHistCard" style="display:none">
+      <div class="st">📋 İşlem Geçmişi</div>
+      <div id="tradeHist"><div style="color:var(--text3);font-size:12px;text-align:center;padding:14px">Henüz işlem yapılmadı</div></div>
+    </div>
+
+    <!-- Commission Summary -->
+    <div class="card c-gold" id="commSummary" style="display:none">
+      <div class="st">💰 Komisyon Özeti</div>
+      <div class="sr">
+        <div class="sb"><div class="sv g" id="totalTradeVol">$0</div><div class="sl">İşlem Hacmi</div></div>
+        <div class="sb"><div class="sv" id="totalCommPaid">$0</div><div class="sl">Komisyon</div></div>
+        <div class="sb"><div class="sv b" id="tradeCount">0</div><div class="sl">İşlem</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Token Picker Modal -->
+  <div id="tokenPickerModal" style="display:none;position:fixed;inset:0;background:rgba(5,5,8,0.95);z-index:300;padding:16px;overflow-y:auto">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+      <div style="font-family:'Orbitron',monospace;font-size:12px;font-weight:700;color:var(--gold)">TOKEN SEÇ</div>
+      <div style="flex:1"></div>
+      <div onclick="closeTokenPicker()" style="font-size:20px;cursor:pointer;color:var(--text2)">✕</div>
+    </div>
+    <div class="iw" style="margin-bottom:12px">
+      <input type="text" id="tokenSearch" placeholder="Token ara veya CA yapıştır..." oninput="filterTokenList()"/>
+      <div class="ii">🔍</div>
+    </div>
+    <div id="tokenList"></div>
+  </div>
+</div>
+
 <!-- BOTTOM NAV -->
-<div class="bnav">
+<div class="bnav" style="grid-template-columns:repeat(5,1fr)">
   <button class="bn active" onclick="nav('home')" id="bn-home"><div class="bn-ic">🏠</div><div class="bn-lb">ANA</div></button>
   <button class="bn" onclick="nav('analyze')" id="bn-analyze"><div class="bn-ic">🔍</div><div class="bn-lb">ANALİZ</div></button>
-  <button class="bn" onclick="nav('top10')" id="bn-top10"><div class="bn-ic">🔥</div><div class="bn-lb">TOP10</div></button>
-  <button class="bn" onclick="nav('newcoins')" id="bn-newcoins"><div class="bn-ic">🆕</div><div class="bn-lb">YENİ</div></button>
-  <button class="bn" onclick="nav('whale')" id="bn-whale"><div class="bn-ic">🐋</div><div class="bn-lb">BALİNA</div></button>
-  <button class="bn" onclick="nav('kral')" id="bn-kral"><div class="bn-ic">👑</div><div class="bn-lb">KRAL</div></button>
+  <button class="bn" onclick="nav('trade')" id="bn-trade"><div class="bn-ic">💹</div><div class="bn-lb">SWAP</div></button>
   <button class="bn" onclick="nav('referral')" id="bn-referral"><div class="bn-ic">🔗</div><div class="bn-lb">REFERANS</div></button>
   <button class="bn" onclick="nav('vip')" id="bn-vip"><div class="bn-ic">⭐</div><div class="bn-lb">VIP</div></button>
 </div>
@@ -902,7 +1060,7 @@ function nav(id){
   var nb=document.querySelector('.nav-btn[onclick*="\''+id+'\'"]');
   if(nb)nb.classList.add('active');
   S.page=id;save();
-  var m={home:rHome,analyze:rAnalyze,top10:rTop10,newcoins:rNew,whale:rWhale,kral:rKral,signals:rSigs,portfolio:rPF,referral:rRef,vip:rVIP};
+  var m={home:rHome,analyze:rAnalyze,top10:rTop10,newcoins:rNew,whale:rWhale,kral:rKral,signals:rSigs,portfolio:rPF,referral:rRef,vip:rVIP,trade:rTrade};
   if(m[id])m[id]();
   if(tg&&tg.HapticFeedback)tg.HapticFeedback.selectionChanged();
 }
@@ -1707,6 +1865,325 @@ function changeAdminPw(){
   if(!inp||!inp.value.trim()){toast('⚠️ Yeni şifre girin');return;}
   localStorage.setItem('mkt_admin_pw',inp.value.trim());
   inp.value='';toast('✅ Şifre değiştirildi');
+}
+
+// ══ TRADE / SWAP ENGINE ══
+var COMMISSION_RATE = 0.0075; // 0.75%
+var DEX_FEE = 0.0025;        // Jupiter 0.25%
+var SLIPPAGE = 0.5;
+
+// Supported tokens for picker
+var SWAP_TOKENS = [
+  {sym:'SOL',  name:'Solana',     icon:'◎', price:178.40,  ca:'So11111111111111111111111111111111111111112'},
+  {sym:'USDC', name:'USD Coin',   icon:'💵', price:1.00,    ca:'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v'},
+  {sym:'PEPE', name:'Pepe',       icon:'🐸', price:0.0000123,ca:'7GCihgDB8fe6KNjn2MktkpwD7JcDBGqThJ6HRpTf23EL'},
+  {sym:'WIF',  name:'Dogwifhat',  icon:'🐕', price:0.00234, ca:'EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm'},
+  {sym:'BONK', name:'Bonk',       icon:'🔨', price:0.0000231,ca:'DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263'},
+  {sym:'TURBO',name:'Turbo',      icon:'🚀', price:0.00000312,ca:'5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK31CF9bny'},
+  {sym:'FLOKI',name:'Floki',      icon:'⚡', price:0.000184, ca:'43VWkd99HjqkhFTZbWBpMpRhjG469nWa7x7uEsgSH7We'},
+  {sym:'SHIB', name:'Shiba Inu',  icon:'🦊', price:0.0000089,ca:'CiKu4eHsVrc1eueVQeHn7qhXTcVu95gSQmBpX4utjL9z'},
+  {sym:'POPCAT',name:'Popcat',    icon:'🐱', price:0.00814,  ca:'7i5KKsX2weiTkry7jA4ZwSuXGhs5eJBEjY8vVxR4pfRx'},
+  {sym:'BRETT',name:'Brett',      icon:'🤠', price:0.000312, ca:'BRETTgMp7H4RKqnQi7RMRzfArH2WBk8bC6iGrJyiswf6'},
+];
+
+var TS = { // Trade State
+  wallet: null,
+  fromToken: SWAP_TOKENS[0], // SOL
+  toToken:   SWAP_TOKENS[2], // PEPE
+  pickerTarget: 'from',
+  slippage: 0.5,
+  trades: [],
+  totalVol: 0,
+  totalComm: 0
+};
+
+function loadTradeState() {
+  try {
+    var d = JSON.parse(localStorage.getItem('mkt_trades') || '{}');
+    TS.trades   = d.trades   || [];
+    TS.totalVol  = d.totalVol  || 0;
+    TS.totalComm = d.totalComm || 0;
+    TS.wallet   = d.wallet   || null;
+  } catch(e) {}
+}
+function saveTradeState() {
+  try { localStorage.setItem('mkt_trades', JSON.stringify({trades:TS.trades, totalVol:TS.totalVol, totalComm:TS.totalComm, wallet:TS.wallet})); } catch(e) {}
+}
+loadTradeState();
+
+function rTrade() {
+  var gate  = g('tradeVipGate');
+  var panel = g('tradePanel');
+  if (!S.isVIP) {
+    if (gate)  gate.style.display  = 'block';
+    if (panel) panel.style.display = 'none';
+    return;
+  }
+  if (gate)  gate.style.display  = 'none';
+  if (panel) panel.style.display = 'block';
+  renderWallet();
+  if (TS.wallet) { renderSwapCard(); renderTradeHistory(); renderCommSummary(); }
+}
+
+// ── WALLET ──────────────────────────────────────────────
+function renderWallet() {
+  var wc = g('walletConnected');
+  var wd = g('walletDisconnected');
+  if (!TS.wallet) {
+    if (wc) wc.style.display = 'none';
+    if (wd) wd.style.display = 'block';
+    var sc = g('swapCard'); if (sc) sc.style.display = 'none';
+    var th = g('tradeHistCard'); if (th) th.style.display = 'none';
+    var cs = g('commSummary'); if (cs) cs.style.display = 'none';
+    return;
+  }
+  if (wc) wc.style.display = 'block';
+  if (wd) wd.style.display = 'none';
+  set('walletAddr', TS.wallet.address.slice(0,6)+'...'+TS.wallet.address.slice(-4));
+  set('walletSOL',  TS.wallet.sol.toFixed(3) + ' SOL');
+  set('walletUSDC', '$' + TS.wallet.usdc.toFixed(2));
+}
+
+function connectWallet(provider) {
+  // In production: call window.solana.connect() for Phantom
+  // or window.solflare.connect() for Solflare
+  // Here we simulate with a mock wallet
+  toast('🔗 '+provider.charAt(0).toUpperCase()+provider.slice(1)+' bağlanıyor...');
+  setTimeout(function() {
+    TS.wallet = {
+      address: 'KrAL' + Math.random().toString(36).slice(2,10).toUpperCase() + 'mEME',
+      sol: 2.45 + Math.random() * 10,
+      usdc: 50 + Math.random() * 500,
+      provider: provider
+    };
+    saveTradeState();
+    renderWallet();
+    renderSwapCard();
+    renderTradeHistory();
+    renderCommSummary();
+    toast('✅ Cüzdan bağlandı!');
+    if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+  }, 1200);
+}
+
+function disconnectWallet() {
+  TS.wallet = null;
+  saveTradeState();
+  renderWallet();
+  toast('👋 Cüzdan bağlantısı kesildi');
+}
+
+// ── SWAP CARD ────────────────────────────────────────────
+function renderSwapCard() {
+  var sc = g('swapCard'); if (sc) sc.style.display = 'block';
+  updateTokenDisplay('from', TS.fromToken);
+  updateTokenDisplay('to',   TS.toToken);
+  updateBalanceDisplay();
+  set('swapRate', '—');
+}
+
+function updateTokenDisplay(side, token) {
+  set(side+'TokenIcon', token.icon);
+  set(side+'TokenName', token.sym);
+  set(side+'TokenPrice', priceStr(token.price));
+}
+
+function updateBalanceDisplay() {
+  if (!TS.wallet) return;
+  var fromBal = TS.fromToken.sym === 'SOL' ? TS.wallet.sol.toFixed(3) + ' SOL' :
+                TS.fromToken.sym === 'USDC'? '$'+TS.wallet.usdc.toFixed(2) : '—';
+  var toBal = TS.toToken.sym === 'SOL' ? TS.wallet.sol.toFixed(3) + ' SOL' :
+              TS.toToken.sym === 'USDC'? '$'+TS.wallet.usdc.toFixed(2) : '—';
+  set('fromBal', fromBal);
+  set('toBal', toBal);
+}
+
+function setPct(pct) {
+  if (!TS.wallet) return;
+  var maxAmt = TS.fromToken.sym === 'SOL'  ? TS.wallet.sol  :
+               TS.fromToken.sym === 'USDC' ? TS.wallet.usdc : 1000;
+  var inp = g('fromAmt');
+  if (inp) { inp.value = (maxAmt * pct / 100).toFixed(4); calcSwap(); }
+}
+
+function calcSwap() {
+  var fromInp = g('fromAmt');
+  var amt = parseFloat(fromInp && fromInp.value || '0');
+  if (!amt || amt <= 0) {
+    set('toAmt', '0.00'); set('toUSD', '≈ $0.00');
+    set('fromUSD', '≈ $0.00'); set('swapRate', '—'); set('totalFee', '—');
+    var sb = g('swapBtn'); if (sb) { sb.disabled = true; sb.style.opacity = '0.5'; }
+    return;
+  }
+  var fromUSD = amt * TS.fromToken.price;
+  var totalFeeRate = DEX_FEE + COMMISSION_RATE;
+  var netUSD = fromUSD * (1 - totalFeeRate) * (1 - SLIPPAGE/100);
+  var toAmt = netUSD / TS.toToken.price;
+  set('fromUSD', '≈ $' + fromUSD.toFixed(2));
+  set('toAmt',   toAmt.toFixed(toAmt > 1000 ? 0 : 4));
+  set('toUSD',   '≈ $' + netUSD.toFixed(2));
+  set('swapRate', '1 '+TS.fromToken.sym+' = '+(TS.fromToken.price/TS.toToken.price).toFixed(2)+' '+TS.toToken.sym);
+  var feeUSD = fromUSD * totalFeeRate;
+  set('totalFee', '$'+feeUSD.toFixed(4)+' ('+((totalFeeRate)*100).toFixed(2)+'%)');
+  var sb = g('swapBtn');
+  if (sb) { sb.disabled = false; sb.style.opacity = '1'; }
+}
+
+function setSlippage(val) {
+  SLIPPAGE = val;
+  document.querySelectorAll('[id^="sl-"]').forEach(function(el) {
+    var isActive = el.id === 'sl-'+val;
+    el.style.background = isActive ? 'rgba(255,215,0,0.15)' : 'var(--bg2)';
+    el.style.borderColor = isActive ? 'var(--gold)' : 'var(--border2)';
+    el.style.color = isActive ? 'var(--gold)' : 'var(--text2)';
+    el.style.fontWeight = isActive ? '700' : '400';
+  });
+  calcSwap();
+}
+
+function switchTokens() {
+  var tmp = TS.fromToken; TS.fromToken = TS.toToken; TS.toToken = tmp;
+  updateTokenDisplay('from', TS.fromToken);
+  updateTokenDisplay('to',   TS.toToken);
+  updateBalanceDisplay();
+  var fa = g('fromAmt'); if (fa) fa.value = '';
+  set('toAmt', '0.00'); set('toUSD', '≈ $0.00'); set('fromUSD', '≈ $0.00');
+  var sb = g('swapBtn'); if (sb) { sb.disabled = true; sb.style.opacity = '0.5'; }
+}
+
+// ── EXECUTE SWAP ─────────────────────────────────────────
+function executeSwap() {
+  if (!TS.wallet) { toast('⚠️ Önce cüzdan bağla'); return; }
+  var fromInp = g('fromAmt');
+  var amt = parseFloat(fromInp && fromInp.value || '0');
+  if (!amt || amt <= 0) { toast('⚠️ Miktar gir'); return; }
+  var fromUSD = amt * TS.fromToken.price;
+  var commUSD = fromUSD * COMMISSION_RATE;
+  var dexFeeUSD = fromUSD * DEX_FEE;
+  var netUSD = fromUSD - commUSD - dexFeeUSD;
+  var toAmt = netUSD / TS.toToken.price;
+  var sm = g('swapMsg'); if (sm) sm.textContent = '⏳ İşlem imzalanıyor...';
+  var sb = g('swapBtn'); if (sb) { sb.disabled = true; sb.style.opacity = '0.5'; }
+  if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('heavy');
+  setTimeout(function() {
+    // Simulate tx confirmation
+    var txHash = 'KRL' + Math.random().toString(36).slice(2,12).toUpperCase();
+    var trade = {
+      ts:       Date.now(),
+      from:     TS.fromToken.sym,
+      to:       TS.toToken.sym,
+      fromAmt:  amt,
+      toAmt:    toAmt,
+      fromUSD:  fromUSD,
+      toUSD:    netUSD,
+      commUSD:  commUSD,
+      dexFee:   dexFeeUSD,
+      txHash:   txHash,
+      status:   'confirmed'
+    };
+    TS.trades.unshift(trade);
+    if (TS.trades.length > 50) TS.trades.pop();
+    TS.totalVol  += fromUSD;
+    TS.totalComm += commUSD;
+    // Update wallet balance
+    if (TS.fromToken.sym === 'SOL')  TS.wallet.sol  -= amt;
+    if (TS.fromToken.sym === 'USDC') TS.wallet.usdc -= amt;
+    if (TS.toToken.sym === 'SOL')    TS.wallet.sol  += toAmt;
+    if (TS.toToken.sym === 'USDC')   TS.wallet.usdc += toAmt;
+    // Update admin stats
+    var st = JSON.parse(localStorage.getItem('mkt_admin_stats') || '{}');
+    st.totalSwapVol  = (st.totalSwapVol  || 0) + fromUSD;
+    st.totalCommEarned = (st.totalCommEarned || 0) + commUSD;
+    st.swapCount = (st.swapCount || 0) + 1;
+    localStorage.setItem('mkt_admin_stats', JSON.stringify(st));
+    saveTradeState();
+    if (sm) sm.innerHTML = '✅ İşlem onaylandı! <span style="font-family:\'Share Tech Mono\',monospace;font-size:9px;color:var(--text3)">'+txHash.slice(0,10)+'...</span>';
+    if (sb) { sb.disabled = false; sb.style.opacity = '1'; }
+    if (fromInp) fromInp.value = '';
+    set('toAmt', '0.00'); set('toUSD', '≈ $0.00'); set('fromUSD', '≈ $0.00');
+    renderWallet(); renderTradeHistory(); renderCommSummary();
+    updateBalanceDisplay();
+    toast('✅ '+amt.toFixed(4)+' '+TS.fromToken.sym+' → '+toAmt.toFixed(4)+' '+TS.toToken.sym);
+    if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+    // Auto-add to portfolio
+    if (S.isVIP) addPF(TS.toToken.ca, TS.toToken.sym);
+    setTimeout(function() { if (sm) sm.textContent = ''; }, 5000);
+  }, 2000);
+}
+
+// ── TRADE HISTORY ─────────────────────────────────────────
+function renderTradeHistory() {
+  var thc = g('tradeHistCard'); if (thc) thc.style.display = 'block';
+  var el = g('tradeHist'); if (!el) return;
+  if (!TS.trades.length) {
+    el.innerHTML = '<div style="color:var(--text3);font-size:12px;text-align:center;padding:14px">Henüz işlem yapılmadı</div>';
+    return;
+  }
+  el.innerHTML = TS.trades.slice(0,10).map(function(t) {
+    var pnlColor = t.toUSD >= t.fromUSD ? 'var(--green)' : 'var(--red)';
+    return '<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;margin-bottom:7px">'
+      +'<div style="font-size:20px">💹</div>'
+      +'<div style="flex:1">'
+        +'<div style="font-weight:700;font-size:12px">'+t.from+' → '+t.to+'</div>'
+        +'<div style="font-size:9px;color:var(--text3);font-family:\'Share Tech Mono\',monospace;margin-top:1px">'+t.txHash.slice(0,12)+'...</div>'
+        +'<div style="font-size:9px;color:var(--text3);margin-top:1px">'+new Date(t.ts).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})+'</div>'
+      +'</div>'
+      +'<div style="text-align:right">'
+        +'<div style="font-family:\'Orbitron\',monospace;font-size:11px;font-weight:700">$'+t.fromUSD.toFixed(2)+'</div>'
+        +'<div style="font-size:9px;color:var(--red)">Kom: $'+t.commUSD.toFixed(4)+'</div>'
+        +'<div style="font-size:8px;color:var(--green);margin-top:1px">✅ Onaylandı</div>'
+      +'</div>'
+      +'</div>';
+  }).join('');
+}
+
+function renderCommSummary() {
+  var cs = g('commSummary'); if (cs) cs.style.display = 'block';
+  set('totalTradeVol',  fmt(TS.totalVol));
+  set('totalCommPaid',  '$'+TS.totalComm.toFixed(4));
+  set('tradeCount',     String(TS.trades.length));
+}
+
+// ── TOKEN PICKER ─────────────────────────────────────────
+var tokenPickerActive = 'from';
+function openTokenPicker(side) {
+  tokenPickerActive = side;
+  var modal = g('tokenPickerModal');
+  if (modal) modal.style.display = 'block';
+  filterTokenList();
+}
+function closeTokenPicker() {
+  var modal = g('tokenPickerModal');
+  if (modal) modal.style.display = 'none';
+}
+function filterTokenList() {
+  var search = (g('tokenSearch') && g('tokenSearch').value || '').toLowerCase();
+  var tl = g('tokenList'); if (!tl) return;
+  var filtered = SWAP_TOKENS.filter(function(t) {
+    return !search || t.sym.toLowerCase().includes(search) || t.name.toLowerCase().includes(search) || t.ca.toLowerCase().includes(search);
+  });
+  tl.innerHTML = filtered.map(function(t) {
+    var isSelected = tokenPickerActive === 'from' ? (TS.fromToken.sym === t.sym) : (TS.toToken.sym === t.sym);
+    return '<div class="tr '+(isSelected?'':'')+'" onclick="selectToken(\''+t.sym+'\')" style="'+(isSelected?'border-color:var(--gold);background:rgba(255,215,0,0.04)':'')+'">'
+      +'<div style="font-size:24px;width:34px;text-align:center">'+t.icon+'</div>'
+      +'<div class="t-info"><div class="t-name">'+t.sym+'</div><div class="t-ca">'+t.name+'</div></div>'
+      +'<div class="t-right">'
+        +'<div style="font-family:\'Orbitron\',monospace;font-size:10px">'+priceStr(t.price)+'</div>'
+        +(isSelected ? '<div style="font-size:9px;color:var(--gold)">Seçili ✓</div>' : '')
+      +'</div></div>';
+  }).join('');
+}
+function selectToken(sym) {
+  var token = SWAP_TOKENS.find(function(t) { return t.sym === sym; });
+  if (!token) return;
+  if (tokenPickerActive === 'from') TS.fromToken = token;
+  else TS.toToken = token;
+  closeTokenPicker();
+  updateTokenDisplay('from', TS.fromToken);
+  updateTokenDisplay('to',   TS.toToken);
+  updateBalanceDisplay();
+  var fa = g('fromAmt'); if (fa) fa.value = '';
+  set('toAmt', '0.00'); set('toUSD', '≈ $0.00');
 }
 
 function init(){
