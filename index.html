@@ -579,6 +579,20 @@ body::after{content:'';position:fixed;inset:0;
   </div>
   <div id="vipab" style="display:none" class="card c-green"><div style="display:flex;align-items:center;gap:12px"><div style="font-size:32px">🏆</div><div><div style="font-weight:700;color:var(--green);font-size:14px">✅ VIP Üyesin!</div><div style="font-size:11px;color:var(--text2);margin-top:2px" id="vipex">Bitiş: —</div></div></div></div>
   <div class="card c-gold"><div class="st">📦 Planlar</div><div id="plans"></div><button class="star-btn" id="vpbtn" onclick="buyVIP()">⭐ VIP'E GEÇ</button><div style="text-align:center;margin-top:8px;font-size:9px;color:var(--text3)">Telegram Stars · Anında aktif · İstediğin zaman iptal</div></div>
+
+  <!-- PROMO CODE CARD -->
+  <div class="card c-lime" id="promoCard">
+    <div class="st">🎟️ Promosyon Kodu</div>
+    <div style="font-size:11px;color:var(--text2);margin-bottom:10px">Admin tarafından verilmiş ücretsiz VIP kodun varsa gir!</div>
+    <div style="display:flex;gap:8px">
+      <div class="iw" style="margin-bottom:0;flex:1">
+        <input type="text" id="promoInput" placeholder="KRAL-XXXX-YYYY" style="text-transform:uppercase;letter-spacing:2px"/>
+      </div>
+      <button class="btn blime" style="width:auto;padding:12px 16px;font-size:10px" onclick="applyPromo()">UYGULA</button>
+    </div>
+    <div id="promoMsg" style="font-size:10px;margin-top:8px;min-height:16px"></div>
+  </div>
+
   <div class="card"><div class="st">🏆 VIP Özellikleri</div><div class="vff" id="vfl"></div></div>
   <div class="card c-purple" style="cursor:pointer" onclick="nav('referral')"><div style="display:flex;align-items:center;gap:10px"><div style="font-size:26px">🔗</div><div><div style="font-weight:700;font-size:13px">VIP + Referans = Çift Kazanç</div><div style="font-size:10px;color:var(--text2);margin-top:2px">Her getirdiğin VIP üyeden 30–150 ⭐ →</div></div></div></div>
 </div>
@@ -1508,6 +1522,60 @@ function rVIP(){
   if(vpbtn){if(S.isVIP){vpbtn.textContent='✅ VIP Aktif';vpbtn.style.opacity='0.6';vpbtn.style.cursor='default';}else{vpbtn.innerHTML='⭐ '+PLANS[S.plan].stars+' STAR İLE VIP OL';vpbtn.style.opacity='1';vpbtn.style.cursor='pointer';}}
 }
 function selPlan(id){S.plan=id;save();document.querySelectorAll('.plan-c').forEach(function(el,i){el.classList.toggle('active',i+1===id);});var vpbtn=g('vpbtn');if(vpbtn&&!S.isVIP)vpbtn.innerHTML='⭐ '+PLANS[id].stars+' STAR İLE VIP OL';}
+
+// ══ PROMO CODE ENGINE ══
+// Admin panel generates these codes, stored in localStorage under 'mkt_promocodes'
+// Format: { code: { days, used, maxUse, createdAt, label } }
+var BUILTIN_PROMOS={
+  'KRAL-WELCOME':{days:7,maxUse:999,label:'Hoş Geldin 7 Gün'},
+  'KRAL-BETA30': {days:30,maxUse:50,label:'Beta Test 30 Gün'},
+  'KRAL-LAUNCH': {days:14,maxUse:100,label:'Lansman 14 Gün'}
+};
+function getPromoCodes(){
+  try{return Object.assign({},BUILTIN_PROMOS,JSON.parse(localStorage.getItem('mkt_promos')||'{}'));}
+  catch(e){return BUILTIN_PROMOS;}
+}
+function applyPromo(){
+  var inp=g('promoInput');var msg=g('promoMsg');
+  if(!inp||!msg)return;
+  var code=inp.value.trim().toUpperCase();
+  if(!code){msg.textContent='⚠️ Kod girin';msg.style.color='var(--gold2)';return;}
+  // Check if already used this code
+  var usedCodes=JSON.parse(localStorage.getItem('mkt_used_promos')||'[]');
+  if(usedCodes.indexOf(code)!==-1){msg.textContent='❌ Bu kodu zaten kullandınız';msg.style.color='var(--red)';return;}
+  var promos=getPromoCodes();
+  var promo=promos[code];
+  if(!promo){msg.textContent='❌ Geçersiz kod. Tekrar kontrol edin.';msg.style.color='var(--red)';return;}
+  // Check use limit
+  var useCount=parseInt(localStorage.getItem('mkt_promo_use_'+code)||'0');
+  if(promo.maxUse&&useCount>=promo.maxUse){msg.textContent='❌ Bu kod kullanım limitine ulaştı';msg.style.color='var(--red)';return;}
+  // Check expiry
+  if(promo.expiresAt&&Date.now()>promo.expiresAt){msg.textContent='❌ Bu kodun süresi dolmuş';msg.style.color='var(--red)';return;}
+  // Apply!
+  localStorage.setItem('mkt_promo_use_'+code,String(useCount+1));
+  usedCodes.push(code);localStorage.setItem('mkt_used_promos',JSON.stringify(usedCodes));
+  // Update global use count (for admin stats)
+  var adminStats=JSON.parse(localStorage.getItem('mkt_admin_stats')||'{}');
+  adminStats.promoUses=(adminStats.promoUses||0)+1;
+  adminStats.lastPromo={code:code,ts:Date.now()};
+  localStorage.setItem('mkt_admin_stats',JSON.stringify(adminStats));
+  msg.textContent='✅ Kod geçerli! '+promo.label+' VIP aktifleştiriliyor...';msg.style.color='var(--green)';
+  if(tg&&tg.HapticFeedback)tg.HapticFeedback.notificationOccurred('success');
+  setTimeout(function(){activateVIP(promo.days);inp.value='';},1000);
+}
+// Admin trigger: type KRAL-ADMIN in promo box
+function checkAdminTrigger(val){
+  if(val.toUpperCase()==='KRAL-ADMIN'){
+    var pw=prompt('Admin Şifresi:');
+    if(pw&&pw===getAdminPass()){openAdmin();}
+    else if(pw){toast('❌ Hatalı şifre');}
+    var inp=g('promoInput');if(inp)inp.value='';
+    return true;
+  }
+  return false;
+}
+function getAdminPass(){try{return localStorage.getItem('mkt_admin_pw')||'KRAL2024';}catch(e){return 'KRAL2024';}}
+
 function buyVIP(){
   if(S.isVIP){toast('✅ Zaten VIP üyesin!');return;}
   var p=PLANS[S.plan];
@@ -1516,6 +1584,10 @@ function buyVIP(){
 }
 function activateVIP(days){
   S.isVIP=true;S.vipEx=Date.now()+days*86400000;save();
+  // Admin stat tracking
+  var st=JSON.parse(localStorage.getItem('mkt_admin_stats')||'{}');
+  st.totalVIP=(st.totalVIP||0)+1;st.lastVIP=Date.now();
+  localStorage.setItem('mkt_admin_stats',JSON.stringify(st));
   rVIP();qUI();
   toast('🎉 VIP aktif! Tüm özellikler açıldı.');
   if(tg&&tg.HapticFeedback)tg.HapticFeedback.notificationOccurred('success');
@@ -1545,6 +1617,98 @@ function tickMkt(){
 }
 
 // ══ INIT ══
+// ══ ADMIN PANEL OPENER ══
+function openAdmin(){
+  // Opens admin dashboard in same window (or new tab)
+  var adminUrl=localStorage.getItem('mkt_admin_url');
+  if(adminUrl){if(tg&&tg.openLink)tg.openLink(adminUrl);else window.open(adminUrl,'_blank');}
+  else{
+    // Inline admin panel
+    showInlineAdmin();
+  }
+}
+function showInlineAdmin(){
+  var overlay=document.createElement('div');
+  overlay.style.cssText='position:fixed;inset:0;background:rgba(5,5,8,0.99);z-index:9999;overflow-y:auto;padding:16px;';
+  overlay.innerHTML='<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">'+
+    '<div style="font-family:\'Orbitron\',monospace;font-size:14px;font-weight:900;color:var(--gold)">👑 ADMIN PANELİ</div>'+
+    '<button onclick="this.parentElement.parentElement.remove()" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:6px 12px;border-radius:8px;cursor:pointer;font-family:\'Orbitron\',monospace;font-size:10px">✕ KAPAT</button>'+
+    '</div>'+buildAdminHTML();
+  document.body.appendChild(overlay);
+}
+function buildAdminHTML(){
+  var stats=JSON.parse(localStorage.getItem('mkt_admin_stats')||'{}');
+  var promos=JSON.parse(localStorage.getItem('mkt_promos')||'{}');
+  var allPromos=Object.assign({},BUILTIN_PROMOS,promos);
+  var promoList=Object.keys(allPromos).map(function(k){
+    var p=allPromos[k];
+    var useCount=parseInt(localStorage.getItem('mkt_promo_use_'+k)||'0');
+    return '<div style="display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;margin-bottom:6px">'+
+      '<div style="flex:1"><div style="font-family:\'Orbitron\',monospace;font-size:11px;color:var(--gold);font-weight:700">'+k+'</div>'+
+      '<div style="font-size:9px;color:var(--text2);margin-top:2px">'+p.label+' · '+p.days+' gün · Kullanım: '+useCount+'/'+(p.maxUse||'∞')+'</div></div>'+
+      '<button onclick="deletePromo(\''+k+'\')" style="background:rgba(255,51,102,0.1);border:1px solid rgba(255,51,102,0.3);color:var(--red);padding:4px 8px;border-radius:6px;cursor:pointer;font-size:9px">SİL</button>'+
+      '</div>';
+  }).join('');
+  return '<div style="background:var(--card);border:1px solid rgba(255,215,0,0.2);border-radius:16px;padding:14px;margin-bottom:12px">'+
+    '<div style="font-family:\'Orbitron\',monospace;font-size:10px;color:var(--gold2);letter-spacing:2px;margin-bottom:10px">📊 GENEL İSTATİSTİKLER</div>'+
+    '<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">'+
+    '<div style="background:var(--bg3);border-radius:10px;padding:10px;text-align:center"><div style="font-family:\'Orbitron\',monospace;font-size:18px;font-weight:900;color:var(--gold)">'+(stats.totalVIP||0)+'</div><div style="font-size:8px;color:var(--text3);letter-spacing:1px">VIP ÜYE</div></div>'+
+    '<div style="background:var(--bg3);border-radius:10px;padding:10px;text-align:center"><div style="font-family:\'Orbitron\',monospace;font-size:18px;font-weight:900;color:var(--green)">'+(stats.totalRefs||0)+'</div><div style="font-size:8px;color:var(--text3);letter-spacing:1px">REFERANS</div></div>'+
+    '<div style="background:var(--bg3);border-radius:10px;padding:10px;text-align:center"><div style="font-family:\'Orbitron\',monospace;font-size:18px;font-weight:900;color:var(--blue)">'+(stats.totalAnalysis||0)+'</div><div style="font-size:8px;color:var(--text3);letter-spacing:1px">ANALİZ</div></div>'+
+    '<div style="background:var(--bg3);border-radius:10px;padding:10px;text-align:center"><div style="font-family:\'Orbitron\',monospace;font-size:18px;font-weight:900;color:var(--purple)">'+(stats.promoUses||0)+'</div><div style="font-size:8px;color:var(--text3);letter-spacing:1px">PROMO KULLANIM</div></div>'+
+    '</div></div>'+
+    '<div style="background:var(--card);border:1px solid rgba(170,255,0,0.2);border-radius:16px;padding:14px;margin-bottom:12px">'+
+    '<div style="font-family:\'Orbitron\',monospace;font-size:10px;color:var(--lime);letter-spacing:2px;margin-bottom:10px">🎟️ PROMO KOD OLUŞTUR</div>'+
+    '<div style="display:flex;flex-direction:column;gap:8px">'+
+    '<input id="adm-code" placeholder="KOD ADI (örn: KRAL-TESTSIZ)" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:\'Share Tech Mono\',monospace;font-size:12px;outline:none;text-transform:uppercase"/>'+
+    '<input id="adm-label" placeholder="Açıklama (örn: Arkadaş daveti)" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:\'Rajdhani\',sans-serif;font-size:12px;outline:none"/>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+
+    '<input id="adm-days" type="number" placeholder="VIP gün (örn: 30)" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:\'Orbitron\',monospace;font-size:12px;outline:none"/>'+
+    '<input id="adm-maxuse" type="number" placeholder="Max kullanım" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:\'Orbitron\',monospace;font-size:12px;outline:none"/>'+
+    '</div>'+
+    '<button onclick="createPromoCode()" style="background:linear-gradient(135deg,var(--lime),#88cc00);color:#000;border:none;padding:12px;border-radius:10px;font-family:\'Orbitron\',monospace;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:1px">+ PROMO KOD OLUŞTUR</button>'+
+    '</div></div>'+
+    '<div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:14px;margin-bottom:12px">'+
+    '<div style="font-family:\'Orbitron\',monospace;font-size:10px;color:var(--gold2);letter-spacing:2px;margin-bottom:10px">📋 AKTİF PROMO KODLAR</div>'+
+    (promoList||'<div style="color:var(--text3);font-size:12px;text-align:center;padding:16px">Henüz kod yok</div>')+
+    '</div>'+
+    '<div style="background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:14px;margin-bottom:12px">'+
+    '<div style="font-family:\'Orbitron\',monospace;font-size:10px;color:var(--gold2);letter-spacing:2px;margin-bottom:10px">🔐 GÜVENLİK</div>'+
+    '<div style="display:flex;flex-direction:column;gap:8px">'+
+    '<input id="adm-newpw" type="password" placeholder="Yeni admin şifresi" style="background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px;color:var(--text);font-family:\'Share Tech Mono\',monospace;font-size:12px;outline:none"/>'+
+    '<button onclick="changeAdminPw()" style="background:transparent;border:1px solid var(--gold);color:var(--gold);padding:10px;border-radius:8px;font-family:\'Orbitron\',monospace;font-size:10px;cursor:pointer">ŞİFREYİ DEĞİŞTİR</button>'+
+    '</div></div>';
+}
+function createPromoCode(){
+  var code=(document.getElementById('adm-code')||{}).value||'';
+  var label=(document.getElementById('adm-label')||{}).value||'';
+  var days=parseInt((document.getElementById('adm-days')||{}).value||'0');
+  var maxUse=parseInt((document.getElementById('adm-maxuse')||{}).value||'999');
+  code=code.toUpperCase().trim();
+  if(!code||!days){toast('⚠️ Kod adı ve gün sayısı gerekli');return;}
+  var promos=JSON.parse(localStorage.getItem('mkt_promos')||'{}');
+  promos[code]={days:days,maxUse:maxUse,label:label||code,createdAt:Date.now()};
+  localStorage.setItem('mkt_promos',JSON.stringify(promos));
+  // Refresh inline admin
+  var overlay=document.querySelector('[style*="z-index: 9999"]')||document.querySelector('[style*="z-index:9999"]');
+  if(overlay){var content=overlay.querySelector('div:not(:first-child)');if(content)content.innerHTML=buildAdminHTML();}
+  toast('✅ Promo kod oluşturuldu: '+code);
+}
+function deletePromo(code){
+  var promos=JSON.parse(localStorage.getItem('mkt_promos')||'{}');
+  delete promos[code];
+  localStorage.setItem('mkt_promos',JSON.stringify(promos));
+  var overlay=document.querySelector('[style*="z-index: 9999"]')||document.querySelector('[style*="z-index:9999"]');
+  if(overlay){var content=overlay.querySelector('div:not(:first-child)');if(content)content.innerHTML=buildAdminHTML();}
+  toast('🗑️ Kod silindi: '+code);
+}
+function changeAdminPw(){
+  var inp=document.getElementById('adm-newpw');
+  if(!inp||!inp.value.trim()){toast('⚠️ Yeni şifre girin');return;}
+  localStorage.setItem('mkt_admin_pw',inp.value.trim());
+  inp.value='';toast('✅ Şifre değiştirildi');
+}
+
 function init(){
   rVIP();qUI();rHome();rAnalyze();
   // Pre-load top10 and new coins silently
@@ -1560,7 +1724,29 @@ function init(){
   setInterval(function(){if(S.page==='whale')rWhale();},15000);
   setInterval(function(){if(S.page==='newcoins'){S.newts=0;rNew();}},90000);
   setInterval(function(){if(S.page==='top10'){S.top10ts=0;rTop10();}},300000);
-  // Handle ref param
+  // Promo input listener
+  var pi=g('promoInput');
+  if(pi){
+    pi.addEventListener('keyup',function(e){
+      var val=pi.value.trim();
+      if(e.key==='Enter'){
+        if(!checkAdminTrigger(val))applyPromo();
+      } else {
+        checkAdminTrigger(val);
+      }
+    });
+    pi.addEventListener('input',function(){
+      pi.value=pi.value.toUpperCase();
+      var msg=g('promoMsg');if(msg)msg.textContent='';
+    });
+  }
+  // Track analysis count for admin
+  var origAna=window.ana;
+  if(origAna){
+    window._anaOrig=origAna;
+    // stats tracked inside ana() call
+  }
+
   var startApp=(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.start_param)||'';
   if(startApp.indexOf('ref_')===0){var ic=startApp.replace('ref_','');if(!localStorage.getItem('mkt5_ref_from')){localStorage.setItem('mkt5_ref_from',ic);setTimeout(function(){toast('🔗 Referans kodu: '+ic);},600);}}
   if(startApp==='vip')setTimeout(function(){nav('vip');},300);
