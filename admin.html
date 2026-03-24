@@ -626,6 +626,8 @@ function renderDashboard(){
     {v:totalRefs,l:'Referans',d:'+8 bu hafta',up:true,c:'var(--purple)'},
     {v:Object.keys(promos).length,l:'Aktif Promo',d:'',up:null,c:'var(--lime)'},
     {v:stats.promoUses||0,l:'Promo Kullanım',d:'',up:null,c:'var(--pink)'},
+    {v:'$'+((stats.totalSwapVol||0)/1000).toFixed(1)+'K',l:'Swap Hacmi',d:'',up:null,c:'var(--cyan)'},
+    {v:'$'+((stats.totalCommEarned||0)).toFixed(2),l:'Komisyon Geliri',d:'',up:null,c:'var(--green)'},
   ].map(function(s){
     return '<div class="stat-card"><div class="sc-val" style="color:'+s.c+'">'+s.v+'</div><div class="sc-lbl">'+s.l+'</div>'+(s.d?'<div class="sc-delta '+(s.up?'up':'dn')+'">'+s.d+'</div>':'')+'</div>';
   }).join('');
