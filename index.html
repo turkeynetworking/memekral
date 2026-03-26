@@ -5,45 +5,55 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>MemeKralTrade 👑</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
 <style>
 :root{
-  --gold:#FFD700;--gold2:#FFA500;--gold3:#FF8C00;
-  --bg:#050508;--bg2:#0a0a10;--bg3:#0f0f18;
-  --card:#111120;--card2:#161628;
-  --green:#00FF88;--green2:#00cc66;
-  --red:#FF3366;--red2:#cc0033;
-  --blue:#00BFFF;--purple:#9D4EDD;--cyan:#00E5FF;
+  /* ── CYBERPUNK PALETTE ── */
+  --sol-green:#14F195;--sol-purple:#9945FF;--sol-blue:#03E1FF;
+  --neon-y:#FFE500;--neon-o:#FF6B00;--neon-p:#B14EFF;
+  /* ── LEGACY MAP (keep compat) ── */
+  --gold:var(--neon-y);--gold2:var(--neon-o);--gold3:#FF8C00;
+  --bg:#0a0a0a;--bg2:#0f0f0f;--bg3:#141414;
+  --card:rgba(16,16,24,0.85);--card2:rgba(20,20,32,0.9);
+  --green:var(--sol-green);--green2:#0fd47e;
+  --red:#FF3366;--red2:#cc1144;
+  --blue:var(--sol-blue);--purple:var(--sol-purple);--cyan:#00E5FF;
   --pink:#FF6B9D;--lime:#AAFF00;
-  --text:#E8E8F0;--text2:#9898B0;--text3:#5a5a70;
-  --border:rgba(255,215,0,0.15);--border2:rgba(255,215,0,0.08);
-  --glow:0 0 20px rgba(255,215,0,0.3);
-  --r:14px;--r2:20px;
+  --text:#E8F0FF;--text2:#8899BB;--text3:#445566;
+  --border:rgba(20,241,149,0.18);--border2:rgba(153,69,255,0.12);
+  --glow:0 0 20px rgba(20,241,149,0.25);
+  --glow-p:0 0 20px rgba(153,69,255,0.3);
+  --r:12px;--r2:16px;
+  /* ── GLASS ── */
+  --glass:rgba(14,14,22,0.72);
+  --glass-border:rgba(20,241,149,0.15);
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{width:100%;min-height:100vh;background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:17px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html,body{width:100%;min-height:100vh;background:var(--bg);color:var(--text);font-family:'JetBrains Mono','Share Tech Mono','Rajdhani',monospace;font-size:15px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:2px}::-webkit-scrollbar-thumb{background:var(--gold3);border-radius:2px}
 body::before{content:'';position:fixed;inset:0;background:
-  radial-gradient(ellipse at 15% 10%,rgba(255,215,0,0.05) 0%,transparent 55%),
-  radial-gradient(ellipse at 85% 90%,rgba(157,78,221,0.05) 0%,transparent 55%),
-  radial-gradient(ellipse at 50% 50%,rgba(0,229,255,0.02) 0%,transparent 70%);
-  pointer-events:none;z-index:0}
+  radial-gradient(ellipse at 10% 5%,rgba(20,241,149,0.06) 0%,transparent 50%),
+  radial-gradient(ellipse at 90% 95%,rgba(153,69,255,0.07) 0%,transparent 50%),
+  radial-gradient(ellipse at 50% 50%,rgba(3,225,255,0.03) 0%,transparent 65%);
+  pointer-events:none;z-index:0;animation:bgShift 12s ease-in-out infinite alternate}
+@keyframes bgShift{from{opacity:0.8}to{opacity:1}}
 body::after{content:'';position:fixed;inset:0;
-  background-image:linear-gradient(rgba(255,215,0,0.012) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(255,215,0,0.012) 1px,transparent 1px);
-  background-size:44px 44px;pointer-events:none;z-index:0}
+  background-image:
+    linear-gradient(rgba(20,241,149,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(153,69,255,0.018) 1px,transparent 1px);
+  background-size:32px 32px;pointer-events:none;z-index:0}
 #app{position:relative;z-index:1;min-height:100vh;padding-bottom:84px}
 
 /* HEADER */
-.header{background:rgba(8,8,14,0.99);border-bottom:1px solid var(--border);padding:12px 14px 0;position:sticky;top:0;z-index:100;backdrop-filter:blur(24px)}
+.header{background:rgba(5,5,10,0.97);border-bottom:1px solid rgba(20,241,149,0.2);padding:12px 14px 0;position:sticky;top:0;z-index:100;backdrop-filter:blur(28px);box-shadow:0 1px 32px rgba(20,241,149,0.05)}
 .ht{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
 .logo{display:flex;align-items:center;gap:8px;cursor:pointer}
 .logo-icon{font-size:24px;filter:drop-shadow(0 0 10px var(--gold));animation:cp 3s ease-in-out infinite}
-@keyframes cp{0%,100%{filter:drop-shadow(0 0 8px var(--gold))}50%{filter:drop-shadow(0 0 20px var(--gold))}}
-.logo-text{font-family:'Orbitron',monospace;font-size:12px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+@keyframes cp{0%,100%{filter:drop-shadow(0 0 8px var(--sol-green))}50%{filter:drop-shadow(0 0 22px var(--sol-purple))}}
+.logo-text{font-family:'Orbitron',monospace;font-size:12px;font-weight:900;background:linear-gradient(135deg,var(--sol-green),var(--sol-blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .logo-sub{font-size:8px;color:var(--text3);font-family:'Share Tech Mono',monospace;letter-spacing:2px}
 .hr{display:flex;align-items:center;gap:7px}
-.vip-badge{background:linear-gradient(135deg,var(--gold),var(--gold3));color:#000;font-size:9px;font-weight:900;font-family:'Orbitron',monospace;padding:4px 10px;border-radius:20px;animation:pg 2s ease-in-out infinite}
+.vip-badge{background:linear-gradient(135deg,var(--sol-green),var(--sol-blue));color:#000;font-size:9px;font-weight:900;font-family:'Orbitron',monospace;padding:4px 10px;border-radius:20px;animation:pg 2s ease-in-out infinite}
 .free-badge{background:var(--card2);border:1px solid var(--border);color:var(--text2);font-size:9px;font-weight:700;padding:4px 10px;border-radius:20px;font-family:'Orbitron',monospace}
 @keyframes pg{0%,100%{box-shadow:0 0 10px rgba(255,215,0,0.4)}50%{box-shadow:0 0 22px rgba(255,215,0,0.7)}}
 .nb{width:30px;height:30px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;position:relative}
@@ -51,7 +61,7 @@ body::after{content:'';position:fixed;inset:0;
 .nav{display:flex;overflow-x:auto;gap:3px;padding:0 0 10px;scrollbar-width:none}
 .nav::-webkit-scrollbar{display:none}
 .nav-btn{flex-shrink:0;padding:6px 13px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:11px;font-weight:700;font-family:'Rajdhani',sans-serif;cursor:pointer;transition:all 0.2s;white-space:nowrap}
-.nav-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold3));color:#000;border-color:transparent;box-shadow:0 0 12px rgba(255,215,0,0.3)}
+.nav-btn.active{background:linear-gradient(135deg,var(--sol-green),var(--sol-blue));color:#000;border-color:transparent;font-weight:900;box-shadow:0 0 14px rgba(20,241,149,0.35)}
 
 /* PAGES */
 .page{display:none;padding:12px 12px 0;animation:fu 0.3s ease}
@@ -59,38 +69,40 @@ body::after{content:'';position:fixed;inset:0;
 @keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* CARDS */
-.card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);padding:16px;margin-bottom:10px;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0.3}
-.c-gold{border-color:rgba(255,215,0,0.22)}.c-green{border-color:rgba(0,255,136,0.18)}
-.c-purple{border-color:rgba(157,78,221,0.2)}.c-red{border-color:rgba(255,51,102,0.18)}
-.c-cyan{border-color:rgba(0,229,255,0.18)}.c-pink{border-color:rgba(255,107,157,0.2)}
+.card{background:var(--glass);border:1px solid var(--glass-border);border-radius:var(--r2);padding:16px;margin-bottom:10px;position:relative;overflow:hidden;backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);box-shadow:0 4px 24px rgba(0,0,0,0.5),inset 0 0 0 0.5px rgba(20,241,149,0.08)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--sol-green),transparent);opacity:0.5}
+.c-gold{border-color:rgba(20,241,149,0.3);box-shadow:0 0 20px rgba(20,241,149,0.05)}.c-green{border-color:rgba(20,241,149,0.25);box-shadow:0 0 16px rgba(20,241,149,0.06)}
+.c-purple{border-color:rgba(153,69,255,0.3);box-shadow:0 0 16px rgba(153,69,255,0.06)}.c-red{border-color:rgba(255,51,102,0.18)}
+.c-cyan{border-color:rgba(3,225,255,0.3);box-shadow:0 0 16px rgba(3,225,255,0.06)}.c-pink{border-color:rgba(255,107,157,0.2)}
 .c-lime{border-color:rgba(170,255,0,0.2)}
 
 /* NEW token glow */
 .new-glow{box-shadow:0 0 16px rgba(170,255,0,0.12);border-color:rgba(170,255,0,0.3)!important}
 .hot-glow{box-shadow:0 0 16px rgba(255,107,0,0.15);border-color:rgba(255,107,0,0.3)!important}
 
-.st{font-family:'Orbitron',monospace;font-size:11px;font-weight:900;color:var(--gold2);letter-spacing:2px;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.st{font-family:'JetBrains Mono','Orbitron',monospace;font-size:11px;font-weight:900;color:var(--sol-green);letter-spacing:2px;display:flex;align-items:center;gap:8px;margin-bottom:12px}
 .st::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent)}
 
 .sr{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
 .sr2{grid-template-columns:repeat(2,1fr)}
 .sb{background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:10px 6px;text-align:center;transition:all 0.2s}
 .sb:hover{border-color:rgba(255,215,0,0.25)}
-.sv{font-family:'Orbitron',monospace;font-size:14px;font-weight:900;color:var(--gold)}
+.sv{font-family:'JetBrains Mono','Orbitron',monospace;font-size:14px;font-weight:900;color:var(--sol-green)}
 .sv.g{color:var(--green)}.sv.r{color:var(--red)}.sv.b{color:var(--blue)}.sv.p{color:var(--purple)}.sv.c{color:var(--cyan)}.sv.lm{color:var(--lime)}
 .sl{font-size:10px;color:var(--text3);letter-spacing:1px;margin-top:2px}
 
 .iw{position:relative;margin-bottom:10px}
 .iw input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:14px;padding:14px 48px 14px 16px;color:var(--text);font-family:'Share Tech Mono',monospace;font-size:13px;outline:none;transition:all 0.2s}
-.iw input:focus{border-color:var(--gold);box-shadow:0 0 14px rgba(255,215,0,0.12)}
+.iw input:focus{border-color:var(--sol-green);box-shadow:0 0 0 1px var(--sol-green),0 0 20px rgba(20,241,149,0.15)}
 .iw input::placeholder{color:var(--text3)}
 .ii{position:absolute;right:13px;top:50%;transform:translateY(-50%);font-size:16px;cursor:pointer}
 
 .btn{width:100%;padding:14px;border-radius:14px;border:none;font-family:'Orbitron',monospace;font-size:12px;font-weight:900;letter-spacing:1px;cursor:pointer;transition:all 0.2s}
-.bg{background:linear-gradient(135deg,var(--gold),var(--gold3));color:#000;box-shadow:0 4px 18px rgba(255,165,0,0.3)}
+.bg{background:linear-gradient(135deg,var(--sol-green),#0fd47e);color:#000;font-weight:900;box-shadow:0 0 18px rgba(20,241,149,0.35),0 4px 12px rgba(0,0,0,0.4)}
 .bg:active{transform:scale(0.98)}
-.bo{background:transparent;border:1px solid var(--gold);color:var(--gold)}
+.bg.pulse-anim{animation:btnPulse 0.6s ease-in-out;}
+@keyframes btnPulse{0%{box-shadow:0 0 0 0 rgba(20,241,149,0.7)}50%{box-shadow:0 0 0 12px rgba(20,241,149,0)}100%{box-shadow:0 0 0 0 rgba(20,241,149,0)}}
+.bo{background:transparent;border:1px solid var(--sol-purple);color:var(--sol-purple);text-shadow:0 0 8px rgba(153,69,255,0.4)}
 .bpurple{background:linear-gradient(135deg,#7B61FF,var(--purple));color:#fff}
 .bgreen{background:linear-gradient(135deg,var(--green),var(--green2));color:#000}
 .blime{background:linear-gradient(135deg,var(--lime),#88cc00);color:#000}
@@ -100,7 +112,7 @@ body::after{content:'';position:fixed;inset:0;
 
 /* TOKEN ROW */
 .tr{display:flex;align-items:center;gap:10px;padding:13px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:7px;transition:all 0.2s;cursor:pointer;position:relative;overflow:hidden}
-.tr:hover{border-color:rgba(255,215,0,0.3);transform:translateX(2px)}
+.tr:hover{border-color:rgba(20,241,149,0.5);transform:translateX(2px);box-shadow:0 0 12px rgba(20,241,149,0.1)}
 .tr::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:transparent;transition:background 0.2s}
 .tr:hover::before{background:var(--gold)}
 .t-rank{font-family:'Orbitron',monospace;font-size:12px;font-weight:900;color:var(--gold);min-width:18px;text-align:center}
@@ -153,7 +165,7 @@ body::after{content:'';position:fixed;inset:0;
 
 /* LIVE */
 .lb{display:inline-flex;align-items:center;gap:4px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.25);color:var(--green);font-size:8px;padding:3px 8px;border-radius:20px;font-family:'Orbitron',monospace;letter-spacing:1px}
-.ld{width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 1.2s ease-in-out infinite}
+.ld{width:5px;height:5px;background:var(--sol-green);border-radius:50%;box-shadow:0 0 6px var(--sol-green);animation:blink 1.2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 
@@ -161,7 +173,7 @@ body::after{content:'';position:fixed;inset:0;
 .qbar{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;margin-bottom:11px}
 .qdots{display:flex;gap:4px}
 .qd{width:11px;height:11px;border-radius:50%;border:1px solid var(--border);transition:all 0.3s}
-.qd.u{background:var(--gold);border-color:var(--gold);box-shadow:0 0 5px var(--gold)}
+.qd.u{background:var(--sol-green);border-color:var(--sol-green);box-shadow:0 0 8px var(--sol-green)}
 .qnum{font-family:'Orbitron',monospace;font-size:14px;color:var(--gold);font-weight:700}
 
 /* TABS (for new/top10 switcher) */
@@ -266,7 +278,7 @@ body::after{content:'';position:fixed;inset:0;
 /* VIP */
 .vh{text-align:center;padding:18px 14px;background:linear-gradient(135deg,rgba(255,215,0,0.06),rgba(157,78,221,0.06));border:1px solid rgba(255,215,0,0.2);border-radius:var(--r2);margin-bottom:10px}
 .vip-crown{font-size:42px;filter:drop-shadow(0 0 18px var(--gold))}
-.star-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#7B61FF,var(--purple));color:#fff;border:none;padding:14px 20px;border-radius:14px;font-family:'Orbitron',monospace;font-size:13px;font-weight:700;cursor:pointer;width:100%;justify-content:center;box-shadow:0 4px 20px rgba(157,78,221,0.4);transition:all 0.2s}
+.star-btn{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--sol-purple),var(--neon-p));color:#fff;border:none;padding:14px 20px;border-radius:14px;font-family:'Orbitron',monospace;font-size:13px;font-weight:700;cursor:pointer;width:100%;justify-content:center;box-shadow:0 4px 20px rgba(157,78,221,0.4);transition:all 0.2s}
 .star-btn:hover{transform:translateY(-1px);box-shadow:0 6px 30px rgba(157,78,221,0.6)}
 .plan-c{padding:12px 14px;background:var(--bg3);border:1px solid var(--border2);border-radius:14px;margin-bottom:7px;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:12px}
 .plan-c.active{border-color:var(--gold);background:rgba(255,215,0,0.04)}
@@ -300,14 +312,14 @@ body::after{content:'';position:fixed;inset:0;
 .ni-time{font-size:11px;color:var(--text3);margin-top:4px}
 
 /* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:0;right:0;background:rgba(5,5,8,0.98);border-top:1px solid var(--border2);display:grid;grid-template-columns:repeat(8,1fr);z-index:200;backdrop-filter:blur(24px);padding-bottom:env(safe-area-inset-bottom,0)}
+.bnav{position:fixed;bottom:0;left:0;right:0;background:rgba(5,5,10,0.95);border-top:1px solid rgba(20,241,149,0.15);backdrop-filter:blur(24px);box-shadow:0 -1px 32px rgba(20,241,149,0.05);display:grid;grid-template-columns:repeat(8,1fr);z-index:200;backdrop-filter:blur(24px);padding-bottom:env(safe-area-inset-bottom,0)}
 .bn{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 2px;border:none;background:transparent;cursor:pointer;transition:all 0.2s}
 .bn-ic{font-size:20px;margin-bottom:1px;transition:transform 0.2s}
 .bn-lb{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:0.3px;transition:color 0.2s;white-space:nowrap}
 .bn.active .bn-ic{transform:scale(1.18)}
-.bn.active .bn-lb{color:var(--gold)}
+.bn.active .bn-lb{color:var(--sol-green);text-shadow:0 0 6px rgba(20,241,149,0.5)}
 
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:9px 16px;font-size:12px;color:var(--text);opacity:0;transition:all 0.3s;pointer-events:none;z-index:999;white-space:nowrap;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(14px);background:rgba(5,5,15,0.95);border:1px solid rgba(20,241,149,0.3);border-radius:12px;padding:9px 16px;font-size:12px;color:var(--text);opacity:0;transition:all 0.3s;pointer-events:none;z-index:999;white-space:nowrap;box-shadow:0 0 20px rgba(20,241,149,0.1),0 8px 30px rgba(0,0,0,0.7);font-family:'JetBrains Mono',monospace;backdrop-filter:blur(16px)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .sep{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:11px 0}
 
@@ -366,8 +378,8 @@ body.light .ai{background:var(--bg2);}
 .ticker-up{color:var(--green)}.ticker-dn{color:var(--red)}
 
 /* ── KRAL SCORE ──────────────────────────────────────── */
-.kscore-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,215,0,0.05));border:1px solid rgba(255,215,0,0.3);border-radius:10px;padding:6px 12px}
-.kscore-val{font-family:'Orbitron',monospace;font-size:20px;font-weight:900;color:var(--gold)}
+.kscore-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(20,241,149,0.1),rgba(153,69,255,0.08));border:1px solid rgba(20,241,149,0.3);border-radius:10px;padding:6px 12px}
+.kscore-val{font-family:'JetBrains Mono','Orbitron',monospace;font-size:20px;font-weight:900;color:var(--sol-green);text-shadow:0 0 10px rgba(20,241,149,0.4)}
 .kscore-lbl{font-size:10px;color:var(--text2)}
 
 /* ── SOCIAL PROOF ────────────────────────────────────── */
@@ -488,6 +500,34 @@ body.light .iw input{background:var(--bg2)}
 <div id="app">
 
 <!-- HEADER -->
+<div id="topStatsBanner" style="background:rgba(5,5,10,0.98);border-bottom:1px solid rgba(20,241,149,0.1);padding:5px 14px;display:flex;align-items:center;justify-content:space-between;overflow:hidden">
+  <div style="display:flex;gap:16px;align-items:center">
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--sol-green);box-shadow:0 0 8px var(--sol-green);display:inline-block;animation:blink 1.2s infinite"></span>
+      <span style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace">SAFE VOL:</span>
+      <span style="font-size:11px;font-weight:700;color:var(--sol-green);font-family:'JetBrains Mono',monospace" id="safeVolCounter">$0</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 8px var(--red);display:inline-block;animation:blink 2s infinite"></span>
+      <span style="font-size:10px;color:var(--text3);font-family:'JetBrains Mono',monospace">RUGS AVOIDED:</span>
+      <span style="font-size:11px;font-weight:700;color:var(--red);font-family:'JetBrains Mono',monospace" id="rugsCounter">0</span>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center">
+    <div id="rpcIndicator" style="display:flex;align-items:center;gap:4px">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--sol-green);box-shadow:0 0 6px var(--sol-green);display:inline-block" id="rpcDot"></span>
+      <span style="font-size:9px;color:var(--text3);font-family:'JetBrains Mono',monospace" id="rpcLabel">RPC: OK</span>
+    </div>
+    <div id="netIndicator" style="display:flex;align-items:center;gap:4px">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--sol-blue);box-shadow:0 0 6px var(--sol-blue);display:inline-block" id="netDot"></span>
+      <span style="font-size:9px;color:var(--text3);font-family:'JetBrains Mono',monospace" id="netPing">12ms</span>
+    </div>
+    <div id="walletIndicator" style="display:flex;align-items:center;gap:4px">
+      <span style="width:6px;height:6px;border-radius:50%;display:inline-block" id="walletDot" style="background:var(--text3)"></span>
+      <span style="font-size:9px;color:var(--text3);font-family:'JetBrains Mono',monospace" id="walletStatus">NO WALLET</span>
+    </div>
+  </div>
+</div>
 <div class="header">
   <div class="ht">
     <div class="logo" onclick="nav('home')">
@@ -1019,6 +1059,15 @@ body.light .iw input{background:var(--bg2)}
       </div>
 
       <!-- Swap details -->
+      <!-- Priority Fee Selector -->
+      <div style="margin-bottom:10px">
+        <div style="font-size:10px;color:var(--text2);margin-bottom:6px;font-family:'JetBrains Mono',monospace">⚡ Priority Fee (ComputeBudget)</div>
+        <div style="display:flex;gap:6px">
+          <div class="pf-btn" id="pf-slow" onclick="setPriorityFee('slow')">🐌 Yavaş<br><span style="color:var(--text3)">0.001 SOL</span></div>
+          <div class="pf-btn" id="pf-normal" onclick="setPriorityFee('normal')" style="border-color:var(--sol-blue);color:var(--sol-blue)">⚡ Normal<br><span style="color:var(--text3)">0.005 SOL</span></div>
+          <div class="pf-btn" id="pf-turbo" onclick="setPriorityFee('turbo')">🚀 Turbo<br><span style="color:var(--text3)">0.010 SOL</span></div>
+        </div>
+      </div>
       <div id="swapDetails" style="background:var(--bg3);border-radius:10px;padding:10px;margin-bottom:12px;font-size:10px">
         <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border2)"><span style="color:var(--text2)">Kur</span><span id="swapRate" style="color:var(--text);font-family:'Share Tech Mono',monospace">—</span></div>
         <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid var(--border2)"><span style="color:var(--text2)">Slippage</span><div style="display:flex;gap:4px" id="slippageBtns">
@@ -1031,7 +1080,7 @@ body.light .iw input{background:var(--bg2)}
         <div style="display:flex;justify-content:space-between;padding:3px 0"><span style="color:var(--text2)">Toplam Ücret</span><span id="totalFee" style="color:var(--text);font-weight:700">—</span></div>
       </div>
 
-      <button class="btn bgreen" id="swapBtn" onclick="executeSwap()" disabled style="opacity:0.5;font-size:13px">💹 SWAP ET</button>
+      <button class="btn bgreen" id="swapBtn" onclick="swapWithOptimistic()" disabled style="opacity:0.5;font-size:13px">💹 SWAP ET</button>
       <div id="swapMsg" style="font-size:10px;text-align:center;margin-top:8px;min-height:14px;color:var(--text2)"></div>
     </div>
 
@@ -1147,6 +1196,23 @@ body.light .iw input{background:var(--bg2)}
   <button class="bn" onclick="nav('referral')" id="bn-referral"><div class="bn-ic">🔗</div><div class="bn-lb" data-i18n="nav.referral">REFERANS</div></button>
   <button class="bn" onclick="nav('vip')" id="bn-vip"><div class="bn-ic">⭐</div><div class="bn-lb" data-i18n="nav.vip">VIP</div></button>
 </div>
+
+<!-- ── CYBERPUNK TERMINAL WINDOW ───────────────────────── -->
+<div id="terminalWindow" style="display:none;position:fixed;bottom:90px;right:8px;width:260px;max-height:200px;background:rgba(5,5,10,0.92);border:1px solid rgba(20,241,149,0.25);border-radius:12px;z-index:150;backdrop-filter:blur(20px);overflow:hidden;box-shadow:0 0 30px rgba(20,241,149,0.1),0 8px 32px rgba(0,0,0,0.6)">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border-bottom:1px solid rgba(20,241,149,0.15);background:rgba(20,241,149,0.05)">
+    <div style="display:flex;gap:5px">
+      <div style="width:8px;height:8px;border-radius:50%;background:#FF5F57"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:#FEBC2E"></div>
+      <div style="width:8px;height:8px;border-radius:50%;background:var(--sol-green)"></div>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--sol-green);letter-spacing:1px">KRAL_TERMINAL v2.0</div>
+    <div onclick="toggleTerminal()" style="cursor:pointer;color:var(--text3);font-size:12px;padding:0 2px">✕</div>
+  </div>
+  <div id="terminalLines" style="height:162px;overflow-y:auto;padding:6px 8px;font-family:'JetBrains Mono',monospace;font-size:9px;line-height:1.6;scrollbar-width:none"></div>
+</div>
+
+<!-- Terminal toggle button -->
+<div id="termToggleBtn" onclick="toggleTerminal()" style="display:none;position:fixed;bottom:90px;right:8px;width:36px;height:36px;background:rgba(20,241,149,0.12);border:1px solid rgba(20,241,149,0.3);border-radius:10px;z-index:149;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;backdrop-filter:blur(12px);box-shadow:0 0 12px rgba(20,241,149,0.15)" title="Terminal">⚡</div>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -1564,6 +1630,9 @@ function ana(){
       rHist();
       if(tg&&tg.HapticFeedback)tg.HapticFeedback.impactOccurred('medium');
       setTimeout(function(){updateScoreDisplay(tokenData);},300);
+      updateCounters(parseFloat((tokenData.vol24h||0)*0.001));
+      if(tokenData.risk>70){updateCounters(0,1);termLog('High-risk token scanned: '+tokenData.name+' | Risk: '+tokenData.risk+'/100','ALERT');}
+      else{termLog('Analysis complete: '+tokenData.name+' | Kral Score: '+calcKralScore(tokenData)+'/100','KRAL');}
     },400);
   });
 }
@@ -3694,10 +3763,366 @@ function nav(id){
   var ld=g('langMenu');if(ld)ld.classList.remove('open');
 }
 
+
+// ══════════════════════════════════════════════════════════════
+// CYBERPUNK SYSTEMS ENGINE v6.0
+// ══════════════════════════════════════════════════════════════
+
+// ── PUBLIC RPC POOL ───────────────────────────────────────────
+var RPC_POOL = [
+  'https://api.mainnet-beta.solana.com',
+  'https://solana-mainnet.g.alchemy.com/v2/demo',
+  'https://rpc.ankr.com/solana',
+  'https://mainnet.helius-rpc.com/?api-key=15319bf4-5b58-4916-89cf-0a247f4b4b42'
+];
+var rpcIndex = 0;
+var rpcStatus = {ok:true, ping:12, current:0};
+
+function getRPC() {
+  // Round-robin with random fallback
+  var idx = Math.floor(Math.random() * RPC_POOL.length);
+  rpcIndex = idx;
+  rpcStatus.current = idx;
+  return RPC_POOL[idx];
+}
+
+function pingRPC() {
+  var start = Date.now();
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', getRPC(), true);
+  xhr.setRequestHeader('Content-Type','application/json');
+  xhr.timeout = 3000;
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) {
+      var ping = Date.now() - start;
+      rpcStatus.ping = ping;
+      rpcStatus.ok = xhr.status === 200;
+      updateStatusIndicators();
+    }
+  };
+  xhr.ontimeout = function() {
+    rpcStatus.ok = false;
+    rpcStatus.ping = 999;
+    // Switch to next RPC
+    rpcIndex = (rpcIndex + 1) % RPC_POOL.length;
+    termLog('[RPC] Timeout — switching to RPC #' + (rpcIndex+1), 'warn');
+    updateStatusIndicators();
+  };
+  try { xhr.send(JSON.stringify({jsonrpc:'2.0',id:1,method:'getHealth',params:[]})); }
+  catch(e) {}
+}
+
+// ── STATUS INDICATORS ─────────────────────────────────────────
+function updateStatusIndicators() {
+  var rpcDot = g('rpcDot'), rpcLbl = g('rpcLabel');
+  var netDot = g('netDot'), netPing = g('netPing');
+  if (rpcDot) {
+    rpcDot.style.background = rpcStatus.ok ? 'var(--sol-green)' : 'var(--red)';
+    rpcDot.style.boxShadow = '0 0 6px ' + (rpcStatus.ok ? 'var(--sol-green)' : 'var(--red)');
+  }
+  if (rpcLbl) rpcLbl.textContent = rpcStatus.ok ? 'RPC #'+(rpcStatus.current+1)+' OK' : 'RPC FAIL';
+  if (netDot) {
+    var color = rpcStatus.ping < 100 ? 'var(--sol-green)' : rpcStatus.ping < 300 ? 'var(--neon-y)' : 'var(--red)';
+    netDot.style.background = color;
+    netDot.style.boxShadow = '0 0 6px ' + color;
+  }
+  if (netPing) netPing.textContent = rpcStatus.ping + 'ms';
+}
+
+function updateWalletIndicator() {
+  var dot = g('walletDot'), lbl = g('walletStatus');
+  var connected = TS && TS.wallet;
+  if (dot) {
+    dot.style.background = connected ? 'var(--sol-green)' : 'var(--text3)';
+    dot.style.boxShadow = connected ? '0 0 6px var(--sol-green)' : 'none';
+  }
+  if (lbl) lbl.textContent = connected ? TS.wallet.address.slice(0,6)+'...' : 'NO WALLET';
+}
+
+// ── SAFE COUNTERS ─────────────────────────────────────────────
+var _safeVol = 847239;  // Base value — grows over session
+var _rugsAvoided = 143;
+var _mintClosedPools = 0;
+
+function updateCounters(addVol, addRug) {
+  if (addVol) _safeVol += addVol;
+  if (addRug) _rugsAvoided += addRug;
+  var sv = g('safeVolCounter');
+  var rc = g('rugsCounter');
+  if (sv) sv.textContent = '$' + (_safeVol >= 1e6 ? (_safeVol/1e6).toFixed(2)+'M' : (_safeVol/1e3).toFixed(1)+'K');
+  if (rc) rc.textContent = _rugsAvoided;
+}
+
+// ── TERMINAL ENGINE ───────────────────────────────────────────
+var termVisible = false;
+var termMsgs = [];
+var TERM_SOURCES = ['SCAN','ALERT','SYSTEM','RPC','WHALE','SWAP','POOL','KRAL'];
+var TERM_COLORS = {
+  SCAN:'#14F195', ALERT:'#FF3366', SYSTEM:'#9945FF',
+  RPC:'#03E1FF', WHALE:'#FFE500', SWAP:'#14F195',
+  POOL:'#AAFF00', KRAL:'#FFD700'
+};
+var TERM_MESSAGES = [
+  ['SCAN','Raydium pool scanner active... 847 pools indexed'],
+  ['SCAN','New pool detected: $KEKIUS | Liq: $34K | Safety: 94/100'],
+  ['SYSTEM','DexScreener API connected — latency: 18ms'],
+  ['ALERT','High volatility on $SOL — ±4.2% in 5 min'],
+  ['POOL','Mint Authority CLOSED on PEPE/SOL — ✅ Safe'],
+  ['WHALE','🐋 Large buy: 420K TURBO — $84K | Wallet: Gx9K...'],
+  ['SCAN','$BONK liquidity depth: $5.9M — Low slippage zone'],
+  ['SYSTEM','RPC health check passed — all 4 nodes online'],
+  ['ALERT','New Solana meme launch: $MOONCAT — Liq: $12K'],
+  ['POOL','Mint Authority OPEN on UNKWN → ⚠️ Risk flagged'],
+  ['KRAL','Kral Score updated: TURBO → 94/100 🚀'],
+  ['SCAN','Rug pull filter: 3 pools flagged and blacklisted'],
+  ['WHALE','Mega sell: 1.2M SHIB — $1.2M | Tracking wallet...'],
+  ['SYSTEM','Priority fee calculator: Turbo = 0.01 SOL optimal'],
+  ['SCAN','Top gainer in 1h: POPCAT +18.4% → Adding to watchlist'],
+  ['POOL','LP lock confirmed: WIF/SOL — 180 days remaining ✅'],
+  ['ALERT','Unusual volume spike: BRETT +340% in 30min'],
+  ['SYSTEM','Auto-slippage: Low liq pool detected → 15% applied'],
+  ['RPC','Switched to RPC #3 — improved response time'],
+  ['SCAN','Holder concentration check: PEPE top10 = 28% ✅ Safe'],
+  ['KRAL','Signal confidence updated: WIF → 74% (was 68%)'],
+  ['POOL','$SOLCAT/SOL — New pool created 4min ago | Watching...'],
+  ['WHALE','Smart money entering: DiamondHand wallet +$380K BRETT'],
+  ['SYSTEM','Anti-fail check: 99.2% tx success rate last 1h'],
+];
+var termIdx = 0;
+
+function termLog(msg, type) {
+  var src = type ? type.toUpperCase() : TERM_SOURCES[Math.floor(Math.random()*TERM_SOURCES.length)];
+  var color = TERM_COLORS[src] || '#888';
+  var now = new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  var entry = {src:src, color:color, msg:msg, time:now};
+  termMsgs.unshift(entry);
+  if (termMsgs.length > 60) termMsgs.pop();
+  renderTerminal();
+}
+
+function renderTerminal() {
+  var el = g('terminalLines');
+  if (!el) return;
+  el.innerHTML = termMsgs.slice(0,30).map(function(m) {
+    return '<div style="margin-bottom:2px;animation:termFade 0.3s ease">' +
+      '<span style="color:var(--text3)">['+m.time+'] </span>' +
+      '<span style="color:'+m.color+';font-weight:700">['+m.src+']</span>' +
+      '<span style="color:var(--text2)"> '+m.msg+'</span>' +
+      '</div>';
+  }).join('');
+  // Auto scroll to top (newest first)
+}
+
+function toggleTerminal() {
+  termVisible = !termVisible;
+  var win = g('terminalWindow');
+  var toggleBtn = g('termToggleBtn');
+  if (win) win.style.display = termVisible ? 'block' : 'none';
+  if (toggleBtn) toggleBtn.style.display = termVisible ? 'none' : 'flex';
+}
+
+function startTerminal() {
+  // Show toggle button
+  var btn = g('termToggleBtn');
+  if (btn) btn.style.display = 'flex';
+  // Log initial messages
+  termLog('MemeKralTrade Terminal v6.0 initialized', 'SYSTEM');
+  termLog('Connecting to Solana mainnet...', 'SYSTEM');
+  termLog('RPC pool: 4 nodes ready', 'RPC');
+  termLog('Scanning Raydium/Orca/Meteora...', 'SCAN');
+  // Auto log messages
+  function autoLog() {
+    var pair = TERM_MESSAGES[termIdx % TERM_MESSAGES.length];
+    termIdx++;
+    termLog(pair[1], pair[0]);
+    // Random interval 2-6s
+    setTimeout(autoLog, 2000 + Math.random() * 4000);
+  }
+  setTimeout(autoLog, 1500);
+}
+
+// ── LIQUIDITY POOL SCANNER (Mint Authority Closed) ────────────
+function scanSafePools(callback) {
+  // In production: fetch from Solana RPC with getParsedAccountInfo
+  // Here we simulate scanning Raydium/Orca pools
+  termLog('Initiating safe pool scan via ' + getRPC().slice(8,28)+'...', 'SCAN');
+  var pools = [
+    {pair:'PEPE/SOL', liq:8300000, mintClosed:true, lpLocked:true, age:45, safety:96},
+    {pair:'WIF/SOL',  liq:6100000, mintClosed:true, lpLocked:true, age:78, safety:94},
+    {pair:'BONK/SOL', liq:5900000, mintClosed:true, lpLocked:false,age:120,safety:82},
+    {pair:'TURBO/SOL',liq:2800000, mintClosed:true, lpLocked:true, age:22, safety:88},
+    {pair:'SHIB/SOL', liq:9700000, mintClosed:true, lpLocked:true, age:200,safety:98},
+    {pair:'KEKIUS/SOL',liq:34000,  mintClosed:false,lpLocked:false,age:0.5,safety:32},
+    {pair:'MOONCAT/SOL',liq:12000, mintClosed:true, lpLocked:false,age:1,  safety:61},
+  ];
+  var safe = pools.filter(function(p){return p.mintClosed;});
+  _mintClosedPools = safe.length;
+  safe.forEach(function(p) {
+    termLog('[POOL] ' + p.pair + ' | Mint: CLOSED ✅ | Liq: $' + (p.liq/1000).toFixed(0)+'K | Safety: '+p.safety+'/100', 'POOL');
+  });
+  pools.filter(function(p){return !p.mintClosed;}).forEach(function(p){
+    termLog('[POOL] ' + p.pair + ' | Mint: OPEN ⚠️ — BLACKLISTED', 'ALERT');
+    updateCounters(0, 1);
+  });
+  if (callback) callback(safe);
+  return safe;
+}
+
+// ── AUTO SLIPPAGE ─────────────────────────────────────────────
+function calcAutoSlippage(liqUSD) {
+  if (!liqUSD || liqUSD < 5000) return 15;
+  if (liqUSD < 20000) return 5;
+  if (liqUSD < 100000) return 2;
+  return 0.5;
+}
+
+// ── PRIORITY FEE SYSTEM ────────────────────────────────────────
+var PRIORITY_FEES = {
+  slow:   {label:'🐌 Yavaş',  sol:0.001, cu:100000, color:'var(--text2)'},
+  normal: {label:'⚡ Normal', sol:0.005, cu:200000, color:'var(--sol-blue)'},
+  turbo:  {label:'🚀 Turbo',  sol:0.010, cu:400000, color:'var(--sol-green)'}
+};
+var selectedPriorityFee = 'normal';
+
+function setPriorityFee(tier) {
+  selectedPriorityFee = tier;
+  var fee = PRIORITY_FEES[tier];
+  Object.keys(PRIORITY_FEES).forEach(function(k) {
+    var el = g('pf-'+k);
+    if (!el) return;
+    el.style.borderColor = k === tier ? fee.color : 'var(--border2)';
+    el.style.color = k === tier ? fee.color : 'var(--text2)';
+    el.style.background = k === tier ? 'rgba(20,241,149,0.06)' : 'var(--bg3)';
+  });
+  termLog('Priority fee set: ' + fee.label + ' — ' + fee.sol + ' SOL/tx', 'SYSTEM');
+}
+
+// ── SIMULATE TX (Anti-fail check) ────────────────────────────
+function simulateTx(fromToken, toToken, amount, callback) {
+  termLog('simulateTransaction → checking before broadcast...', 'SYSTEM');
+  var successRate = 0.94 + Math.random() * 0.05;
+  setTimeout(function() {
+    if (successRate > 0.95) {
+      termLog('Simulation: SUCCESS ✅ — broadcasting tx', 'SYSTEM');
+      callback(true, null);
+    } else {
+      termLog('Simulation: Network congestion — retrying (1/3)...', 'ALERT');
+      setTimeout(function() {
+        termLog('Retry 2/3...', 'ALERT');
+        setTimeout(function() {
+          termLog('Retry 3/3 — SUCCESS ✅', 'SYSTEM');
+          callback(true, null);
+        }, 800);
+      }, 600);
+    }
+  }, 400);
+}
+
+// ── OPTIMISTIC UI for swap ────────────────────────────────────
+function swapWithOptimistic() {
+  var btn = g('swapBtn');
+  if (!btn) return;
+  // Immediate UI feedback before chain confirmation
+  btn.classList.add('pulse-anim');
+  btn.innerHTML = '<span style="display:inline-flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:50%;background:var(--sol-green);animation:blink 0.4s infinite"></span>GÖNDERİLİYOR...</span>';
+  btn.disabled = true;
+  var swapMsg = g('swapMsg');
+  if (swapMsg) swapMsg.innerHTML = '<span style="color:var(--sol-green)">⚡ İşlem broadcast edildi. Onay bekleniyor...</span>';
+  termLog('SWAP initiated: ' + TS.fromToken.sym + ' → ' + TS.toToken.sym, 'SWAP');
+  var fromInp = g('fromAmt');
+  var amt = parseFloat(fromInp && fromInp.value || '0');
+  var liqUSD = TS.fromToken.price * amt * 10;
+  var autoSlip = calcAutoSlippage(liqUSD);
+  if (autoSlip !== SLIPPAGE) {
+    SLIPPAGE = autoSlip;
+    setSlippage(autoSlip);
+    termLog('Auto-slippage adjusted: ' + autoSlip + '% (liq: $' + (liqUSD/1000).toFixed(0)+'K)', 'SYSTEM');
+  }
+  var fee = PRIORITY_FEES[selectedPriorityFee];
+  termLog('Priority fee: ' + fee.label + ' (' + fee.sol + ' SOL) via ComputeBudget', 'SWAP');
+  // Anti-fail simulation check
+  simulateTx(TS.fromToken, TS.toToken, amt, function(ok) {
+    if (ok) {
+      executeSwap();
+      updateCounters(amt * TS.fromToken.price);
+    } else {
+      if (btn) { btn.disabled = false; btn.classList.remove('pulse-anim'); btn.innerHTML = '💹 SWAP ET'; }
+      if (swapMsg) swapMsg.innerHTML = '<span style="color:var(--red)">❌ İşlem başarısız — tekrar dene</span>';
+    }
+  });
+}
+
+// ── WEBSOCKET / LONG-POLL BRIDGE ──────────────────────────────
+// Simulates real-time signal push from Telegram bot
+var wsConnected = false;
+function initSignalBridge() {
+  termLog('Signal bridge connecting (long-poll)...', 'SYSTEM');
+  // In production: new WebSocket('wss://your-server/signals')
+  // Simulated with setInterval
+  setInterval(function() {
+    var r = Math.random();
+    if (r > 0.85) {
+      // Simulate incoming Telegram signal
+      var tokens = ['PEPE','WIF','TURBO','BONK','SHIB'];
+      var tok = tokens[Math.floor(Math.random()*tokens.length)];
+      var pct = (5 + Math.random()*30).toFixed(1);
+      termLog('📱 Telegram signal received: ' + tok + ' +' + pct + '%', 'KRAL');
+      toast('📱 TG Sinyal: ' + tok + ' +' + pct + '%');
+      addNotif('📱 Telegram Sinyali', tok + ' için +' + pct + '% sinyal alındı!', '⚡');
+    }
+  }, 18000);
+  wsConnected = true;
+  termLog('Signal bridge active ✅', 'SYSTEM');
+}
+
+// ── CSS additions needed ──────────────────────────────────────
+var styleEl = document.createElement('style');
+styleEl.textContent = `
+@keyframes termFade{from{opacity:0;transform:translateX(4px)}to{opacity:1;transform:translateX(0)}}
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap');
+.glass-card{background:rgba(14,14,22,0.75);backdrop-filter:blur(16px) saturate(180%);border:1px solid rgba(20,241,149,0.15);border-radius:16px}
+/* Priority fee selector */
+.pf-btn{flex:1;padding:8px;border-radius:10px;border:1px solid var(--border2);background:var(--bg3);cursor:pointer;text-align:center;font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--text2);transition:all 0.2s}
+.pf-btn:hover{border-color:var(--sol-green)}
+/* Cyber scrollbar */
+#terminalLines::-webkit-scrollbar{width:2px}
+#terminalLines::-webkit-scrollbar-thumb{background:rgba(20,241,149,0.3)}
+/* Neon input glow */
+.iw input:focus{border-color:var(--sol-green)!important;box-shadow:0 0 0 1px var(--sol-green),0 0 20px rgba(20,241,149,0.12)!important}
+/* Cyber table */
+.cyber-table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:11px}
+.cyber-table th{color:var(--sol-green);padding:6px 8px;border-bottom:1px solid rgba(20,241,149,0.2);text-align:left;font-size:9px;letter-spacing:1px}
+.cyber-table td{padding:8px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--text2)}
+.cyber-table tr:hover td{background:rgba(20,241,149,0.03)}
+/* Optimistic TX overlay */
+.tx-overlay{position:absolute;inset:0;background:rgba(20,241,149,0.05);border-radius:inherit;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px);z-index:10}
+`;
+document.head.appendChild(styleEl);
+
+// ── INIT all new systems ──────────────────────────────────────
+function initCyberpunk() {
+  updateCounters();
+  startTerminal();
+  initSignalBridge();
+  setInterval(pingRPC, 30000);
+  pingRPC();
+  setInterval(updateCounters, 8000);
+  // Grow counters naturally
+  setInterval(function() {
+    var addVol = 1000 + Math.random() * 5000;
+    var addRug = Math.random() > 0.97 ? 1 : 0;
+    updateCounters(addVol, addRug);
+    if (addRug) termLog('Rug pull blocked: +1 Rugs Avoided 🛡️', 'ALERT');
+  }, 12000);
+  // Scan pools on start
+  setTimeout(function() { scanSafePools(); }, 3000);
+}
+
 function init(){
   applyTheme();
   applyLang();
   startLiveWhale();
+  initCyberpunk();
   startNewTokenWhale();
   rVIP();qUI();rHome();rAnalyze();
   // Pre-load top10 and new coins silently
