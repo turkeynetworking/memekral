@@ -311,6 +311,24 @@ body::after{content:'';position:fixed;inset:0;
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .sep{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:11px 0}
 
+
+/* ── LIGHT THEME ─────────────────────────────────────── */
+body.light{
+  --bg:#F4F2EC;--bg2:#ECEAE3;--bg3:#E4E2DA;
+  --card:#FFFFFF;--card2:#F8F6F0;
+  --text:#1A1A2E;--text2:#4A4A6A;--text3:#8A8AAA;
+  --border:rgba(255,165,0,0.25);--border2:rgba(255,165,0,0.12);
+}
+body.light .header{background:rgba(244,242,236,0.98);}
+body.light .bnav{background:rgba(244,242,236,0.98);}
+body.light .card::before{opacity:0.2;}
+body.light .tr{background:var(--bg3);}
+body.light .sb{background:var(--bg2);}
+body.light .iw input{background:var(--bg3);}
+body.light .nb{background:var(--bg2);}
+body.light .wi{background:var(--bg3);}
+body.light .ai{background:var(--bg2);}
+
 /* ── AD SYSTEM ─────────────────────────────────────── */
 .ad-banner{display:block;width:100%;background:linear-gradient(135deg,rgba(255,165,0,0.06),rgba(157,78,221,0.06));border:1px solid rgba(255,165,0,0.2);border-radius:14px;padding:10px 14px;margin-bottom:10px;cursor:pointer;position:relative;overflow:hidden;text-decoration:none;transition:all 0.2s}
 .ad-banner:hover{border-color:rgba(255,165,0,0.4);transform:translateY(-1px)}
@@ -374,6 +392,95 @@ body::after{content:'';position:fixed;inset:0;
 /* ── TOKEN QUICK STATS ───────────────────────────────── */
 .qs-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .qs-tag{font-size:10px;padding:4px 10px;border-radius:20px;font-weight:700;font-family:'Share Tech Mono',monospace}
+
+/* ── LIGHT THEME ─────────────────────────────────────────── */
+body.light{
+  --bg:#F4F4F8;--bg2:#EAEAEE;--bg3:#E0E0E8;
+  --card:#FFFFFF;--card2:#F8F8FC;
+  --text:#1A1A2E;--text2:#4A4A6A;--text3:#8A8AAA;
+  --border:rgba(0,0,80,0.12);--border2:rgba(0,0,80,0.07);
+  --glow:0 0 20px rgba(255,165,0,0.2);
+}
+body.light::before{background:radial-gradient(ellipse at 15% 10%,rgba(255,215,0,0.08) 0%,transparent 55%),radial-gradient(ellipse at 85% 90%,rgba(157,78,221,0.06) 0%,transparent 55%);}
+body.light .card{box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+body.light .sb{box-shadow:0 1px 4px rgba(0,0,0,0.05)}
+body.light .tr{background:var(--bg2)}
+body.light .iw input{background:var(--bg2)}
+
+/* ── LANGUAGE PICKER ─────────────────────────────────────── */
+.lang-picker{position:relative}
+.lang-btn{display:flex;align-items:center;gap:5px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:11px;color:var(--text2);transition:all 0.2s;font-family:'Rajdhani',sans-serif;font-weight:700}
+.lang-btn:hover{border-color:var(--gold);color:var(--gold)}
+.lang-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:var(--card2);border:1px solid var(--border);border-radius:12px;overflow:hidden;z-index:200;min-width:140px;box-shadow:0 8px 32px rgba(0,0,0,0.3);display:none}
+.lang-dropdown.open{display:block}
+.lang-opt{display:flex;align-items:center;gap:8px;padding:10px 14px;cursor:pointer;font-size:12px;color:var(--text2);transition:all 0.2s;font-family:'Rajdhani',sans-serif;font-weight:600}
+.lang-opt:hover{background:var(--bg3);color:var(--text)}
+.lang-opt.active{color:var(--gold);background:rgba(255,215,0,0.06)}
+.lang-flag{font-size:16px}
+
+/* ── THEME TOGGLE ────────────────────────────────────────── */
+.theme-btn{width:32px;height:32px;background:var(--bg3);border:1px solid var(--border2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:all 0.2s}
+.theme-btn:hover{border-color:var(--gold);transform:rotate(20deg)}
+
+/* ── VIP SUCCESS TABLE ───────────────────────────────────── */
+.vip-trader-row{display:flex;align-items:center;gap:10px;padding:12px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:8px;position:relative;overflow:hidden}
+.vip-trader-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--gold),var(--gold3))}
+.vt-avatar{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:linear-gradient(135deg,var(--gold),var(--purple))}
+.vt-info{flex:1}
+.vt-name{font-weight:800;font-size:14px}
+.vt-detail{font-size:10px;color:var(--text2);margin-top:2px;font-family:'Share Tech Mono',monospace}
+.vt-pnl{text-align:right;flex-shrink:0}
+.vt-pnl-val{font-family:'Orbitron',monospace;font-size:14px;font-weight:900;color:var(--green)}
+.vt-pnl-pct{font-size:10px;color:var(--green);margin-top:2px;font-weight:700}
+.vt-trade-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;margin-bottom:6px;font-size:11px}
+.vt-badge{font-family:'Orbitron',monospace;font-size:8px;font-weight:900;padding:2px 7px;border-radius:6px}
+.vt-badge.win{background:rgba(0,255,136,0.15);border:1px solid rgba(0,255,136,0.3);color:var(--green)}
+.vt-badge.loss{background:rgba(255,51,102,0.12);border:1px solid rgba(255,51,102,0.3);color:var(--red)}
+
+/* ── SIGNAL PERFORMANCE ─────────────────────────────────── */
+.sig-perf-card{background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:12px;margin-bottom:8px}
+.sig-perf-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.sig-perf-token{font-family:'Orbitron',monospace;font-size:14px;font-weight:900;color:var(--gold)}
+.sig-perf-time{font-size:10px;color:var(--text3);font-family:'Share Tech Mono',monospace}
+.perf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.perf-cell{background:var(--bg2);border-radius:8px;padding:8px;text-align:center}
+.perf-cell-val{font-family:'Orbitron',monospace;font-size:12px;font-weight:900}
+.perf-cell-lbl{font-size:9px;color:var(--text3);letter-spacing:1px;margin-top:2px}
+.sig-perf-bar{height:6px;border-radius:3px;margin:8px 0;overflow:hidden;background:var(--bg2)}
+.sig-perf-fill{height:100%;border-radius:3px;transition:width 1.2s ease}
+.perf-badge{display:inline-flex;align-items:center;gap:4px;font-family:'Orbitron',monospace;font-size:9px;font-weight:900;padding:3px 9px;border-radius:20px}
+.perf-badge.win{background:rgba(0,255,136,0.12);border:1px solid rgba(0,255,136,0.3);color:var(--green)}
+.perf-badge.open{background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);color:var(--gold)}
+
+/* ── NEW TOKEN WHALE ENTRIES ─────────────────────────────── */
+.ntw-card{background:var(--card);border:1px solid var(--border2);border-radius:14px;padding:13px;margin-bottom:9px;position:relative;overflow:hidden}
+.ntw-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:0.5}
+.ntw-card.mega{border-color:rgba(255,215,0,0.3);box-shadow:0 0 16px rgba(255,215,0,0.08)}
+.ntw-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ntw-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
+.ntw-icon.new{background:linear-gradient(135deg,rgba(170,255,0,0.2),rgba(0,229,255,0.15));border:1px solid rgba(170,255,0,0.3)}
+.ntw-age{display:inline-flex;align-items:center;gap:3px;background:rgba(170,255,0,0.08);border:1px solid rgba(170,255,0,0.2);color:var(--lime);font-size:9px;padding:2px 7px;border-radius:10px;font-family:'Orbitron',monospace}
+.ntw-entries{display:flex;flex-direction:column;gap:5px}
+.ntw-entry{display:flex;align-items:center;gap:8px;padding:7px 9px;background:var(--bg3);border-radius:8px;border-left:3px solid var(--green)}
+.ntw-entry.sell{border-left-color:var(--red)}
+.ntw-wallet{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text2);flex:1}
+.ntw-amt{font-family:'Orbitron',monospace;font-size:11px;font-weight:700}
+.ntw-stars{display:flex;gap:2px;margin-top:4px}
+.ntw-star{width:16px;height:16px;border-radius:50%;opacity:0.7}
+/* Confidence dots */
+.conf-dots{display:flex;gap:3px;align-items:center}
+.conf-dot{width:7px;height:7px;border-radius:50%;background:var(--border)}
+.conf-dot.on{background:var(--gold)}
+
+/* ── LIVE WHALE ANIMATION ────────────────────────────────── */
+@keyframes whaleSlide{from{transform:translateX(-12px);opacity:0}to{transform:translateX(0);opacity:1}}
+.wi.new-entry{animation:whaleSlide 0.4s ease forwards}
+@keyframes whalePulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 12px rgba(0,255,136,0.25)}}
+.wi.buy.live{animation:whalePulse 2s ease-in-out 2}
+.wi.sell.live{animation:whalePulse 2s ease-in-out 2;}
+.wi.sell.live{--glow-color:rgba(255,51,102,0.25)}
+.new-tx{animation:newTx 0.5s ease}
+@keyframes newTx{from{transform:translateX(-8px);opacity:0}to{transform:translateX(0);opacity:1}}
 @media(max-width:360px){.sr{grid-template-columns:repeat(2,1fr)}.ag{grid-template-columns:1fr}.bn-lb{font-size:6px}}
 </style>
 </head>
@@ -388,6 +495,18 @@ body::after{content:'';position:fixed;inset:0;
       <div><div class="logo-text">MemeKralTrade</div><div class="logo-sub">v3.0 · SOLANA RADAR</div></div>
     </div>
     <div class="hr">
+      <div class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Tema">🌙</div>
+      <div class="lang-picker">
+        <div class="lang-btn" onclick="toggleLangMenu()" id="langBtn"><span id="langFlag">🇹🇷</span><span id="langCode">TR</span></div>
+        <div class="lang-dropdown" id="langMenu">
+          <div class="lang-opt active" onclick="setLang('tr')" id="lo-tr"><span class="lang-flag">🇹🇷</span>Türkçe</div>
+          <div class="lang-opt" onclick="setLang('en')" id="lo-en"><span class="lang-flag">🇬🇧</span>English</div>
+          <div class="lang-opt" onclick="setLang('es')" id="lo-es"><span class="lang-flag">🇪🇸</span>Español</div>
+          <div class="lang-opt" onclick="setLang('zh')" id="lo-zh"><span class="lang-flag">🇨🇳</span>中文</div>
+        </div>
+      </div>
+      <div class="nb" id="themeBtn" onclick="toggleTheme()">🌙</div>
+      <div class="nb" id="langBtn" onclick="cycleLang()" style="font-size:12px;font-weight:900;font-family:'Orbitron',monospace">TR</div>
       <div class="nb" onclick="toggleNotif()">🔔<div class="nd" id="nd" style="display:none"></div></div>
       <div id="badge" class="free-badge">FREE</div>
     </div>
@@ -404,6 +523,9 @@ body::after{content:'';position:fixed;inset:0;
     <button class="nav-btn" onclick="nav('trade')">💹 Swap</button>
     <button class="nav-btn" onclick="nav('referral')">🔗 Referans</button>
     <button class="nav-btn" onclick="nav('vip')">⭐ VIP</button>
+    <button class="nav-btn" onclick="nav('vipsuccess')">🏆 Başarı</button>
+    <button class="nav-btn" onclick="nav('sigperf')">📡 Sinyal %</button>
+    <button class="nav-btn" onclick="nav('newwhale')">🐋 Yeni Balina</button>
   </div>
 </div>
 
@@ -627,6 +749,18 @@ body::after{content:'';position:fixed;inset:0;
   </div>
   <div id="wchart" style="display:none" class="card c-cyan"><div class="st">📈 Balina Akış Grafiği (VIP)</div><canvas id="wc" height="100"></canvas></div>
   <div id="wgate"></div>
+
+  <!-- NEW TOKEN WHALE RADAR (VIP) -->
+  <div id="newTokenWhaleSection">
+    <div class="card c-lime" style="margin-top:4px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <div class="st" style="margin-bottom:0">🆕🐋 Yeni Token Balina Girişleri</div>
+        <span class="lb" id="newWhaleLb" style="background:rgba(170,255,0,0.1);border-color:rgba(170,255,0,0.3);color:var(--lime)"><span class="ld" style="background:var(--lime)"></span>YENİ</span>
+      </div>
+      <div id="newWhaleGate"></div>
+      <div id="newWhaleList"></div>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════ KRAL ══════════ -->
@@ -641,6 +775,25 @@ body::after{content:'';position:fixed;inset:0;
 
 <!-- ══════════ SIGNALS ══════════ -->
 <div id="page-signals" class="page">
+
+  <!-- VIP LEADERBOARD / SUCCESS TABLE -->
+  <div id="vipSuccessSection">
+    <div class="card c-gold" style="margin-bottom:10px">
+      <div class="st">🏆 VIP Başarı Tablosu</div>
+      <div id="vipSuccessGate"></div>
+      <div id="vipSuccessTable"></div>
+    </div>
+  </div>
+
+  <!-- SIGNAL PERFORMANCE CARD -->
+  <div id="sigPerfSection">
+    <div class="card c-green" style="margin-bottom:10px">
+      <div class="st">📊 Sinyal Performansı (Son 1 Saat)</div>
+      <div id="sigPerfGate"></div>
+      <div id="sigPerfList"></div>
+    </div>
+  </div>
+
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
     <div style="font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:var(--gold)">⚡ AI SİNYALLERİ</div>
     <span class="lb"><span class="ld"></span>AI POWERED</span>
@@ -914,13 +1067,85 @@ body::after{content:'';position:fixed;inset:0;
   </div>
 </div>
 
+<!-- ══════════ VIP BASARI TABLOSU ══════════ -->
+<div id="page-vipsuccess" class="page">
+  <div style="text-align:center;padding:12px 0 10px">
+    <div style="font-size:36px;animation:float 3s ease-in-out infinite">🏆</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px" id="tx-vipSuccess">VIP BAŞARI TABLOSU</div>
+    <div style="font-size:11px;color:var(--text2);margin-top:3px" id="tx-vipSuccessSub">Gerçek işlemler, gerçek karlar</div>
+  </div>
+  <div id="vsGate"></div>
+  <div id="vsContent" style="display:none">
+    <!-- Leaderboard -->
+    <div class="card c-gold">
+      <div class="st" id="tx-topTraders">🥇 TOP TRADERLAR</div>
+      <div id="vsLeaderboard"></div>
+    </div>
+    <!-- Recent winning trades -->
+    <div class="card c-green">
+      <div class="st" id="tx-recentTrades">✅ SON KAZANÇLI İŞLEMLER</div>
+      <div id="vsRecentTrades"></div>
+    </div>
+    <!-- Stats -->
+    <div class="card">
+      <div class="st" id="tx-platformStats">📊 PLATFORM İSTATİSTİKLERİ</div>
+      <div class="sr" id="vsPlatformStats"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SİNYAL PERFORMANS ══════════ -->
+<div id="page-sigperf" class="page">
+  <div style="text-align:center;padding:12px 0 10px">
+    <div style="font-size:36px">📡</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px" id="tx-sigPerf">SİNYAL PERFORMANSI</div>
+    <div style="font-size:11px;color:var(--text2);margin-top:3px" id="tx-sigPerfSub">İlk 1 saat en düşük giriş & en yüksek kar</div>
+  </div>
+  <div id="spGate"></div>
+  <div id="spContent" style="display:none">
+    <div class="card c-gold">
+      <div class="st" id="tx-perfOverview">⚡ PERFORMANS ÖZETİ</div>
+      <div class="sr" id="spStats"></div>
+    </div>
+    <div class="card">
+      <div class="st" id="tx-sigHistory">📋 SİNYAL GEÇMİŞİ</div>
+      <div id="spList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ YENİ TOKEN BALİNA GİRİŞLERİ ══════════ -->
+<div id="page-newwhale" class="page">
+  <div style="text-align:center;padding:12px 0 10px">
+    <div style="font-size:36px;filter:drop-shadow(0 0 12px var(--cyan));animation:float 2s ease-in-out infinite">🐋</div>
+    <div style="font-family:'Orbitron',monospace;font-size:13px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px" id="tx-newWhale">YENİ TOKEN BALİNA GİRİŞLERİ</div>
+    <div style="font-size:11px;color:var(--text2);margin-top:3px" id="tx-newWhaleSub">Yeni listelenen tokenlara balina hareketleri</div>
+  </div>
+  <div id="nwGate"></div>
+  <div id="nwContent" style="display:none">
+    <div class="card c-cyan" style="padding:10px 14px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="lb"><span class="ld"></span><span id="tx-live">CANLI</span></span>
+        <div style="display:flex;gap:6px">
+          <div id="nwF-all" onclick="filterNW('all')" style="padding:4px 10px;background:var(--gold);color:#000;border-radius:20px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Orbitron',monospace" id="tx-all">Tümü</div>
+          <div id="nwF-mega" onclick="filterNW('mega')" style="padding:4px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;font-size:10px;font-weight:700;cursor:pointer;color:var(--gold)">MEGA</div>
+          <div id="nwF-new" onclick="filterNW('new')" style="padding:4px 10px;background:var(--bg3);border:1px solid var(--border2);border-radius:20px;font-size:10px;font-weight:700;cursor:pointer;color:var(--lime)">YENİ</div>
+        </div>
+      </div>
+    </div>
+    <div class="sr" id="nwStats" style="margin-bottom:10px"></div>
+    <div id="nwList"></div>
+  </div>
+</div>
+
 <!-- BOTTOM NAV -->
-<div class="bnav" style="grid-template-columns:repeat(5,1fr)">
-  <button class="bn active" onclick="nav('home')" id="bn-home"><div class="bn-ic">🏠</div><div class="bn-lb">ANA</div></button>
-  <button class="bn" onclick="nav('analyze')" id="bn-analyze"><div class="bn-ic">🔍</div><div class="bn-lb">ANALİZ</div></button>
-  <button class="bn" onclick="nav('trade')" id="bn-trade"><div class="bn-ic">💹</div><div class="bn-lb">SWAP</div></button>
-  <button class="bn" onclick="nav('referral')" id="bn-referral"><div class="bn-ic">🔗</div><div class="bn-lb">REFERANS</div></button>
-  <button class="bn" onclick="nav('vip')" id="bn-vip"><div class="bn-ic">⭐</div><div class="bn-lb">VIP</div></button>
+<div class="bnav" style="grid-template-columns:repeat(6,1fr)">
+  <button class="bn active" onclick="nav('home')" id="bn-home"><div class="bn-ic">🏠</div><div class="bn-lb" data-i18n="nav.home">ANA</div></button>
+  <button class="bn" onclick="nav('analyze')" id="bn-analyze"><div class="bn-ic">🔍</div><div class="bn-lb" data-i18n="nav.analyze">ANALİZ</div></button>
+  <button class="bn" onclick="nav('trade')" id="bn-trade"><div class="bn-ic">💹</div><div class="bn-lb" data-i18n="nav.swap">SWAP</div></button>
+  <button class="bn" onclick="nav('newwhale')" id="bn-newwhale"><div class="bn-ic">🐋</div><div class="bn-lb" data-i18n="nav.newWhale">BALİNA</div></button>
+  <button class="bn" onclick="nav('referral')" id="bn-referral"><div class="bn-ic">🔗</div><div class="bn-lb" data-i18n="nav.referral">REFERANS</div></button>
+  <button class="bn" onclick="nav('vip')" id="bn-vip"><div class="bn-ic">⭐</div><div class="bn-lb" data-i18n="nav.vip">VIP</div></button>
 </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -1658,20 +1883,14 @@ function renderNewList(){
 
 // ══ WHALE ══
 function rWhale(){
-  var el=g('wlist'),gate=g('wgate'),chart=g('wchart');if(!el)return;
-  var show=S.isVIP?WHALES:WHALES.slice(0,3);
-  el.innerHTML=show.map(function(w){
-    return '<div class="wi '+w.type+'">'+
-      (w.mega?'<div class="wmega">MEGA 🔥</div>':'')+
-      '<div class="wa '+w.type+'">'+(w.type==='buy'?'🐋':'🦈')+'</div>'+
-      '<div class="winfo"><div class="ww">'+w.w+'</div><div class="wact '+w.type+'">'+w.a+' '+w.tok+'</div><div class="wtime">⏱ '+w.t+' önce</div></div>'+
-      '<div class="wamt" style="color:'+(w.type==='buy'?'var(--green)':'var(--red)')+'">'+w.amt+'</div>'+
-      '</div>';
-  }).join('');
+  var chart=g('wchart'),gate=g('wgate');
+  renderLiveWhaleList();
   if(chart)chart.style.display=S.isVIP?'block':'none';
   if(S.isVIP)drawWC();
-  if(gate)gate.innerHTML=!S.isVIP?'<div class="card" style="margin-top:4px"><div style="text-align:center;padding:10px 0"><div style="font-size:11px;color:var(--text2);margin-bottom:10px">+'+(WHALES.length-3)+' daha fazla balina VIP\'de</div><button class="btn bg bsm" onclick="nav(\'vip\')">⭐ VIP OL</button></div></div>':'';
+  if(gate)gate.innerHTML=!S.isVIP?'<div class="card" style="margin-top:4px"><div style="text-align:center;padding:10px 0"><div style="font-size:11px;color:var(--text2);margin-bottom:10px">+15 daha fazla balina VIP\'de</div><button class="btn bg bsm" onclick="nav(\'vip\')">⭐ VIP OL</button></div></div>':'';
+  renderNewTokenWhaleList();
 }
+
 function drawWC(){
   var c=g('wc');if(!c)return;
   var ctx=c.getContext('2d');c.width=c.parentElement.offsetWidth||300;c.height=100;
@@ -1733,6 +1952,8 @@ function rKral(){
 
 // ══ SIGNALS ══
 function rSigs(){
+  renderVIPSuccess();
+  renderSigPerf();
   var gate=g('siggate'),list=g('siglist');
   if(!S.isVIP){
     if(gate)gate.innerHTML='<div class="vgate"><div class="vg-icon">⚡</div><div class="vg-title">AI Sinyal Sistemi – VIP</div><div class="vg-desc">Yapay zeka destekli alım/satım sinyalleri, giriş noktaları, hedef fiyatlar ve stop loss seviyeleri.</div><button class="star-btn" onclick="nav(\'vip\')">⭐ VIP OL</button></div>';
@@ -1928,8 +2149,15 @@ function toggleNotif(){
 }
 function rNotifs(){
   var el=g('nlist');if(!el)return;
+  loadTheme();
+  loadLang();
   initAds();
   setInterval(updateActiveUsers,12000);
+  startLiveWhales();
+  // Refresh new token whale data every 30s when on page
+  setInterval(function(){if(S.page==='newwhale'){NEW_TOKEN_WHALES=genNewTokenWhaleData();renderNewWhaleList();}},30000);
+  // Update signal performance timers
+  setInterval(function(){if(S.page==='sigperf')rSigPerf();},60000);
   if(!S.notifs.length){el.innerHTML='<div style="color:var(--text3);font-size:12px;text-align:center;padding:30px">Bildirim yok</div>';return;}
   el.innerHTML=S.notifs.map(function(n){return '<div class="ni'+(n.read?'':' unread')+'"><div class="ni-ic">'+n.icon+'</div><div class="ni-info"><div class="ni-title">'+n.title+'</div><div class="ni-msg">'+n.msg+'</div><div class="ni-time">'+new Date(n.ts).toLocaleString('tr-TR')+'</div></div></div>';}).join('');
 }
@@ -2108,6 +2336,431 @@ function updateScoreDisplay(tokenData){
   var sbp=document.getElementById('sentBullPct');if(sbp)sbp.textContent=sent.bull+'%';
   var sbrp=document.getElementById('sentBearPct');if(sbrp)sbrp.textContent=sent.bear+'%';
 }
+
+
+// ══ MULTI-LANGUAGE SYSTEM ══════════════════════════════════════
+var LANGS = {
+  TR: {
+    code:'TR', flag:'🇹🇷', name:'Türkçe',
+    analyze:'Analiz', top10:'Top 10', newcoins:'Yeni', whale:'Balina',
+    kral:'Kral', signals:'Sinyal', portfolio:'Portföy', referral:'Referans',
+    vip:'VIP', trade:'Swap', home:'Ana',
+    quickAna:'Hızlı Analiz', enterCA:'CA adresini yapıştır...', analyzeBtn:'ANALİZ ET',
+    freeQuota:'Ücretsiz Hakkın', whaleRadar:'Balina Radarı', liveData:'CANLI',
+    riskLow:'DÜŞÜK RİSK', riskMed:'ORTA RİSK', riskHigh:'YÜKSEK RİSK',
+    buy:'ALDI', sell:'SATTI', newLabel:'YENİ',
+    vipOnly:'VIP\'e Özel', getVIP:'VIP OL', activeUsers:'aktif trader şu an',
+    sigPerf:'Sinyal Performansı', vipSuccess:'VIP Başarı Tablosu',
+    lowestEntry:'En Düşük Giriş', highestGain:'En Yüksek Kâr',
+    whaleEntry:'Balina Girişi', whaleExit:'Balina Çıkışı'
+  },
+  EN: {
+    code:'EN', flag:'🇬🇧', name:'English',
+    analyze:'Analyze', top10:'Top 10', newcoins:'New', whale:'Whale',
+    kral:'King', signals:'Signals', portfolio:'Portfolio', referral:'Referral',
+    vip:'VIP', trade:'Swap', home:'Home',
+    quickAna:'Quick Analysis', enterCA:'Paste contract address...', analyzeBtn:'ANALYZE',
+    freeQuota:'Free Quota', whaleRadar:'Whale Radar', liveData:'LIVE',
+    riskLow:'LOW RISK', riskMed:'MEDIUM RISK', riskHigh:'HIGH RISK',
+    buy:'BOUGHT', sell:'SOLD', newLabel:'NEW',
+    vipOnly:'VIP Only', getVIP:'GET VIP', activeUsers:'active traders now',
+    sigPerf:'Signal Performance', vipSuccess:'VIP Success Board',
+    lowestEntry:'Lowest Entry', highestGain:'Highest Gain',
+    whaleEntry:'Whale Buy', whaleExit:'Whale Sell'
+  },
+  ES: {
+    code:'ES', flag:'🇪🇸', name:'Español',
+    analyze:'Analizar', top10:'Top 10', newcoins:'Nuevo', whale:'Ballena',
+    kral:'Rey', signals:'Señales', portfolio:'Portafolio', referral:'Referido',
+    vip:'VIP', trade:'Swap', home:'Inicio',
+    quickAna:'Análisis Rápido', enterCA:'Pegar dirección CA...', analyzeBtn:'ANALIZAR',
+    freeQuota:'Cuota Gratis', whaleRadar:'Radar Ballena', liveData:'EN VIVO',
+    riskLow:'RIESGO BAJO', riskMed:'RIESGO MEDIO', riskHigh:'RIESGO ALTO',
+    buy:'COMPRÓ', sell:'VENDIÓ', newLabel:'NUEVO',
+    vipOnly:'Solo VIP', getVIP:'SER VIP', activeUsers:'traders activos ahora',
+    sigPerf:'Rendimiento Señal', vipSuccess:'Tabla Éxito VIP',
+    lowestEntry:'Entrada Más Baja', highestGain:'Ganancia Más Alta',
+    whaleEntry:'Entrada Ballena', whaleExit:'Salida Ballena'
+  },
+  ZH: {
+    code:'ZH', flag:'🇨🇳', name:'中文',
+    analyze:'分析', top10:'前10', newcoins:'新币', whale:'鲸鱼',
+    kral:'国王', signals:'信号', portfolio:'投资组合', referral:'推荐',
+    vip:'VIP', trade:'交换', home:'首页',
+    quickAna:'快速分析', enterCA:'粘贴合约地址...', analyzeBtn:'开始分析',
+    freeQuota:'免费额度', whaleRadar:'鲸鱼雷达', liveData:'实时',
+    riskLow:'低风险', riskMed:'中等风险', riskHigh:'高风险',
+    buy:'买入', sell:'卖出', newLabel:'新',
+    vipOnly:'仅限VIP', getVIP:'升级VIP', activeUsers:'活跃交易者',
+    sigPerf:'信号表现', vipSuccess:'VIP成功榜',
+    lowestEntry:'最低入场', highestGain:'最高收益',
+    whaleEntry:'鲸鱼买入', whaleExit:'鲸鱼卖出'
+  }
+};
+var LANG_ORDER = ['TR','EN','ES','ZH'];
+var currentLang = localStorage.getItem('mkt_lang') || 'TR';
+
+function t(key) {
+  var lng = LANGS[currentLang] || LANGS.TR;
+  return lng[key] || LANGS.TR[key] || key;
+}
+
+function cycleLang() {
+  var idx = LANG_ORDER.indexOf(currentLang);
+  currentLang = LANG_ORDER[(idx + 1) % LANG_ORDER.length];
+  localStorage.setItem('mkt_lang', currentLang);
+  applyLang();
+  if (tg && tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
+}
+
+function applyLang() {
+  var lb = g('langBtn');
+  if (lb) lb.textContent = currentLang;
+  // Update nav buttons
+  var navMap = {
+    home:'home', analyze:'analyze', top10:'top10', newcoins:'newcoins',
+    whale:'whale', kral:'kral', signals:'signals', portfolio:'portfolio',
+    referral:'referral', vip:'vip', trade:'trade'
+  };
+  var icons = {home:'🏠',analyze:'🔍',top10:'🔥',newcoins:'🆕',whale:'🐋',kral:'👑',signals:'⚡',portfolio:'💼',referral:'🔗',vip:'⭐',trade:'💹'};
+  Object.keys(navMap).forEach(function(key) {
+    var bn = g('bn-'+key);
+    if (bn) {
+      var lbl = bn.querySelector('.bn-lb');
+      if (lbl) lbl.textContent = t(key).toUpperCase().slice(0,7);
+    }
+  });
+  // Update input placeholders
+  var cainEl = g('cain');
+  if (cainEl) cainEl.placeholder = t('enterCA');
+  var hcaEl = g('hca');
+  if (hcaEl) hcaEl.placeholder = t('enterCA');
+  // Update active users
+  updateActiveUsers();
+  // Re-render current page to pick up language
+  var handlers = {home:rHome, analyze:rAnalyze, top10:rTop10, newcoins:rNew,
+    whale:rWhale, kral:rKral, signals:rSigs, portfolio:rPF,
+    referral:rRef, vip:rVIP, trade:rTrade};
+  if (handlers[S.page]) handlers[S.page]();
+}
+
+// ══ THEME SYSTEM ══════════════════════════════════════════════
+var currentTheme = localStorage.getItem('mkt_theme') || 'dark';
+
+function toggleTheme() {
+  currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('mkt_theme', currentTheme);
+  applyTheme();
+  if (tg && tg.HapticFeedback) tg.HapticFeedback.selectionChanged();
+}
+
+function applyTheme() {
+  var body = document.body;
+  var btn = g('themeBtn');
+  if (currentTheme === 'light') {
+    body.classList.add('light');
+    if (btn) btn.textContent = '☀️';
+    if (tg && tg.setHeaderColor) tg.setHeaderColor('#F4F2EC');
+    if (tg && tg.setBackgroundColor) tg.setBackgroundColor('#F4F2EC');
+  } else {
+    body.classList.remove('light');
+    if (btn) btn.textContent = '🌙';
+    if (tg && tg.setHeaderColor) tg.setHeaderColor('#050508');
+    if (tg && tg.setBackgroundColor) tg.setBackgroundColor('#050508');
+  }
+}
+
+// ══ LIVE WHALE RADAR ══════════════════════════════════════════
+// Real-time simulation with random new transactions every few seconds
+var WHALE_WALLETS = [
+  'Gx9KmL...4pRs','7TnBw2...9aKl','3PqR8f...2mNt','KwZx5L...7bPq',
+  '9YmCv1...3sRk','BnLp4W...6tXf','Xq8Rt3...1nKm','Pm2Qk8...5vZx',
+  'Lw7Np4...8mXc','TrQ2Kx...9wZv','5mNpQr...2kXs','YbWx3K...7mNp',
+  'CvZx5L...4kRt','Hm9Qr2...6nPs','Wk4Lx8...3mNq'
+];
+var WHALE_TOKENS = ['PEPE','WIF','BONK','TURBO','FLOKI','SHIB','POPCAT','BRETT','MEME'];
+var liveWhales = [];
+var whaleTimer = null;
+
+function genWhaleTransaction() {
+  var isBuy = Math.random() > 0.42;
+  var amt = Math.floor(50000 + Math.random() * 1500000);
+  var isMega = amt > 800000;
+  var tok = WHALE_TOKENS[Math.floor(Math.random() * WHALE_TOKENS.length)];
+  var wallet = WHALE_WALLETS[Math.floor(Math.random() * WHALE_WALLETS.length)];
+  return {
+    w: wallet,
+    a: isBuy ? t('buy') : t('sell'),
+    tok: tok,
+    amt: '$' + (amt >= 1000000 ? (amt/1000000).toFixed(2)+'M' : (amt/1000).toFixed(0)+'K'),
+    amtRaw: amt,
+    ts: Date.now(),
+    type: isBuy ? 'buy' : 'sell',
+    mega: isMega,
+    isNew: true
+  };
+}
+
+function startLiveWhale() {
+  if (whaleTimer) clearInterval(whaleTimer);
+  // Seed with initial data
+  for (var i = 0; i < 6; i++) {
+    var tx = genWhaleTransaction();
+    tx.ts = Date.now() - i * 45000;
+    tx.isNew = false;
+    liveWhales.push(tx);
+  }
+  whaleTimer = setInterval(function() {
+    var newTx = genWhaleTransaction();
+    liveWhales.unshift(newTx);
+    if (liveWhales.length > 20) liveWhales.pop();
+    if (S.page === 'whale') renderLiveWhaleList();
+    // Notify if mega
+    if (newTx.mega && S.isVIP) {
+      addNotif('🐋 Mega Balina!', newTx.tok + ' — ' + newTx.amt + ' ' + (newTx.type === 'buy' ? t('whaleEntry') : t('whaleExit')), '🐋');
+    }
+  }, 4500 + Math.random() * 3000);
+}
+
+function timeAgo(ts) {
+  var diff = Math.floor((Date.now() - ts) / 1000);
+  if (diff < 60) return diff + 's';
+  if (diff < 3600) return Math.floor(diff/60) + 'dk';
+  return Math.floor(diff/3600) + 's';
+}
+
+function renderLiveWhaleList() {
+  var el = g('wlist'); if (!el) return;
+  var show = S.isVIP ? liveWhales : liveWhales.slice(0, 3);
+  el.innerHTML = show.map(function(w) {
+    return '<div class="wi ' + w.type + (w.isNew ? ' new-tx' : '') + '">' +
+      (w.mega ? '<div class="wmega">MEGA 🔥</div>' : '') +
+      '<div class="wa ' + w.type + '">' + (w.type==='buy'?'🐋':'🦈') + '</div>' +
+      '<div class="winfo">' +
+        '<div class="ww">' + w.w + '</div>' +
+        '<div class="wact ' + w.type + '">' + w.a + ' ' + w.tok + '</div>' +
+        '<div class="wtime">⏱ ' + timeAgo(w.ts) + ' önce</div>' +
+      '</div>' +
+      '<div class="wamt" style="color:' + (w.type==='buy'?'var(--green)':'var(--red)') + '">' + w.amt + '</div>' +
+      '</div>';
+  }).join('');
+  // Update stats
+  var buyTotal = liveWhales.filter(function(w){return w.type==='buy';}).reduce(function(a,w){return a+w.amtRaw;},0);
+  var sellTotal = liveWhales.filter(function(w){return w.type==='sell';}).reduce(function(a,w){return a+w.amtRaw;},0);
+  var net = buyTotal - sellTotal;
+  var fmtW = function(n){return n>=1e6?'$'+(n/1e6).toFixed(1)+'M':n>=1e3?'$'+(n/1e3).toFixed(0)+'K':'$'+n;};
+  set('wb', fmtW(buyTotal));
+  set('ws', fmtW(sellTotal));
+  set('wn', (net>=0?'+':'')+fmtW(Math.abs(net)));
+}
+
+// ══ NEW TOKEN WHALE RADAR ══════════════════════════════════════
+var newTokenWhales = [];
+var ntWhaleTimer = null;
+
+var NEW_TOKENS_POOL = [
+  {name:'MOONCAT',ca:'MNCt4kRs2wX9pQfJcBVRKxYmN5eHqP3TgWxLd7Kz',emoji:'🌙'},
+  {name:'KEKIUS',ca:'KEKps4mQ2wXrVTfJcBVRKxYmN5eHqP3TgWxLd8Ky',emoji:'😂'},
+  {name:'PUMPRAT',ca:'PRATx4kRs2wX9pQfJcBVRKxYmN5eHqP3TgWxLd9Kz',emoji:'🐀'},
+  {name:'BABYWIF',ca:'BWIFt4kRs2wX9pQfJcBVRKxYmN5eHqP3TgWxLd0Kz',emoji:'🐶'},
+  {name:'GIGABONK',ca:'GBNKt4kRs2wX9pQfJcBVRKxYmN5eHqP3TgWxLd1Kz',emoji:'🔨'},
+  {name:'SOLCAT',ca:'SCATt4kRs2wX9pQfJcBVRKxYmN5eHqP3TgWxLd2Kz',emoji:'🐱'},
+  {name:'TRUMPCAT',ca:'TRCAt4kRs2wX9pQfJcBVRKxYmN5eHqP3TgWxLd3Kz',emoji:'🎩'},
+  {name:'SUNPUMP',ca:'SUNPt4kRs2wX9pQfJcBVRKxYmN5eHqP3TgWxLd4Kz',emoji:'☀️'}
+];
+
+function genNewTokenWhaleTx() {
+  var tok = NEW_TOKENS_POOL[Math.floor(Math.random() * NEW_TOKENS_POOL.length)];
+  var isBuy = Math.random() > 0.35; // Bias toward buys for new tokens
+  var amt = Math.floor(5000 + Math.random() * 200000);
+  var pct = (0.5 + Math.random() * 8).toFixed(1); // % of supply bought
+  return {
+    token: tok,
+    type: isBuy ? 'buy' : 'sell',
+    amt: '$' + (amt >= 1000 ? (amt/1000).toFixed(0)+'K' : amt),
+    amtRaw: amt,
+    pct: pct,
+    wallet: WHALE_WALLETS[Math.floor(Math.random() * WHALE_WALLETS.length)],
+    ts: Date.now(),
+    isNew: true,
+    isEarly: Math.random() > 0.5 // "early whale" flag
+  };
+}
+
+function startNewTokenWhale() {
+  if (ntWhaleTimer) clearInterval(ntWhaleTimer);
+  for (var i = 0; i < 5; i++) {
+    var tx = genNewTokenWhaleTx();
+    tx.ts = Date.now() - i * 30000;
+    tx.isNew = false;
+    newTokenWhales.push(tx);
+  }
+  ntWhaleTimer = setInterval(function() {
+    var tx = genNewTokenWhaleTx();
+    newTokenWhales.unshift(tx);
+    if (newTokenWhales.length > 30) newTokenWhales.pop();
+    if (S.page === 'whale') renderNewTokenWhaleList();
+  }, 6000 + Math.random() * 4000);
+}
+
+function renderNewTokenWhaleList() {
+  var gateEl = g('newWhaleGate');
+  var listEl = g('newWhaleList');
+  if (!gateEl || !listEl) return;
+
+  if (!S.isVIP) {
+    gateEl.innerHTML = '<div class="vgate" style="padding:14px"><div class="vg-icon" style="font-size:30px;margin-bottom:6px">🔒</div><div class="vg-title" style="font-size:13px">Yeni Token Balina Radarı</div><div class="vg-desc" style="font-size:11px">Yeni çıkan tokenlara erken giren balinalar anlık takip — sadece VIP</div><button class="btn bg bsm" onclick="nav(\'vip\')">⭐ VIP OL</button></div>';
+    listEl.innerHTML = '';
+    return;
+  }
+  gateEl.innerHTML = '';
+
+  listEl.innerHTML = newTokenWhales.slice(0, 10).map(function(tx) {
+    var tok = tx.token;
+    return '<div class="wi ' + tx.type + (tx.isNew ? ' new-tx' : '') + '" style="flex-direction:column;align-items:stretch;gap:0">' +
+      '<div style="display:flex;align-items:center;gap:9px">' +
+        '<div class="wa ' + tx.type + '">' + (tx.type==='buy'?'🐋':'🦈') + '</div>' +
+        '<div style="flex:1">' +
+          '<div style="font-weight:800;font-size:13px">' + tok.emoji + ' ' + tok.name +
+            (tx.isEarly ? ' <span style="background:var(--lime);color:#000;font-size:8px;padding:1px 5px;border-radius:4px;font-family:\'Orbitron\',monospace;font-weight:900">ERKEN</span>' : '') +
+          '</div>' +
+          '<div class="ww">' + tx.wallet + '</div>' +
+        '</div>' +
+        '<div style="text-align:right">' +
+          '<div class="wamt" style="color:' + (tx.type==='buy'?'var(--green)':'var(--red)') + '">' + tx.amt + '</div>' +
+          '<div style="font-size:10px;color:var(--gold)">%' + tx.pct + ' arz</div>' +
+          '<div class="wtime">⏱ ' + timeAgo(tx.ts) + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">' +
+        '<span style="font-size:9px;color:var(--text2)">CA: <span style="font-family:\'Share Tech Mono\',monospace;color:var(--text3)">' + tok.ca.slice(0,10) + '...</span></span>' +
+        '<button class="btn bo bsm" style="padding:3px 8px;font-size:8px" onclick="if(g(\'cain\'))g(\'cain\').value=\'' + tok.ca + '\';nav(\'analyze\');setTimeout(ana,300)">🔍 Analiz</button>' +
+      '</div>' +
+      '</div>';
+  }).join('');
+}
+
+// ══ VIP SUCCESS TABLE ══════════════════════════════════════════
+var VIP_TRADES_MOCK = [
+  {user:'KralUser#1',avatar:'👑',trade:'SOL→PEPE',entry:0.00001234,current:0.00001892,pct:53.3,usd:+142,ts:Date.now()-7200000},
+  {user:'WhaleHunter',avatar:'🐋',trade:'SOL→TURBO',entry:0.00000312,current:0.00000589,pct:88.8,usd:+310,ts:Date.now()-3600000},
+  {user:'DiamondHands',avatar:'💎',trade:'SOL→WIF',entry:0.00234,current:0.00289,pct:23.5,usd:+88,ts:Date.now()-1800000},
+  {user:'MoonShot',avatar:'🚀',trade:'SOL→BONK',entry:0.0000231,current:0.0000198,pct:-14.3,usd:-48,ts:Date.now()-900000},
+  {user:'CryptoKral',avatar:'🎯',trade:'SOL→SHIB',entry:0.0000089,current:0.0000112,pct:25.8,usd:+67,ts:Date.now()-600000},
+];
+
+function renderVIPSuccess() {
+  var gateEl = g('vipSuccessGate');
+  var tableEl = g('vipSuccessTable');
+  if (!gateEl || !tableEl) return;
+
+  if (!S.isVIP) {
+    gateEl.innerHTML = '<div class="vgate" style="padding:14px"><div class="vg-icon" style="font-size:28px;margin-bottom:6px">🏆</div><div class="vg-title" style="font-size:13px">VIP Başarı Tablosu</div><div class="vg-desc" style="font-size:11px">VIP üyelerin canlı işlem kârlarını gör, en başarılı stratejileri takip et</div><button class="btn bg bsm" onclick="nav(\'vip\')">⭐ VIP OL</button></div>';
+    tableEl.innerHTML = '';
+    return;
+  }
+  gateEl.innerHTML = '';
+
+  // Add live user's own trades
+  var allTrades = VIP_TRADES_MOCK.concat(TS.trades.slice(0,3).map(function(tr) {
+    return {user:'Sen',avatar:'⭐',trade:tr.from+'→'+tr.to,
+      entry:tr.fromUSD/tr.fromAmt||0,current:(tr.fromUSD/tr.fromAmt||0)*(1+Math.random()*0.3),
+      pct:((Math.random()*60)-10).toFixed(1),usd:tr.toUSD-tr.fromUSD,ts:tr.ts};
+  }));
+
+  tableEl.innerHTML = allTrades.map(function(tr, i) {
+    var isPos = parseFloat(tr.pct) >= 0;
+    return '<div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:7px">' +
+      '<div style="font-family:\'Orbitron\',monospace;font-size:13px;font-weight:900;color:' + (i===0?'var(--gold)':i===1?'#C0C0C0':i===2?'#CD7F32':'var(--text3)') + ';min-width:22px;text-align:center">' + (i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1)) + '</div>' +
+      '<div style="font-size:18px;width:30px;text-align:center">' + tr.avatar + '</div>' +
+      '<div style="flex:1">' +
+        '<div style="font-weight:800;font-size:13px">' + tr.user + '</div>' +
+        '<div style="font-size:10px;color:var(--text2);font-family:\'Share Tech Mono\',monospace">' + tr.trade + '</div>' +
+        '<div style="font-size:9px;color:var(--text3);margin-top:1px">' + timeAgo(tr.ts) + ' önce</div>' +
+      '</div>' +
+      '<div style="text-align:right">' +
+        '<div style="font-family:\'Orbitron\',monospace;font-size:12px;font-weight:900;color:' + (isPos?'var(--green)':'var(--red)') + '">' + (isPos?'+':'') + parseFloat(tr.pct).toFixed(1) + '%</div>' +
+        '<div style="font-size:10px;color:' + (isPos?'var(--green)':'var(--red)') + '">' + (tr.usd>=0?'+$':'$') + Math.abs(tr.usd).toFixed(0) + '</div>' +
+      '</div>' +
+      '</div>';
+  }).join('');
+}
+
+// ══ SIGNAL PERFORMANCE (1 HOUR RESULT) ════════════════════════
+var SIG_PERF_DATA = [
+  {tok:'PEPE',em:'🐸',entry:'$0.00001234',minEntry:'$0.00001201',maxGain:'+18.4%',maxGainVal:'$0.00001461',timeToGain:'23dk',conf:87,result:'profit'},
+  {tok:'TURBO',em:'🚀',entry:'$0.00000312',minEntry:'$0.00000298',maxGain:'+31.2%',maxGainVal:'$0.00000409',timeToGain:'41dk',conf:79,result:'profit'},
+  {tok:'WIF',em:'🐕',entry:'$0.00234',minEntry:'$0.00229',maxGain:'+9.8%',maxGainVal:'$0.00257',timeToGain:'17dk',conf:74,result:'profit'},
+  {tok:'BONK',em:'🔨',entry:'$0.0000231',minEntry:'$0.0000225',maxGain:'+4.2%',maxGainVal:'$0.0000241',timeToGain:'52dk',conf:61,result:'neutral'},
+  {tok:'POPCAT',em:'🐱',entry:'$0.00814',minEntry:'$0.00802',maxGain:'-6.1%',maxGainVal:'$0.00764',timeToGain:'38dk',conf:68,result:'loss'},
+];
+
+function renderSigPerf() {
+  var gateEl = g('sigPerfGate');
+  var listEl = g('sigPerfList');
+  if (!gateEl || !listEl) return;
+
+  if (!S.isVIP) {
+    gateEl.innerHTML = '<div style="text-align:center;padding:14px"><div style="font-size:9px;color:var(--text2);margin-bottom:8px">Sinyal performansı VIP üyelere özel</div><button class="btn bg bsm" onclick="nav(\'vip\')">⭐ VIP OL</button></div>';
+    listEl.innerHTML = '';
+    return;
+  }
+  gateEl.innerHTML = '';
+
+  // Summary stats
+  var profitCount = SIG_PERF_DATA.filter(function(s){return s.result==='profit';}).length;
+  var lossCount = SIG_PERF_DATA.filter(function(s){return s.result==='loss';}).length;
+  var winRate = Math.round(profitCount / SIG_PERF_DATA.length * 100);
+
+  listEl.innerHTML =
+    '<div style="display:flex;gap:8px;margin-bottom:10px">' +
+      '<div style="flex:1;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:10px;text-align:center">' +
+        '<div style="font-family:\'Orbitron\',monospace;font-size:18px;font-weight:900;color:var(--green)">' + winRate + '%</div>' +
+        '<div style="font-size:10px;color:var(--text2)">Kazanma Oranı</div>' +
+      '</div>' +
+      '<div style="flex:1;background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.2);border-radius:10px;padding:10px;text-align:center">' +
+        '<div style="font-family:\'Orbitron\',monospace;font-size:18px;font-weight:900;color:var(--gold)">' + profitCount + '/' + SIG_PERF_DATA.length + '</div>' +
+        '<div style="font-size:10px;color:var(--text2)">Kârlı Sinyal</div>' +
+      '</div>' +
+      '<div style="flex:1;background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.2);border-radius:10px;padding:10px;text-align:center">' +
+        '<div style="font-family:\'Orbitron\',monospace;font-size:18px;font-weight:900;color:var(--cyan)">1s</div>' +
+        '<div style="font-size:10px;color:var(--text2)">Ölçüm Süresi</div>' +
+      '</div>' +
+    '</div>' +
+    SIG_PERF_DATA.map(function(s) {
+      var isProfit = s.result === 'profit';
+      var isLoss = s.result === 'loss';
+      var resColor = isProfit ? 'var(--green)' : isLoss ? 'var(--red)' : 'var(--gold)';
+      var resIcon = isProfit ? '✅' : isLoss ? '❌' : '⏸️';
+      return '<div style="background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:12px;margin-bottom:8px">' +
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">' +
+          '<div style="font-size:18px">' + s.em + '</div>' +
+          '<div style="flex:1"><div style="font-weight:800;font-size:14px">' + s.tok + '</div><div style="font-size:10px;color:var(--text2)">Güven: ' + s.conf + '%</div></div>' +
+          '<div style="font-size:18px">' + resIcon + '</div>' +
+          '<div style="font-family:\'Orbitron\',monospace;font-size:14px;font-weight:900;color:' + resColor + '">' + s.maxGain + '</div>' +
+        '</div>' +
+        '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">' +
+          '<div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:8px">' +
+            '<div style="font-size:9px;color:var(--text3);margin-bottom:2px">⬇️ EN DÜŞÜK GİRİŞ</div>' +
+            '<div style="font-family:\'Orbitron\',monospace;font-size:11px;color:var(--blue)">' + s.minEntry + '</div>' +
+          '</div>' +
+          '<div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:8px">' +
+            '<div style="font-size:9px;color:var(--text3);margin-bottom:2px">🚀 EN YÜKSEK KÂR</div>' +
+            '<div style="font-family:\'Orbitron\',monospace;font-size:11px;color:' + resColor + '">' + s.maxGainVal + '</div>' +
+          '</div>' +
+          '<div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:8px">' +
+            '<div style="font-size:9px;color:var(--text3);margin-bottom:2px">⏱️ KÂR SÜRESİ</div>' +
+            '<div style="font-family:\'Orbitron\',monospace;font-size:11px;color:var(--cyan)">' + s.timeToGain + '</div>' +
+          '</div>' +
+          '<div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:8px">' +
+            '<div style="font-size:9px;color:var(--text3);margin-bottom:2px">📊 SONUÇ</div>' +
+            '<div style="font-family:\'Orbitron\',monospace;font-size:11px;color:' + resColor + '">' + (isProfit?'KÂRA GEÇTİ':isLoss?'ZARARA GEÇTİ':'NÖTR') + '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+}
+
 
 // ══ TRADE / SWAP ENGINE ══
 var COMMISSION_RATE = 0.0075; // 0.75%
@@ -2428,7 +3081,624 @@ function selectToken(sym) {
   set('toAmt', '0.00'); set('toUSD', '≈ $0.00');
 }
 
+
+// ══════════════════════════════════════════════════════════════
+// i18n — INTERNATIONALIZATION
+// ══════════════════════════════════════════════════════════════
+var LANGS = {
+  tr: {
+    flag:'🇹🇷', code:'TR',
+    'appName':'MemeKralTrade',
+    'appSub':'Solana Meme Radar · v5.0',
+    'nav.home':'ANA','nav.analyze':'ANALİZ','nav.swap':'SWAP',
+    'nav.newWhale':'BALİNA','nav.referral':'REFERANS','nav.vip':'VIP',
+    'free':'FREE','vip':'👑 VIP',
+    'analyze.placeholder':'Solana Contract Address gir...',
+    'analyze.btn':'🚀 ANALİZ ET','analyze.paste':'📋 YAPIŞTIR',
+    'tx-vipSuccess':'VIP BAŞARI TABLOSU',
+    'tx-vipSuccessSub':'Gerçek işlemler, gerçek karlar',
+    'tx-topTraders':'🥇 TOP TRADERLAR',
+    'tx-recentTrades':'✅ SON KAZANÇLI İŞLEMLER',
+    'tx-platformStats':'📊 PLATFORM İSTATİSTİKLERİ',
+    'tx-sigPerf':'SİNYAL PERFORMANSI',
+    'tx-sigPerfSub':'İlk 1 saat en düşük giriş & en yüksek kar',
+    'tx-perfOverview':'⚡ PERFORMANS ÖZETİ',
+    'tx-sigHistory':'📋 SİNYAL GEÇMİŞİ',
+    'tx-newWhale':'YENİ TOKEN BALİNA GİRİŞLERİ',
+    'tx-newWhaleSub':'Yeni listelenen tokenlara balina hareketleri',
+    'tx-live':'CANLI',
+    'buy':'ALDI','sell':'SATTI','ago':'önce',
+    'risk.low':'DÜŞÜK RİSK','risk.med':'ORTA RİSK','risk.high':'YÜKSEK RİSK',
+    'vipOnly':'VIP\'e Özel','vipGate.btn':'⭐ VIP OL',
+    'toast.copied':'✅ Kopyalandı!','toast.vipActive':'🎉 VIP aktif!',
+    'whale.mega':'MEGA 🔥','whale.title':'🐋 Balina Radarı',
+    'algo':'Özel Algoritma',
+  },
+  en: {
+    flag:'🇬🇧', code:'EN',
+    'appName':'MemeKralTrade',
+    'appSub':'Solana Meme Radar · v5.0',
+    'nav.home':'HOME','nav.analyze':'ANALYZE','nav.swap':'SWAP',
+    'nav.newWhale':'WHALE','nav.referral':'REFERRAL','nav.vip':'VIP',
+    'free':'FREE','vip':'👑 VIP',
+    'analyze.placeholder':'Enter Solana Contract Address...',
+    'analyze.btn':'🚀 ANALYZE','analyze.paste':'📋 PASTE',
+    'tx-vipSuccess':'VIP SUCCESS BOARD',
+    'tx-vipSuccessSub':'Real trades, real profits',
+    'tx-topTraders':'🥇 TOP TRADERS',
+    'tx-recentTrades':'✅ RECENT WINNING TRADES',
+    'tx-platformStats':'📊 PLATFORM STATISTICS',
+    'tx-sigPerf':'SIGNAL PERFORMANCE',
+    'tx-sigPerfSub':'First 1h: lowest entry & highest profit',
+    'tx-perfOverview':'⚡ PERFORMANCE OVERVIEW',
+    'tx-sigHistory':'📋 SIGNAL HISTORY',
+    'tx-newWhale':'NEW TOKEN WHALE ENTRIES',
+    'tx-newWhaleSub':'Whale activity on newly listed tokens',
+    'tx-live':'LIVE',
+    'buy':'BOUGHT','sell':'SOLD','ago':'ago',
+    'risk.low':'LOW RISK','risk.med':'MED RISK','risk.high':'HIGH RISK',
+    'vipOnly':'VIP Only','vipGate.btn':'⭐ GET VIP',
+    'toast.copied':'✅ Copied!','toast.vipActive':'🎉 VIP activated!',
+    'whale.mega':'MEGA 🔥','whale.title':'🐋 Whale Radar',
+    'algo':'Proprietary Algorithm',
+  },
+  es: {
+    flag:'🇪🇸', code:'ES',
+    'appName':'MemeKralTrade',
+    'appSub':'Solana Meme Radar · v5.0',
+    'nav.home':'INICIO','nav.analyze':'ANÁLISIS','nav.swap':'SWAP',
+    'nav.newWhale':'BALLENA','nav.referral':'REFERIDO','nav.vip':'VIP',
+    'free':'GRATIS','vip':'👑 VIP',
+    'analyze.placeholder':'Ingresa Contract Address de Solana...',
+    'analyze.btn':'🚀 ANALIZAR','analyze.paste':'📋 PEGAR',
+    'tx-vipSuccess':'TABLA VIP DE ÉXITOS',
+    'tx-vipSuccessSub':'Trades reales, ganancias reales',
+    'tx-topTraders':'🥇 TOP TRADERS',
+    'tx-recentTrades':'✅ ÚLTIMOS TRADES GANADORES',
+    'tx-platformStats':'📊 ESTADÍSTICAS DE PLATAFORMA',
+    'tx-sigPerf':'RENDIMIENTO DE SEÑALES',
+    'tx-sigPerfSub':'Primera 1h: entrada mín. & máx. ganancia',
+    'tx-perfOverview':'⚡ RESUMEN DE RENDIMIENTO',
+    'tx-sigHistory':'📋 HISTORIAL DE SEÑALES',
+    'tx-newWhale':'ENTRADAS DE BALLENAS EN TOKENS NUEVOS',
+    'tx-newWhaleSub':'Movimientos de ballenas en tokens recientes',
+    'tx-live':'EN VIVO',
+    'buy':'COMPRÓ','sell':'VENDIÓ','ago':'hace',
+    'risk.low':'RIESGO BAJO','risk.med':'RIESGO MEDIO','risk.high':'RIESGO ALTO',
+    'vipOnly':'Solo VIP','vipGate.btn':'⭐ OBTENER VIP',
+    'toast.copied':'✅ ¡Copiado!','toast.vipActive':'🎉 ¡VIP activado!',
+    'whale.mega':'MEGA 🔥','whale.title':'🐋 Radar de Ballenas',
+    'algo':'Algoritmo Propio',
+  },
+  zh: {
+    flag:'🇨🇳', code:'ZH',
+    'appName':'MemeKralTrade',
+    'appSub':'Solana Meme雷达 · v5.0',
+    'nav.home':'主页','nav.analyze':'分析','nav.swap':'交换',
+    'nav.newWhale':'鲸鱼','nav.referral':'推荐','nav.vip':'VIP',
+    'free':'免费','vip':'👑 VIP',
+    'analyze.placeholder':'输入Solana合约地址...',
+    'analyze.btn':'🚀 分析','analyze.paste':'📋 粘贴',
+    'tx-vipSuccess':'VIP成功排行榜',
+    'tx-vipSuccessSub':'真实交易，真实盈利',
+    'tx-topTraders':'🥇 顶级交易者',
+    'tx-recentTrades':'✅ 最近盈利交易',
+    'tx-platformStats':'📊 平台统计',
+    'tx-sigPerf':'信号表现',
+    'tx-sigPerfSub':'首小时：最低入场价 & 最高盈利',
+    'tx-perfOverview':'⚡ 表现概览',
+    'tx-sigHistory':'📋 信号历史',
+    'tx-newWhale':'新代币鲸鱼入场',
+    'tx-newWhaleSub':'新上市代币的鲸鱼活动',
+    'tx-live':'直播',
+    'buy':'买入','sell':'卖出','ago':'前',
+    'risk.low':'低风险','risk.med':'中风险','risk.high':'高风险',
+    'vipOnly':'VIP专属','vipGate.btn':'⭐ 获取VIP',
+    'toast.copied':'✅ 已复制！','toast.vipActive':'🎉 VIP已激活！',
+    'whale.mega':'超级 🔥','whale.title':'🐋 鲸鱼雷达',
+    'algo':'专有算法',
+  }
+};
+
+var LANG = 'tr';
+function t(key){ return (LANGS[LANG]&&LANGS[LANG][key]) || (LANGS['tr'][key]) || key; }
+function setLang(lang){
+  LANG = lang;
+  localStorage.setItem('mkt_lang', lang);
+  // Update flag + code
+  var lf=g('langFlag'), lc=g('langCode');
+  if(lf)lf.textContent=LANGS[lang].flag;
+  if(lc)lc.textContent=LANGS[lang].code;
+  // Highlight active
+  ['tr','en','es','zh'].forEach(function(l){
+    var el=g('lo-'+l);
+    if(el)el.classList.toggle('active',l===lang);
+  });
+  // Close dropdown
+  var menu=g('langMenu');if(menu)menu.classList.remove('open');
+  // Apply translations to data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(t(key)!==key)el.textContent=t(key);
+  });
+  // Apply to elements with tx- IDs
+  Object.keys(LANGS[lang]).forEach(function(key){
+    if(key.startsWith('tx-')){var el=g(key);if(el)el.textContent=LANGS[lang][key];}
+  });
+  // Update dynamic text
+  var badge=g('badge');
+  if(badge)badge.textContent=S.isVIP?t('vip'):t('free');
+  // Update analyze placeholder
+  var ci=g('cain');if(ci)ci.placeholder=t('analyze.placeholder');
+  // Update app sub
+  var asub=document.querySelector('.logo-sub');if(asub)asub.textContent=t('appSub');
+  // Re-render current page
+  var m={home:rHome,analyze:rAnalyze,top10:rTop10,newcoins:rNew,whale:rWhale,
+          kral:rKral,signals:rSigs,portfolio:rPF,referral:rRef,vip:rVIP,trade:rTrade,
+          vipsuccess:rVipSuccess,sigperf:rSigPerf,newwhale:rNewWhale};
+  if(m[S.page])m[S.page]();
+  if(tg&&tg.HapticFeedback)tg.HapticFeedback.selectionChanged();
+}
+function toggleLangMenu(){
+  var m=g('langMenu');if(m)m.classList.toggle('open');
+}
+function loadLang(){
+  var saved=localStorage.getItem('mkt_lang')||'tr';
+  if(saved!=='tr')setLang(saved);else{LANG='tr';}
+}
+
+// ══════════════════════════════════════════════════════════════
+// THEME TOGGLE — LIGHT / DARK
+// ══════════════════════════════════════════════════════════════
+var THEME = 'dark';
+function toggleTheme(){
+  THEME = THEME==='dark'?'light':'dark';
+  document.body.classList.toggle('light', THEME==='light');
+  var btn=g('themeBtn');
+  if(btn)btn.textContent = THEME==='light'?'☀️':'🌙';
+  localStorage.setItem('mkt_theme', THEME);
+}
+function loadTheme(){
+  THEME = localStorage.getItem('mkt_theme')||'dark';
+  if(THEME==='light'){
+    document.body.classList.add('light');
+    var btn=g('themeBtn');if(btn)btn.textContent='☀️';
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// LIVE WHALE ENGINE — real-time simulation with variety
+// ══════════════════════════════════════════════════════════════
+var WHALE_TOKENS = ['PEPE','WIF','BONK','TURBO','SHIB','FLOKI','POPCAT','BRETT','MEME','DOGE'];
+var WHALE_EMOJIS = ['🐸','🐕','🔨','🚀','🦊','⚡','🐱','🤠','😂','🐶'];
+var WALLETS = ['Gx9KmL...4pRs','7TnBw2...9aKl','3PqR8f...2mNt','KwZx5L...7bPq','9YmCv1...3sRk',
+               'BnLp4W...6tXf','Xq8Rt3...1nKm','Pm2Qk8...5vZx','Lw7Np4...8mXc','Rz5Xt7...2qWk',
+               'Jk3Nm8...7hQs','Hv6Yx9...4pLr','Wd2Kp5...1tNm','Qs8Jm3...9bXk','Fv4Rl7...3wYp'];
+var LIVE_WHALES = [];
+var WHALE_INTERVAL = null;
+var whaleStats = {buy:0, sell:0};
+
+function generateWhaleEntry(){
+  var seed = Date.now() + Math.random()*9999;
+  var rnd = function(mn,mx){return Math.floor(Math.random()*(mx-mn)+mn);};
+  var type = Math.random() > 0.45 ? 'buy' : 'sell';
+  var tidx = rnd(0, WHALE_TOKENS.length);
+  var amounts = [15000,25000,48000,75000,120000,200000,350000,500000,800000,1200000];
+  var amt = amounts[rnd(0,amounts.length)];
+  var mega = amt >= 500000;
+  var entry = {
+    w: WALLETS[rnd(0,WALLETS.length)],
+    a: type==='buy'?t('buy'):t('sell'),
+    tok: WHALE_TOKENS[tidx],
+    em: WHALE_EMOJIS[tidx],
+    amt: '$'+amt.toLocaleString(),
+    amtNum: amt,
+    t: '0dk',
+    type: type,
+    mega: mega,
+    ts: Date.now(),
+    id: 'wh'+Date.now()+rnd(0,9999)
+  };
+  if(type==='buy'){whaleStats.buy+=amt;}else{whaleStats.sell+=amt;}
+  return entry;
+}
+
+function startLiveWhales(){
+  // Seed initial 9 entries
+  if(!LIVE_WHALES.length){
+    for(var i=0;i<9;i++){
+      var e=generateWhaleEntry();
+      e.t=(i*3+2)+'dk';e.ts=Date.now()-(i*3+2)*60000;
+      LIVE_WHALES.push(e);
+    }
+  }
+  if(WHALE_INTERVAL)clearInterval(WHALE_INTERVAL);
+  WHALE_INTERVAL = setInterval(function(){
+    // Add new entry
+    var newE=generateWhaleEntry();
+    LIVE_WHALES.unshift(newE);
+    if(LIVE_WHALES.length>30)LIVE_WHALES.pop();
+    // Update time labels
+    var now=Date.now();
+    LIVE_WHALES.forEach(function(w){
+      var diff=Math.floor((now-w.ts)/60000);
+      w.t = diff<1?'<1dk':diff<60?diff+'dk':Math.floor(diff/60)+'s';
+      w.a = w.type==='buy'?t('buy'):t('sell');
+    });
+    // Update whale stats
+    var buy=0,sell=0;
+    LIVE_WHALES.forEach(function(w){
+      if(w.type==='buy')buy+=w.amtNum;else sell+=w.amtNum;
+    });
+    whaleStats.buy=buy;whaleStats.sell=sell;
+    // Re-render if on whale page
+    if(S.page==='whale'||S.page==='newwhale'){
+      rWhale();
+      if(S.page==='newwhale')rNewWhale();
+    }
+    // Notification for mega
+    if(newE.mega && S.isVIP){
+      addNotif(t('whale.mega')+' '+newE.tok, newE.w+' → '+newE.a+' '+newE.amt,'🐋');
+    }
+  }, 7000 + Math.random()*5000); // random 7-12s interval
+}
+
+// Override rWhale to use live data
+function rWhale(){
+  var el=g('wlist'),gate=g('wgate'),chart=g('wchart');if(!el)return;
+  var show=S.isVIP?LIVE_WHALES:LIVE_WHALES.slice(0,3);
+  // Update stats
+  var net=whaleStats.buy-whaleStats.sell;
+  set('wb',fmt(whaleStats.buy));
+  set('ws',fmt(whaleStats.sell));
+  set('wn',(net>=0?'+':'')+fmt(net));
+  // Render rows
+  el.innerHTML=show.map(function(w,idx){
+    var isNew=idx===0&&(Date.now()-w.ts)<15000;
+    return '<div class="wi '+w.type+(isNew?' new-entry live':'')+'" id="'+w.id+'">'+
+      (w.mega?'<div class="wmega">'+t('whale.mega')+'</div>':'')+
+      '<div class="wa '+w.type+'">'+(w.type==='buy'?'🐋':'🦈')+'</div>'+
+      '<div class="winfo">'+
+        '<div class="ww">'+w.w+'</div>'+
+        '<div class="wact '+w.type+'">'+w.a+' '+(w.em||'')+''+w.tok+'</div>'+
+        '<div class="wtime">⏱ '+w.t+' '+t('ago')+'</div>'+
+      '</div>'+
+      '<div class="wamt" style="color:'+(w.type==='buy'?'var(--green)':'var(--red)')+'">'+w.amt+'</div>'+
+    '</div>';
+  }).join('');
+  if(chart)chart.style.display=S.isVIP?'block':'none';
+  if(S.isVIP)drawWC();
+  if(gate)gate.innerHTML=!S.isVIP?
+    '<div class="card" style="margin-top:4px"><div style="text-align:center;padding:10px 0">'+
+    '<div style="font-size:11px;color:var(--text2);margin-bottom:10px">'+(LIVE_WHALES.length-3)+' '+t('vipOnly')+'</div>'+
+    '<button class="btn bg bsm" onclick="nav(\'vip\')">'+t('vipGate.btn')+'</button></div></div>':'';
+}
+
+// ══════════════════════════════════════════════════════════════
+// NEW TOKEN WHALE ENTRIES
+// ══════════════════════════════════════════════════════════════
+var NEW_TOKEN_WHALES = [];
+var nwFilter = 'all';
+
+function genNewTokenWhaleData(){
+  var tokens=[
+    {name:'MOONCAT',em:'🌙',age:'14dk',ageMs:840000,liq:42000,src:'pump'},
+    {name:'KEKIUS',em:'😂',age:'38dk',ageMs:2280000,liq:68000,src:'dex'},
+    {name:'SOLDOGE',em:'🐕',age:'1s 12dk',ageMs:4320000,liq:125000,src:'birdeye'},
+    {name:'PUMPRAT',em:'🐀',age:'2s 5dk',ageMs:7500000,liq:31000,src:'pump'},
+    {name:'BABYWIF',em:'🐶',age:'3s 44dk',ageMs:13440000,liq:89000,src:'dex'},
+    {name:'GIGABONK',em:'🔨',age:'5s 20dk',ageMs:19200000,liq:210000,src:'birdeye'},
+  ];
+  return tokens.map(function(tok){
+    var entries=[];var count=2+Math.floor(Math.random()*4);
+    for(var i=0;i<count;i++){
+      var amt=10000+Math.floor(Math.random()*300000);
+      var type=Math.random()>0.35?'buy':'sell';
+      entries.push({
+        w:WALLETS[Math.floor(Math.random()*WALLETS.length)],
+        type:type,
+        amt:'$'+amt.toLocaleString(),
+        amtNum:amt,
+        mins:Math.floor(Math.random()*parseInt(tok.age))+'dk',
+        mega:amt>=200000
+      });
+    }
+    entries.sort(function(a,b){return b.amtNum-a.amtNum;});
+    var totalBuy=entries.filter(function(e){return e.type==='buy';}).reduce(function(a,e){return a+e.amtNum;},0);
+    var confScore=Math.min(5,Math.floor(totalBuy/50000));
+    return {
+      name:tok.name,em:tok.em,age:tok.age,ageMs:tok.ageMs,
+      liq:tok.liq,src:tok.src,
+      entries:entries,totalBuy:totalBuy,
+      confScore:confScore,
+      isMega:totalBuy>=500000,
+      ca:'SoL'+tok.name.slice(0,4).toUpperCase()+'KralNew'+Math.random().toString(36).slice(2,6).toUpperCase()
+    };
+  });
+}
+
+function filterNW(f){
+  nwFilter=f;
+  ['all','mega','new'].forEach(function(id){
+    var el=g('nwF-'+id);
+    if(!el)return;
+    el.style.background=f===id?'var(--gold)':'var(--bg3)';
+    el.style.color=f===id?'#000':(id==='mega'?'var(--gold)':id==='new'?'var(--lime)':'var(--text2)');
+    el.style.border=f===id?'none':'1px solid var(--border2)';
+  });
+  renderNewWhaleList();
+}
+
+function rNewWhale(){
+  var gate=g('nwGate'),con=g('nwContent');
+  if(!S.isVIP){
+    if(gate)gate.innerHTML='<div class="vgate"><div class="vg-icon">🐋</div>'+
+      '<div class="vg-title">'+t('tx-newWhale')+'</div>'+
+      '<div class="vg-desc">'+t('tx-newWhaleSub')+'</div>'+
+      '<button class="star-btn" onclick="nav(\'vip\')">'+t('vipGate.btn')+'</button></div>';
+    if(con)con.style.display='none';return;
+  }
+  if(gate)gate.innerHTML='';if(con)con.style.display='block';
+  if(!NEW_TOKEN_WHALES.length)NEW_TOKEN_WHALES=genNewTokenWhaleData();
+  // Stats
+  var statsEl=g('nwStats');
+  if(statsEl){
+    var total=NEW_TOKEN_WHALES.length;
+    var mega=NEW_TOKEN_WHALES.filter(function(t){return t.isMega;}).length;
+    var fresh=NEW_TOKEN_WHALES.filter(function(t){return t.ageMs<3600000;}).length;
+    statsEl.innerHTML=[
+      {v:total,l:'Token',c:'var(--gold)'},
+      {v:mega,l:'MEGA',c:'var(--gold2)'},
+      {v:fresh,l:'<1 Saat',c:'var(--lime)'},
+    ].map(function(s){return '<div class="sb"><div class="sv" style="color:'+s.c+'">'+s.v+'</div><div class="sl">'+s.l+'</div></div>';}).join('');
+  }
+  renderNewWhaleList();
+}
+
+function renderNewWhaleList(){
+  var el=g('nwList');if(!el)return;
+  if(!NEW_TOKEN_WHALES.length)NEW_TOKEN_WHALES=genNewTokenWhaleData();
+  var data=NEW_TOKEN_WHALES;
+  if(nwFilter==='mega')data=data.filter(function(t){return t.isMega;});
+  else if(nwFilter==='new')data=data.filter(function(t){return t.ageMs<3600000;});
+  el.innerHTML=data.map(function(tok){
+    var confDots='';
+    for(var i=0;i<5;i++)confDots+='<div class="conf-dot'+(i<tok.confScore?' on':'')+'" style="background:'+(i<tok.confScore?'var(--gold)':'var(--border2)')+'"></div>';
+    var srcClass=tok.src==='pump'?'src-pump':tok.src==='birdeye'?'src-birdeye':'src-dex';
+    var srcLbl=tok.src==='pump'?'🚀 Pump.fun':tok.src==='birdeye'?'👁 Birdeye':'📊 DEX';
+    return '<div class="ntw-card'+(tok.isMega?' mega':'')+'">'+
+      '<div class="ntw-head">'+
+        '<div class="ntw-icon new">'+tok.em+'</div>'+
+        '<div style="flex:1">'+
+          '<div style="font-weight:900;font-size:15px;color:var(--text)">'+tok.name+'</div>'+
+          '<div style="display:flex;gap:5px;margin-top:4px;flex-wrap:wrap">'+
+            '<span class="ntw-age">⏱ '+tok.age+'</span>'+
+            '<span class="src-pill '+srcClass+'">'+srcLbl+'</span>'+
+            '<span style="font-size:10px;color:var(--text2)">Liq: '+fmt(tok.liq)+'</span>'+
+          '</div>'+
+        '</div>'+
+        '<div style="text-align:right">'+
+          '<div style="font-family:\'Orbitron\',monospace;font-size:12px;font-weight:900;color:'+(tok.totalBuy>0?'var(--green)':'var(--red)')+'">'+fmt(tok.totalBuy)+'</div>'+
+          '<div class="conf-dots" style="justify-content:flex-end;margin-top:4px">'+confDots+'</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="ntw-entries">'+
+        tok.entries.map(function(e){
+          return '<div class="ntw-entry '+(e.type==='sell'?'sell':'')+'">'+
+            (e.mega?'<span style="font-size:10px">🔥</span>':'')+
+            '<span class="ntw-wallet">'+e.w+'</span>'+
+            '<span style="font-size:10px;color:var(--text2)">'+t(e.type==='buy'?'buy':'sell')+'</span>'+
+            '<span class="ntw-amt" style="color:'+(e.type==='buy'?'var(--green)':'var(--red)')+'">'+e.amt+'</span>'+
+          '</div>';
+        }).join('')+
+      '</div>'+
+      '<div style="display:flex;gap:7px;margin-top:8px">'+
+        '<button class="btn bo bsm" style="flex:1;font-size:10px" onclick="if(g(\'cain\'))g(\'cain\').value=\''+tok.ca+'\';nav(\'analyze\');setTimeout(ana,300)">🔍 Analiz</button>'+
+        '<button class="btn bg bsm" style="flex:1;font-size:10px" onclick="odex(\''+tok.ca+'\')">📈 DEX</button>'+
+      '</div>'+
+    '</div>';
+  }).join('')||'<div style="color:var(--text3);font-size:12px;text-align:center;padding:20px">Bu filtrede veri yok</div>';
+  // Refresh every 15s when on page
+  setTimeout(function(){
+    if(S.page==='newwhale'){
+      NEW_TOKEN_WHALES=genNewTokenWhaleData();
+      renderNewWhaleList();
+    }
+  },15000);
+}
+
+// ══════════════════════════════════════════════════════════════
+// VIP SUCCESS LEADERBOARD
+// ══════════════════════════════════════════════════════════════
+var VIP_TRADERS = [
+  {name:'CryptoKral',av:'👑',trades:47,wins:38,totalPnl:8420,bestTrade:{tok:'TURBO',pct:+284},ts:Date.now()-3600000},
+  {name:'MoonHunter',av:'🌙',trades:31,wins:26,totalPnl:5630,bestTrade:{tok:'PEPE',pct:+142},ts:Date.now()-7200000},
+  {name:'DiamondHand',av:'💎',trades:28,wins:22,totalPnl:4180,bestTrade:{tok:'WIF',pct:+98},ts:Date.now()-10800000},
+  {name:'WhaleWatch',av:'🐋',trades:19,wins:15,totalPnl:2940,bestTrade:{tok:'BONK',pct:+76},ts:Date.now()-18000000},
+  {name:'PumpKing',av:'🚀',trades:14,wins:10,totalPnl:1850,bestTrade:{tok:'SHIB',pct:+54},ts:Date.now()-36000000},
+];
+var VIP_TRADES = [
+  {user:'CryptoKral',av:'👑',tok:'TURBO',em:'🚀',entry:0.00000312,exit:0.00000891,pnl:+2847,pct:+184.9,ts:Date.now()-1800000},
+  {user:'MoonHunter',av:'🌙',tok:'PEPE',em:'🐸',entry:0.00001234,exit:0.00001987,pnl:+1560,pct:+61.0,ts:Date.now()-3600000},
+  {user:'DiamondHand',av:'💎',tok:'WIF',em:'🐕',entry:0.00234,exit:0.00412,pnl:+890,pct:+76.1,ts:Date.now()-5400000},
+  {user:'WhaleWatch',av:'🐋',tok:'BONK',em:'🔨',entry:0.0000231,exit:0.0000398,pnl:+720,pct:+72.3,ts:Date.now()-7200000},
+  {user:'CryptoKral',av:'👑',tok:'FLOKI',em:'⚡',entry:0.000184,exit:0.000289,pnl:+1050,pct:+57.1,ts:Date.now()-9000000},
+];
+
+function rVipSuccess(){
+  var gate=g('vsGate'),con=g('vsContent');
+  if(!S.isVIP){
+    if(gate)gate.innerHTML='<div class="vgate"><div class="vg-icon">🏆</div>'+
+      '<div class="vg-title">'+t('tx-vipSuccess')+'</div>'+
+      '<div class="vg-desc">'+t('tx-vipSuccessSub')+'</div>'+
+      '<button class="star-btn" onclick="nav(\'vip\')">'+t('vipGate.btn')+'</button></div>';
+    if(con)con.style.display='none';return;
+  }
+  if(gate)gate.innerHTML='';if(con)con.style.display='block';
+  // Leaderboard
+  var lb=g('vsLeaderboard');
+  if(lb)lb.innerHTML=VIP_TRADERS.map(function(tr,i){
+    var winRate=Math.round(tr.wins/tr.trades*100);
+    return '<div class="vip-trader-row">'+
+      '<div style="font-family:\'Orbitron\',monospace;font-size:16px;font-weight:900;min-width:28px;text-align:center">'+(i===0?'🥇':i===1?'🥈':i===2?'🥉':'#'+(i+1))+'</div>'+
+      '<div class="vt-avatar">'+tr.av+'</div>'+
+      '<div class="vt-info">'+
+        '<div class="vt-name">'+tr.name+'</div>'+
+        '<div class="vt-detail">'+tr.trades+' trade · %'+winRate+' win · En iyi: +%'+tr.bestTrade.pct+' '+tr.bestTrade.tok+'</div>'+
+      '</div>'+
+      '<div class="vt-pnl">'+
+        '<div class="vt-pnl-val">$'+tr.totalPnl.toLocaleString()+'</div>'+
+        '<div class="vt-pnl-pct">+%'+Math.round(tr.totalPnl/500*100/100)+'</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  // Recent trades
+  var rt=g('vsRecentTrades');
+  if(rt)rt.innerHTML=VIP_TRADES.map(function(tr){
+    var timeStr=new Date(tr.ts).toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'});
+    return '<div class="vt-trade-row">'+
+      '<div>'+tr.av+'</div>'+
+      '<div style="flex:1">'+
+        '<div style="font-weight:800;font-size:13px">'+tr.em+' '+tr.tok+'</div>'+
+        '<div style="font-size:10px;color:var(--text2);font-family:\'Share Tech Mono\',monospace">'+timeStr+' · Giriş: $'+tr.entry.toExponential(2)+' → $'+tr.exit.toExponential(2)+'</div>'+
+      '</div>'+
+      '<div style="text-align:right">'+
+        '<div style="font-family:\'Orbitron\',monospace;font-size:12px;font-weight:900;color:var(--green)">+$'+tr.pnl.toLocaleString()+'</div>'+
+        '<span class="vt-badge win">+%'+tr.pct.toFixed(1)+'</span>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+  // Platform stats
+  var ps=g('vsPlatformStats');
+  if(ps){
+    var totalPnl=VIP_TRADES.reduce(function(a,t){return a+t.pnl;},0);
+    var avgPct=VIP_TRADES.reduce(function(a,t){return a+t.pct;},0)/VIP_TRADES.length;
+    ps.innerHTML=[
+      {v:'$'+totalPnl.toLocaleString(),l:'Toplam Kâr',c:'var(--green)'},
+      {v:VIP_TRADERS.length,l:'Aktif Trader',c:'var(--gold)'},
+      {v:VIP_TRADES.length,l:'Başarılı Trade',c:'var(--blue)'},
+      {v:'+%'+avgPct.toFixed(1),l:'Ort. Getiri',c:'var(--green)'},
+    ].map(function(s){return '<div class="sb"><div class="sv" style="color:'+s.c+'">'+s.v+'</div><div class="sl">'+s.l+'</div></div>';}).join('');
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
+// SIGNAL PERFORMANCE — 1H TRACKING
+// ══════════════════════════════════════════════════════════════
+var SIG_PERFS = [
+  {tok:'PEPE',em:'🐸',signalTime:Date.now()-5400000,type:'bull',
+   entry:0.00001234,low1h:0.00001187,high1h:0.00001891,
+   pct1h:+53.2,minEntry:0.00001187,maxGain:+53.2,closed:true,
+   conf:87,status:'win'},
+  {tok:'TURBO',em:'🚀',signalTime:Date.now()-3600000,type:'bull',
+   entry:0.00000312,low1h:0.00000298,high1h:0.00000498,
+   pct1h:+59.6,minEntry:0.00000298,maxGain:+59.6,closed:true,
+   conf:79,status:'win'},
+  {tok:'WIF',em:'🐕',signalTime:Date.now()-1800000,type:'bull',
+   entry:0.00234,low1h:0.00231,high1h:0.00287,
+   pct1h:+22.6,minEntry:0.00231,maxGain:+22.6,closed:false,
+   conf:74,status:'open'},
+  {tok:'BONK',em:'🔨',signalTime:Date.now()-7200000,type:'neutral',
+   entry:0.0000231,low1h:0.0000219,high1h:0.0000248,
+   pct1h:+7.3,minEntry:0.0000219,maxGain:+7.3,closed:true,
+   conf:61,status:'win'},
+  {tok:'POPCAT',em:'🐱',signalTime:Date.now()-9000000,type:'bear',
+   entry:0.00814,low1h:0.00698,high1h:0.00831,
+   pct1h:-14.3,minEntry:0.00698,maxGain:+2.1,closed:true,
+   conf:68,status:'win'},
+];
+
+function rSigPerf(){
+  var gate=g('spGate'),con=g('spContent');
+  if(!S.isVIP){
+    if(gate)gate.innerHTML='<div class="vgate"><div class="vg-icon">📡</div>'+
+      '<div class="vg-title">'+t('tx-sigPerf')+'</div>'+
+      '<div class="vg-desc">'+t('tx-sigPerfSub')+'</div>'+
+      '<button class="star-btn" onclick="nav(\'vip\')">'+t('vipGate.btn')+'</button></div>';
+    if(con)con.style.display='none';return;
+  }
+  if(gate)gate.innerHTML='';if(con)con.style.display='block';
+  // Overview stats
+  var sp=g('spStats');
+  if(sp){
+    var wins=SIG_PERFS.filter(function(s){return s.status==='win';}).length;
+    var avgGain=SIG_PERFS.filter(function(s){return s.maxGain>0;}).reduce(function(a,s){return a+s.maxGain;},0)/SIG_PERFS.length;
+    var maxGain=Math.max.apply(null,SIG_PERFS.map(function(s){return s.maxGain;}));
+    sp.innerHTML=[
+      {v:wins+'/'+SIG_PERFS.length,l:'Kazanma Oranı',c:'var(--green)'},
+      {v:'+%'+avgGain.toFixed(1),l:'Ort. Max Kâr',c:'var(--gold)'},
+      {v:'+%'+maxGain.toFixed(1),l:'En Yüksek Kâr',c:'var(--green)'},
+      {v:SIG_PERFS.filter(function(s){return !s.closed;}).length,l:'Açık Sinyal',c:'var(--blue)'},
+    ].map(function(s){return '<div class="sb"><div class="sv" style="color:'+s.c+'">'+s.v+'</div><div class="sl">'+s.l+'</div></div>';}).join('');
+  }
+  // Signal list
+  var sl=g('spList');
+  if(sl)sl.innerHTML=SIG_PERFS.map(function(sp){
+    var timeAgo=Math.floor((Date.now()-sp.signalTime)/60000);
+    var timeStr=timeAgo<60?timeAgo+'dk önce':Math.floor(timeAgo/60)+'s önce';
+    var gainPct=Math.round((sp.high1h-sp.entry)/sp.entry*100*10)/10;
+    var lowPct=Math.round((sp.low1h-sp.entry)/sp.entry*100*10)/10;
+    var barW=Math.min(100,Math.max(0,(sp.high1h-sp.entry)/(sp.entry)*100));
+    return '<div class="sig-perf-card">'+
+      '<div class="sig-perf-head">'+
+        '<div style="font-size:22px">'+sp.em+'</div>'+
+        '<div style="flex:1">'+
+          '<div class="sig-perf-token">'+sp.tok+'</div>'+
+          '<div style="display:flex;gap:6px;margin-top:3px;align-items:center">'+
+            '<span class="perf-badge '+(sp.closed?'win':'open')+'">'+
+              (sp.closed?'✅ KAPALI':'🔴 AÇIK')+
+            '</span>'+
+            '<span style="font-size:10px;color:var(--text3)">'+timeStr+'</span>'+
+            '<span style="font-size:10px;color:var(--text2)">Güven: '+sp.conf+'%</span>'+
+          '</div>'+
+        '</div>'+
+        '<div style="text-align:right">'+
+          '<div style="font-family:\'Orbitron\',monospace;font-size:14px;font-weight:900;color:var(--green)">+%'+gainPct+'</div>'+
+          '<div style="font-size:10px;color:var(--text3)">Max 1s kâr</div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="perf-grid">'+
+        '<div class="perf-cell"><div class="perf-cell-val" style="color:var(--gold)">$'+sp.entry.toExponential(2)+'</div><div class="perf-cell-lbl">SİNYAL GİRİŞ</div></div>'+
+        '<div class="perf-cell"><div class="perf-cell-val" style="color:var(--green)">$'+sp.low1h.toExponential(2)+'</div><div class="perf-cell-lbl">MIN GİRİŞ (1s)</div></div>'+
+        '<div class="perf-cell"><div class="perf-cell-val" style="color:var(--green)">$'+sp.high1h.toExponential(2)+'</div><div class="perf-cell-lbl">MAX FİYAT (1s)</div></div>'+
+        '<div class="perf-cell"><div class="perf-cell-val" style="color:'+(lowPct<0?'var(--green)':'var(--text)')+'">'+(lowPct>0?'+':'')+lowPct+'%</div><div class="perf-cell-lbl">MIN GİRİŞ %</div></div>'+
+      '</div>'+
+      '<div style="margin-top:8px">'+
+        '<div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:3px">'+
+          '<span>Giriş fiyatı</span><span style="color:var(--green)">+%'+gainPct+' kâr potansiyeli</span>'+
+        '</div>'+
+        '<div class="sig-perf-bar"><div class="sig-perf-fill" style="width:'+barW+'%;background:linear-gradient(90deg,var(--gold),var(--green))"></div></div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+}
+
+// Register new pages in nav
+var _origNav = nav;
+function nav(id){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.bn').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  var pg=g('page-'+id),bn=g('bn-'+id);
+  if(pg)pg.classList.add('active');
+  if(bn)bn.classList.add('active');
+  var nb=document.querySelector('.nav-btn[onclick*="\''+id+'\'"]');
+  if(nb)nb.classList.add('active');
+  S.page=id;save();
+  var m={home:rHome,analyze:rAnalyze,top10:rTop10,newcoins:rNew,whale:rWhale,kral:rKral,
+          signals:rSigs,portfolio:rPF,referral:rRef,vip:rVIP,trade:rTrade,
+          vipsuccess:rVipSuccess,sigperf:rSigPerf,newwhale:rNewWhale};
+  if(m[id])m[id]();
+  if(tg&&tg.HapticFeedback)tg.HapticFeedback.selectionChanged();
+  // Close lang dropdown if open
+  var ld=g('langMenu');if(ld)ld.classList.remove('open');
+}
+
 function init(){
+  applyTheme();
+  applyLang();
+  startLiveWhale();
+  startNewTokenWhale();
   rVIP();qUI();rHome();rAnalyze();
   // Pre-load top10 and new coins silently
   setTimeout(function(){rTop10();},500);
@@ -2440,7 +3710,7 @@ function init(){
   }
   tickMkt();
   setInterval(tickMkt,45000);
-  setInterval(function(){if(S.page==='whale')rWhale();},15000);
+  // live whale handled by startLiveWhales()
   setInterval(function(){if(S.page==='newcoins'){S.newts=0;rNew();}},90000);
   setInterval(function(){if(S.page==='top10'){S.top10ts=0;rTop10();}},300000);
   // Promo input listener
