@@ -788,7 +788,198 @@ body.light .sb{background:rgba(230,228,220,0.8)!important}
 #terminalLines div:hover{background:rgba(20,241,149,0.04);border-radius:3px}
 
 @media(max-width:360px){.sr{grid-template-columns:repeat(2,1fr)}.ag{grid-template-columns:1fr}.bn-lb{font-size:6px}}
+
+/* ═══════════════════════════════════════════════════════════
+   v9.0 NEW MODULES CSS
+   Honeypot · TP/SL · Chart · Sniper · Watchlist
+   Smart Money · Copy Trade · P&L · Bundle · Launch Monitor
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── HONEYPOT BADGE ──────────────────────────────────────── */
+.hp-safe{display:inline-flex;align-items:center;gap:5px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);color:var(--green);padding:4px 10px;border-radius:20px;font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px}
+.hp-warn{display:inline-flex;align-items:center;gap:5px;background:rgba(255,51,102,0.1);border:1px solid rgba(255,51,102,0.35);color:var(--red);padding:4px 10px;border-radius:20px;font-family:'Orbitron',monospace;font-size:9px;font-weight:700;letter-spacing:1px}
+.hp-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.hp-safe .hp-dot{background:var(--green);box-shadow:0 0 5px var(--green)}
+.hp-warn .hp-dot{background:var(--red);box-shadow:0 0 5px var(--red);animation:blink 0.8s ease-in-out infinite}
+
+/* ── SECURITY SCORE BAR ──────────────────────────────────── */
+.sec-bar{height:6px;background:var(--bg2);border-radius:3px;overflow:hidden;margin:4px 0}
+.sec-fill{height:100%;border-radius:3px;transition:width 1s ease}
+.sec-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0}
+.sec-item{background:var(--bg3);border-radius:8px;padding:8px 10px;display:flex;align-items:center;justify-content:space-between}
+.sec-lbl{font-size:9px;color:var(--text2);letter-spacing:0.5px}
+.sec-val{font-family:'Orbitron',monospace;font-size:10px;font-weight:700}
+
+/* ── TP/SL PANEL ─────────────────────────────────────────── */
+.tpsl-wrap{background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:12px;margin-top:10px}
+.tpsl-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.tpsl-label{font-size:10px;font-weight:700;min-width:36px}
+.tpsl-input{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:var(--text);font-family:'Share Tech Mono',monospace;font-size:12px;outline:none;transition:border-color 0.2s}
+.tpsl-input:focus{border-color:var(--gold)}
+.tpsl-pct{font-size:10px;color:var(--text2);min-width:40px;text-align:right}
+.tpsl-toggle{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--border2);margin-top:4px}
+.toggle-sw{width:36px;height:20px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0}
+.toggle-sw.on{background:var(--green);border-color:var(--green)}
+.toggle-sw::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;background:#fff;border-radius:50%;transition:left 0.2s;box-shadow:0 1px 3px rgba(0,0,0,0.3)}
+.toggle-sw.on::after{left:18px}
+
+/* ── MINI PRICE CHART ────────────────────────────────────── */
+.mini-chart{height:80px;position:relative;overflow:hidden;border-radius:8px;background:var(--bg3);margin:8px 0}
+.mini-chart canvas{display:block}
+.chart-label{position:absolute;top:4px;right:6px;font-size:9px;color:var(--text3);font-family:'Share Tech Mono',monospace}
+.chart-change{position:absolute;top:4px;left:6px;font-size:10px;font-weight:700;font-family:'Orbitron',monospace}
+/* Full chart overlay */
+.chart-overlay{position:fixed;inset:0;background:rgba(5,5,8,0.96);z-index:400;padding:16px;backdrop-filter:blur(12px);display:none;flex-direction:column}
+.chart-overlay.open{display:flex}
+.chart-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.chart-period-row{display:flex;gap:5px;margin-bottom:10px}
+.cp-btn{padding:5px 12px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:9px;font-weight:700;font-family:'Orbitron',monospace;cursor:pointer;transition:all 0.2s}
+.cp-btn.active{background:var(--gold);color:#000;border-color:transparent}
+#fullChartCanvas{flex:1;width:100%;min-height:200px}
+
+/* ── SNIPER MODE ─────────────────────────────────────────── */
+.sniper-card{background:linear-gradient(135deg,rgba(255,51,102,0.07),rgba(255,107,0,0.04));border:1px solid rgba(255,51,102,0.25);border-radius:var(--r2);padding:14px;margin-bottom:10px;position:relative;overflow:hidden}
+.sniper-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--red),transparent);opacity:0.6}
+.sniper-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--red),#cc0033);color:#fff;padding:4px 12px;border-radius:20px;font-family:'Orbitron',monospace;font-size:9px;font-weight:900;letter-spacing:1px;margin-bottom:10px}
+.sniper-badge .blink-dot{width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 0.5s ease-in-out infinite}
+.sniper-stat{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,51,102,0.1);font-size:11px}
+.sniper-stat:last-child{border-bottom:none}
+.sniper-active{animation:sniperPulse 1.5s ease-in-out infinite}
+@keyframes sniperPulse{0%,100%{box-shadow:0 0 8px rgba(255,51,102,0.2)}50%{box-shadow:0 0 20px rgba(255,51,102,0.4)}}
+.sniper-armed{border-color:rgba(255,51,102,0.5)!important;box-shadow:0 0 16px rgba(255,51,102,0.15)!important}
+
+/* ── WATCHLIST ───────────────────────────────────────────── */
+.watch-item{display:flex;align-items:center;gap:9px;padding:10px 12px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;margin-bottom:6px;cursor:pointer;transition:all 0.2s;position:relative}
+.watch-item:hover{border-color:rgba(255,215,0,0.3)}
+.watch-alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.watch-alert-dot.triggered{background:var(--red);box-shadow:0 0 6px var(--red);animation:blink 0.6s ease-in-out infinite}
+.watch-alert-dot.watching{background:var(--gold);box-shadow:0 0 4px var(--gold)}
+.watch-alert-dot.idle{background:var(--text3)}
+.watch-pnl{font-size:10px;font-weight:700;text-align:right}
+.watch-price{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text2)}
+.watch-target{font-size:9px;color:var(--text3)}
+
+/* ── SMART MONEY TRACKER ─────────────────────────────────── */
+.sm-wallet{display:flex;align-items:flex-start;gap:10px;padding:12px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:7px;position:relative;overflow:hidden}
+.sm-wallet.whale{border-left:3px solid var(--gold)}
+.sm-wallet.smart{border-left:3px solid var(--cyan)}
+.sm-wallet.copy{border-left:3px solid var(--purple)}
+.sm-avatar{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:var(--bg2)}
+.sm-info{flex:1}
+.sm-addr{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text2)}
+.sm-tag{font-size:9px;padding:2px 7px;border-radius:10px;font-weight:700;font-family:'Orbitron',monospace}
+.sm-tag.whale{background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.25);color:var(--gold)}
+.sm-tag.smart{background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.2);color:var(--cyan)}
+.sm-tag.dev{background:rgba(157,78,221,0.1);border:1px solid rgba(157,78,221,0.25);color:var(--purple)}
+.sm-roi{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;text-align:right;flex-shrink:0}
+.copy-btn-sm{padding:5px 10px;border-radius:7px;border:1px solid var(--purple);background:rgba(157,78,221,0.08);color:var(--purple);font-family:'Orbitron',monospace;font-size:8px;font-weight:700;cursor:pointer;margin-top:4px;transition:all 0.2s;width:100%}
+.copy-btn-sm:hover{background:var(--purple);color:#fff}
+
+/* ── P&L DASHBOARD ───────────────────────────────────────── */
+.pnl-summary{background:var(--bg3);border-radius:14px;padding:14px;margin-bottom:10px;border:1px solid var(--border2)}
+.pnl-total{font-family:'Orbitron',monospace;font-size:26px;font-weight:900;line-height:1}
+.pnl-period{font-size:9px;color:var(--text3);letter-spacing:1px;margin-top:3px}
+.pnl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.pnl-cell{background:var(--bg2);border-radius:10px;padding:8px;text-align:center}
+.pnl-cell-val{font-family:'Orbitron',monospace;font-size:12px;font-weight:700}
+.pnl-cell-lbl{font-size:8px;color:var(--text3);letter-spacing:1px;margin-top:2px}
+.trade-row{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;margin-bottom:6px}
+.trade-icon{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.trade-info{flex:1}
+.trade-pair{font-size:12px;font-weight:700}
+.trade-time{font-size:9px;color:var(--text3);margin-top:1px}
+.trade-pnl{font-family:'Orbitron',monospace;font-size:13px;font-weight:900;text-align:right}
+.trade-mult{font-size:9px;text-align:right;margin-top:2px}
+
+/* ── BUNDLE DETECTOR ─────────────────────────────────────── */
+.bundle-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border:1px solid var(--border2);border-radius:10px;margin-bottom:6px}
+.bundle-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.bundle-safe{background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2)}
+.bundle-danger{background:rgba(255,51,102,0.08);border:1px solid rgba(255,51,102,0.2);animation:blink 2s ease-in-out infinite}
+.bundle-risk-badge{font-size:8px;padding:2px 7px;border-radius:10px;font-family:'Orbitron',monospace;font-weight:700}
+
+/* ── LAUNCH MONITOR (Pump.fun style) ─────────────────────── */
+.launch-item{display:flex;align-items:stretch;gap:0;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:7px;overflow:hidden;cursor:pointer;transition:all 0.2s;position:relative}
+.launch-item:hover{border-color:rgba(170,255,0,0.3)}
+.launch-item.hot{border-color:rgba(255,107,0,0.3);box-shadow:0 0 12px rgba(255,107,0,0.08)}
+.launch-side{width:4px;flex-shrink:0}
+.launch-side.new{background:linear-gradient(180deg,var(--lime),#66bb00)}
+.launch-side.hot{background:linear-gradient(180deg,var(--red),#880022)}
+.launch-body{flex:1;padding:10px 12px}
+.launch-name{font-weight:800;font-size:13px;color:var(--text)}
+.launch-meta{display:flex;gap:6px;margin-top:3px;flex-wrap:wrap}
+.launch-age{font-size:9px;color:var(--lime);background:rgba(170,255,0,0.08);border:1px solid rgba(170,255,0,0.2);padding:1px 7px;border-radius:10px;font-family:'Orbitron',monospace}
+.launch-src{font-size:9px;padding:1px 7px;border-radius:10px;font-family:'Orbitron',monospace;font-weight:700}
+.launch-right{padding:10px 12px;text-align:right;display:flex;flex-direction:column;justify-content:space-between;flex-shrink:0}
+.launch-mc{font-family:'Orbitron',monospace;font-size:11px;font-weight:700;color:var(--text)}
+.launch-pump{font-size:10px;font-weight:700}
+.launch-safety{font-size:8px;margin-top:2px;font-family:'Orbitron',monospace}
+
+/* ── COPY TRADE ──────────────────────────────────────────── */
+.ct-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r2);padding:14px;margin-bottom:10px;position:relative;overflow:hidden}
+.ct-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--purple),transparent);opacity:0.4}
+.ct-hero{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.ct-avatar{width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ct-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}
+.ct-stat{background:var(--bg3);border-radius:8px;padding:8px;text-align:center}
+.ct-stat-val{font-family:'Orbitron',monospace;font-size:12px;font-weight:700}
+.ct-stat-lbl{font-size:8px;color:var(--text3);letter-spacing:1px;margin-top:2px}
+.ct-active{border-color:rgba(157,78,221,0.3);box-shadow:0 0 14px rgba(157,78,221,0.08)}
+.ct-live-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(157,78,221,0.1);border:1px solid rgba(157,78,221,0.3);color:var(--purple);font-size:8px;padding:2px 8px;border-radius:10px;font-family:'Orbitron',monospace}
+
+/* ── ALERT SYSTEM ────────────────────────────────────────── */
+.alert-badge{position:absolute;top:-4px;right:-4px;width:14px;height:14px;background:var(--red);border-radius:50%;border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;font-family:'Orbitron',monospace;animation:blink 1s ease-in-out infinite}
+
+
+/* ── FORM INPUTS ─────────────────────────────────────────── */
+.form-inp{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:13px;outline:none;transition:border-color 0.2s}
+.form-inp:focus{border-color:var(--gold);box-shadow:0 0 10px rgba(255,215,0,0.08)}
+.form-inp::placeholder{color:var(--text3)}
+/* ── TOGGLE ──────────────────────────────────────────────── */
+.toggle-wrap{display:flex;align-items:center;gap:10px;cursor:pointer}
+/* ── ORDER TABS ──────────────────────────────────────────── */
+.tab-btn.active{background:linear-gradient(135deg,var(--gold),var(--gold3));color:#000;border-color:transparent}
+/* ── WATCHLIST ROW ───────────────────────────────────────── */
+.wl-row{display:flex;align-items:center;gap:10px;padding:11px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:7px;transition:border-color 0.2s}
+.wl-row:hover{border-color:rgba(0,229,255,0.3)}
+.wl-alarm-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+/* ── COPY TRADE FEED ITEM ─────────────────────────────────── */
+.ct-item{display:flex;align-items:center;gap:9px;padding:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:6px;animation:newTx 0.4s ease}
+.ct-item.buy{border-left:3px solid var(--green)}
+.ct-item.sell{border-left:3px solid var(--red)}
+/* ── ORDER ROW ───────────────────────────────────────────── */
+.ord-row{display:flex;align-items:center;gap:10px;padding:11px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:7px}
+.ord-row.limit{border-left:3px solid var(--gold)}
+.ord-row.tp{border-left:3px solid var(--green)}
+.ord-row.sl{border-left:3px solid var(--red)}
+/* ── PnL ROW ─────────────────────────────────────────────── */
+.pnl-row{display:flex;align-items:center;gap:10px;padding:11px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:7px}
+.pnl-pct{font-family:'Orbitron',monospace;font-size:13px;font-weight:900;min-width:56px;text-align:right}
+.pnl-pct.pos{color:var(--green)}
+.pnl-pct.neg{color:var(--red)}
+/* ── MULTI-WALLET ROW ────────────────────────────────────── */
+.mw-row{display:flex;align-items:center;gap:10px;padding:12px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:7px}
+.mw-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);flex-shrink:0}
+/* ── PUMP FEED ROW ───────────────────────────────────────── */
+.pf-row{display:flex;align-items:center;gap:10px;padding:11px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:7px;transition:all 0.2s}
+.pf-row:hover{border-color:rgba(170,255,0,0.4);transform:translateX(2px)}
+.pf-badge{font-family:'Orbitron',monospace;font-size:8px;font-weight:700;padding:2px 7px;border-radius:6px}
+.pf-badge.new{background:rgba(170,255,0,0.12);border:1px solid rgba(170,255,0,0.3);color:var(--lime)}
+.pf-badge.hot{background:rgba(255,51,102,0.1);border:1px solid rgba(255,51,102,0.3);color:var(--red)}
+.pf-badge.safe{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.25);color:var(--green)}
+.pf-badge.whale{background:rgba(0,191,255,0.1);border:1px solid rgba(0,191,255,0.25);color:var(--blue)}
+
+
+/* ── TOOLS DRAWER ────────────────────────────────────────── */
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+.tool-btn{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:10px 6px;cursor:pointer;transition:all 0.15s;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px}
+.tool-btn:hover{border-color:rgba(255,215,0,0.35);background:rgba(255,215,0,0.05)}
+.tool-btn:active{transform:scale(0.95)}
+.tool-ic{font-size:18px}
+.tool-lb{font-size:8px;color:var(--text2);font-weight:700;letter-spacing:0.5px;white-space:nowrap}
+
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 </head>
 <body>
 <div id="app">
@@ -1496,14 +1687,357 @@ body.light .sb{background:rgba(230,228,220,0.8)!important}
   </div>
 </div>
 
+<!-- ══════════ WATCHLIST ══════════ -->
+<div id="page-watchlist" class="page">
+  <div class="vh" style="padding:12px 14px 10px">
+    <div style="font-size:32px;animation:float 3s ease-in-out infinite">👁️</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px">TOKEN İZLEME LİSTESİ</div>
+    <div style="font-size:10px;color:var(--text2)">Fiyat alarmı · Anlık bildirim</div>
+  </div>
+  <div class="card c-cyan">
+    <div class="st">➕ Token Ekle</div>
+    <div class="iw" style="margin-bottom:8px">
+      <input type="text" id="wlCA" placeholder="CA veya sembol gir..." oninput="this.value=this.value.toUpperCase()"/>
+      <div class="ii">🔍</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <div>
+        <div style="font-size:9px;color:var(--text3);margin-bottom:4px;letter-spacing:1px">ALT ALARM ($)</div>
+        <input type="number" id="wlAlarmLow" placeholder="0.00001" class="form-inp"/>
+      </div>
+      <div>
+        <div style="font-size:9px;color:var(--text3);margin-bottom:4px;letter-spacing:1px">ÜST ALARM ($)</div>
+        <input type="number" id="wlAlarmHigh" placeholder="0.0001" class="form-inp"/>
+      </div>
+    </div>
+    <button class="btn bg" onclick="addToWatchlist()">
+      <span class="btn-txt">👁️ İZLEMEYE AL</span>
+      <span class="btn-spinner"><span class="spin-ring"></span>Ekleniyor...</span>
+    </button>
+  </div>
+  <div class="card" id="wlCard">
+    <div class="st">📋 İzleme Listesi</div>
+    <div id="wlList"><div style="text-align:center;padding:20px;color:var(--text3);font-size:12px">Henüz token eklenmedi</div></div>
+  </div>
+  <div class="card c-gold" id="wlAlertsCard" style="display:none">
+    <div class="st">🔔 Tetiklenen Alarmlar</div>
+    <div id="wlAlerts"></div>
+  </div>
+</div>
+
+<!-- ══════════ COPY TRADE ══════════ -->
+<div id="page-copytrade" class="page">
+  <div class="vh" style="padding:12px 14px 10px">
+    <div style="font-size:32px;animation:float 3s ease-in-out infinite">🔁</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px">COPY TRADE</div>
+    <div style="font-size:10px;color:var(--text2)">Akıllı cüzdanları takip et · Otomatik kopyala</div>
+  </div>
+  <div id="ctGate"></div>
+  <div id="ctContent" style="display:none">
+    <!-- Add wallet to track -->
+    <div class="card c-green">
+      <div class="st">🎯 Takip Edilecek Cüzdan</div>
+      <div class="iw" style="margin-bottom:8px">
+        <input type="text" id="ctWallet" placeholder="Solana cüzdan adresi..." style="font-size:11px"/>
+        <div class="ii">📋</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
+        <div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">MAX KOPYA (SOL)</div>
+          <input type="number" id="ctMaxSOL" value="0.1" class="form-inp"/>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">DELAY (sn)</div>
+          <input type="number" id="ctDelay" value="2" class="form-inp"/>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">STOP LOSS %</div>
+          <input type="number" id="ctSL" value="15" class="form-inp"/>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <div class="toggle-wrap" id="ctAutoToggle" style="flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:11px;font-weight:700">Otomatik Kopyala</span>
+          <div class="tog" id="ctAutoTog" onclick="toggleCT()" style="width:40px;height:22px;background:var(--bg2);border:1px solid var(--border);border-radius:11px;position:relative;cursor:pointer;transition:all 0.2s"><div style="position:absolute;top:2px;left:2px;width:16px;height:16px;background:var(--text3);border-radius:50%;transition:all 0.2s" id="ctTogDot"></div></div>
+        </div>
+        <button class="btn bg" style="width:auto;padding:12px 16px" onclick="addCopyWallet()">+ EKLE</button>
+      </div>
+    </div>
+    <!-- Tracked wallets -->
+    <div class="card">
+      <div class="st">🏦 Takip Edilen Cüzdanlar</div>
+      <div id="ctWalletList"><div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">Henüz cüzdan eklenmedi</div></div>
+    </div>
+    <!-- Copy trade feed -->
+    <div class="card c-purple">
+      <div class="st"><span class="ld"></span> Canlı Kopyalama İşlemleri</div>
+      <div id="ctFeed"></div>
+    </div>
+    <!-- Copy trade stats -->
+    <div class="card c-gold" id="ctStatsCard">
+      <div class="st">📊 Kopyalama İstatistikleri</div>
+      <div class="sr" id="ctStats"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ LİMİT ORDER / TP-SL ══════════ -->
+<div id="page-orders" class="page">
+  <div class="vh" style="padding:12px 14px 10px">
+    <div style="font-size:32px;animation:float 3s ease-in-out infinite">📋</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px">LİMİT ORDER + TP/SL</div>
+    <div style="font-size:10px;color:var(--text2)">Hedef fiyatta otomatik al/sat · Kar al · Zarar durdur</div>
+  </div>
+  <div id="ordGate"></div>
+  <div id="ordContent" style="display:none">
+    <!-- New Order Form -->
+    <div class="card c-gold">
+      <div class="st">➕ Yeni Emir</div>
+      <div class="iw" style="margin-bottom:10px">
+        <input type="text" id="ordCA" placeholder="Token CA veya sembol..." oninput="this.value=this.value.toUpperCase()"/>
+        <div class="ii">🔍</div>
+      </div>
+      <!-- Order Type Tabs -->
+      <div style="display:flex;gap:6px;margin-bottom:12px">
+        <button class="tab-btn active" id="ot-limit" onclick="setOrderType('limit')">📊 LİMİT AL</button>
+        <button class="tab-btn" id="ot-tp" onclick="setOrderType('tp')">🎯 KAR AL (TP)</button>
+        <button class="tab-btn" id="ot-sl" onclick="setOrderType('sl')">🛡️ ZARAR DURDUR (SL)</button>
+      </div>
+      <div id="ordForm">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <div>
+            <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">HEDEF FİYAT ($)</div>
+            <input type="number" id="ordPrice" placeholder="0.00001" class="form-inp"/>
+          </div>
+          <div>
+            <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">MİKTAR (SOL)</div>
+            <input type="number" id="ordAmount" placeholder="0.5" class="form-inp"/>
+          </div>
+        </div>
+        <div id="ordExtraFields"></div>
+        <div style="background:var(--bg3);border-radius:10px;padding:10px;margin-bottom:10px;font-size:10px">
+          <div style="display:flex;justify-content:space-between;padding:3px 0"><span style="color:var(--text2)">Emir Türü</span><span id="ordTypeLabel" style="color:var(--gold);font-weight:700">Limit Alım</span></div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0"><span style="color:var(--text2)">Platform Ücreti</span><span style="color:var(--text2)">%0.75</span></div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0"><span style="color:var(--text2)">Geçerlilik</span><span style="color:var(--text2)">Fiyata ulaşana kadar</span></div>
+        </div>
+        <button class="btn bg" onclick="placeOrder()">
+          <span class="btn-txt">📋 EMİR VER</span>
+          <span class="btn-spinner"><span class="spin-ring"></span>Gönderiliyor...</span>
+        </button>
+      </div>
+    </div>
+    <!-- Active Orders -->
+    <div class="card">
+      <div class="st">⏳ Aktif Emirler</div>
+      <div id="activeOrders"><div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">Aktif emir yok</div></div>
+    </div>
+    <!-- Order History -->
+    <div class="card c-purple">
+      <div class="st">📜 Emir Geçmişi</div>
+      <div id="orderHistory"><div style="text-align:center;padding:12px;color:var(--text3);font-size:12px">Henüz emir yok</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PnL DASHBOARD ══════════ -->
+<div id="page-pnl" class="page">
+  <div class="vh" style="padding:12px 14px 10px">
+    <div style="font-size:32px;animation:float 3s ease-in-out infinite">💰</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--green),var(--lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px">PnL DASHBOARD</div>
+    <div style="font-size:10px;color:var(--text2)">Gerçek kâr/zarar · Tüm işlemler · Grafiksel analiz</div>
+  </div>
+  <div id="pnlGate"></div>
+  <div id="pnlContent" style="display:none">
+    <!-- Summary stats -->
+    <div class="card c-green">
+      <div class="st">📊 Toplam Performans</div>
+      <div class="sr" id="pnlSummary"></div>
+    </div>
+    <!-- PnL Chart -->
+    <div class="card">
+      <div class="st">📈 PnL Grafiği (Son 30 Gün)</div>
+      <div style="position:relative;height:180px;margin-top:8px">
+        <canvas id="pnlChart"></canvas>
+      </div>
+    </div>
+    <!-- Token breakdown -->
+    <div class="card">
+      <div class="st">🪙 Token Bazlı Performans</div>
+      <div id="pnlTokenList"></div>
+    </div>
+    <!-- Recent trades -->
+    <div class="card c-purple">
+      <div class="st">📋 Son İşlemler</div>
+      <div id="pnlTrades"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ SNİPER ══════════ -->
+<div id="page-sniper" class="page">
+  <div class="vh" style="padding:12px 14px 10px">
+    <div style="font-size:32px;animation:float 3s ease-in-out infinite">🎯</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--red),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px">SNİPER MODU</div>
+    <div style="font-size:10px;color:var(--text2)">İlk blokta al · Anti-rug · Hız öncelikli</div>
+  </div>
+  <div id="sniperGate"></div>
+  <div id="sniperContent" style="display:none">
+    <div class="card c-red" style="border-color:rgba(255,51,102,0.3)">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:10px;background:rgba(255,51,102,0.08);border-radius:10px;border:1px solid rgba(255,51,102,0.2)">
+        <div style="font-size:18px">⚠️</div>
+        <div style="font-size:10px;color:var(--text2)">Sniper modu yüksek risk içerir. Yalnızca belirlediğin miktarı riske at. Mint authority açık tokenlerde çalışmaz.</div>
+      </div>
+      <div class="st">🎯 Sniper Ayarları</div>
+      <div class="iw" style="margin-bottom:8px">
+        <input type="text" id="sniperCA" placeholder="Token CA veya Pump.fun linki..." style="font-size:11px"/>
+        <div class="ii">🎯</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">SATIN ALMA (SOL)</div>
+          <input type="number" id="sniperAmt" value="0.1" class="form-inp"/>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">MAX SLIPPAGE %</div>
+          <input type="number" id="sniperSlip" value="50" class="form-inp"/>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">OTO SATIŞ (x)</div>
+          <input type="number" id="sniperAutoSell" value="3" class="form-inp"/>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">STOP LOSS %</div>
+          <input type="number" id="sniperSL" value="30" class="form-inp"/>
+        </div>
+      </div>
+      <!-- Priority fee for sniper — always turbo -->
+      <div style="background:linear-gradient(135deg,rgba(255,51,102,0.08),rgba(255,107,157,0.04));border:1px solid rgba(255,51,102,0.2);border-radius:10px;padding:10px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:var(--text2)">Priority Fee</span><span style="color:var(--red);font-weight:700">🚀 TURBO — 0.01 SOL</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px"><span style="color:var(--text2)">Anti-Rug Kontrol</span><span style="color:var(--green);font-weight:700">✅ AKTİF</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:4px"><span style="color:var(--text2)">Mint Authority</span><span style="color:var(--green);font-weight:700" id="sniperMintStatus">Kontrol ediliyor...</span></div>
+      </div>
+      <button class="btn" style="background:linear-gradient(135deg,var(--red),var(--pink));color:#fff;font-weight:900" id="sniperBtn" onclick="executSniper()">
+        <span class="btn-txt">🎯 SNİPER ATEŞLE</span>
+        <span class="btn-spinner"><span class="spin-ring" style="border-top-color:#fff"></span>Hedefleniyor...</span>
+      </button>
+    </div>
+    <!-- Sniper history -->
+    <div class="card">
+      <div class="st">📜 Sniper Geçmişi</div>
+      <div id="sniperHistory"><div style="text-align:center;padding:12px;color:var(--text3);font-size:12px">Henüz işlem yok</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ MULTI-WALLET ══════════ -->
+<div id="page-multiwallet" class="page">
+  <div class="vh" style="padding:12px 14px 10px">
+    <div style="font-size:32px;animation:float 3s ease-in-out infinite">👜</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--purple),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px">MULTI-WALLET</div>
+    <div style="font-size:10px;color:var(--text2)">5 cüzdana kadar · Dağıtık alım · Bakiye yönetimi</div>
+  </div>
+  <div id="mwGate"></div>
+  <div id="mwContent" style="display:none">
+    <div class="card c-purple">
+      <div class="st">➕ Cüzdan Ekle</div>
+      <div class="iw" style="margin-bottom:8px">
+        <input type="text" id="mwAddr" placeholder="Solana cüzdan adresi..." style="font-size:11px"/>
+        <div class="ii">👜</div>
+      </div>
+      <div class="iw" style="margin-bottom:8px">
+        <input type="text" id="mwLabel" placeholder="Etiket (örn: Ana Cüzdan, Bot Cüzdan)"/>
+        <div class="ii">🏷️</div>
+      </div>
+      <button class="btn bg" onclick="addMultiWallet()">👜 CÜZDAN EKLE</button>
+    </div>
+    <div class="card">
+      <div class="st">💼 Cüzdanlarım</div>
+      <div id="mwList"><div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">Cüzdan eklenmedi (max 5)</div></div>
+    </div>
+    <!-- Distributed buy -->
+    <div class="card c-blue">
+      <div class="st">⚡ Dağıtık Alım (Anti-Bundle)</div>
+      <div style="font-size:10px;color:var(--text2);margin-bottom:10px">Birden fazla cüzdandan eş zamanlı alım — fiyat etkisini minimize eder</div>
+      <div class="iw" style="margin-bottom:8px">
+        <input type="text" id="mwBuyCA" placeholder="Token CA..." oninput="this.value=this.value.toUpperCase()" style="font-size:11px"/>
+        <div class="ii">🎯</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">TOPLAM SOL</div>
+          <input type="number" id="mwBuyAmt" value="1.0" class="form-inp"/>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">GECIKME (ms)</div>
+          <input type="number" id="mwDelay" value="500" class="form-inp"/>
+        </div>
+      </div>
+      <button class="btn bgreen" onclick="distributedBuy()">⚡ DAĞITIK ALIM YAP</button>
+    </div>
+    <!-- Multi-wallet stats -->
+    <div class="card c-gold">
+      <div class="st">📊 Toplam Bakiyeler</div>
+      <div id="mwStats"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ PUMP.FUN FEED ══════════ -->
+<div id="page-pumpfeed" class="page">
+  <div class="vh" style="padding:12px 14px 10px">
+    <div style="font-size:32px;animation:float 3s ease-in-out infinite">🚀</div>
+    <div style="font-family:'Orbitron',monospace;font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--lime),#88cc00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-top:6px">PUMP.FUN CANLI FEED</div>
+    <div style="font-size:10px;color:var(--text2)">Yeni launch · Bonding curve · İlk alımlar</div>
+  </div>
+  <div class="card" style="border-color:rgba(170,255,0,0.2)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div class="st" style="margin-bottom:0">🚀 Son Launchlar</div>
+      <div style="display:flex;gap:6px">
+        <button class="fs-btn active" id="pf-all" onclick="filterPump('all',this)">Tümü</button>
+        <button class="fs-btn" id="pf-hot" onclick="filterPump('hot',this)">🔥 Hızlı</button>
+        <button class="fs-btn" id="pf-safe" onclick="filterPump('safe',this)">✅ Güvenli</button>
+        <button class="fs-btn" id="pf-whale" onclick="filterPump('whale',this)">🐋 Balina</button>
+      </div>
+    </div>
+    <div id="pumpFeed"></div>
+  </div>
+  <div class="card c-lime">
+    <div class="st">📊 Pump.fun İstatistikleri</div>
+    <div class="sr" id="pumpStats"></div>
+  </div>
+</div>
+
 <!-- BOTTOM NAV -->
-<div class="bnav" style="grid-template-columns:repeat(6,1fr)">
-  <button class="bn active" onclick="nav('home')" id="bn-home"><div class="bn-ic">🏠</div><div class="bn-lb" data-i18n="nav.home">ANA</div></button>
-  <button class="bn" onclick="nav('analyze')" id="bn-analyze"><div class="bn-ic">🔍</div><div class="bn-lb" data-i18n="nav.analyze">ANALİZ</div></button>
-  <button class="bn" onclick="nav('trade')" id="bn-trade"><div class="bn-ic">💹</div><div class="bn-lb" data-i18n="nav.swap">SWAP</div></button>
-  <button class="bn" onclick="nav('newwhale')" id="bn-newwhale"><div class="bn-ic">🐋</div><div class="bn-lb" data-i18n="nav.newWhale">BALİNA</div></button>
-  <button class="bn" onclick="nav('referral')" id="bn-referral"><div class="bn-ic">🔗</div><div class="bn-lb" data-i18n="nav.referral">REFERANS</div></button>
-  <button class="bn" onclick="nav('vip')" id="bn-vip"><div class="bn-ic">⭐</div><div class="bn-lb" data-i18n="nav.vip">VIP</div></button>
+<div class="bnav" style="grid-template-columns:repeat(5,1fr)">
+  <button class="bn active" onclick="nav('home')" id="bn-home"><div class="bn-ic">🏠</div><div class="bn-lb">ANA</div></button>
+  <button class="bn" onclick="nav('analyze')" id="bn-analyze"><div class="bn-ic">🔍</div><div class="bn-lb">ANALİZ</div></button>
+  <button class="bn" onclick="nav('trade')" id="bn-trade"><div class="bn-ic">💹</div><div class="bn-lb">SWAP</div></button>
+  <button class="bn" onclick="showMoreNav()" id="bn-more"><div class="bn-ic">⚡</div><div class="bn-lb">ARAÇLAR</div></button>
+  <button class="bn" onclick="nav('vip')" id="bn-vip"><div class="bn-ic">⭐</div><div class="bn-lb">VIP</div></button>
+</div>
+
+<!-- TOOLS DROPDOWN NAV (slides up) -->
+<div id="toolsNav" style="display:none;position:fixed;bottom:84px;left:0;right:0;background:rgba(8,8,14,0.99);border-top:1px solid var(--border);padding:12px 14px;z-index:98;backdrop-filter:blur(20px);animation:slideUp 0.2s ease">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:8px">
+    <button class="tool-btn" onclick="nav('watchlist');hideMoreNav()"><div class="tool-ic">👁️</div><div class="tool-lb">İzleme</div></button>
+    <button class="tool-btn" onclick="nav('copytrade');hideMoreNav()"><div class="tool-ic">🔁</div><div class="tool-lb">Copy Trade</div></button>
+    <button class="tool-btn" onclick="nav('orders');hideMoreNav()"><div class="tool-ic">📋</div><div class="tool-lb">Emir</div></button>
+    <button class="tool-btn" onclick="nav('pnl');hideMoreNav()"><div class="tool-ic">💰</div><div class="tool-lb">PnL</div></button>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+    <button class="tool-btn" onclick="nav('sniper');hideMoreNav()"><div class="tool-ic">🎯</div><div class="tool-lb">Sniper</div></button>
+    <button class="tool-btn" onclick="nav('multiwallet');hideMoreNav()"><div class="tool-ic">👜</div><div class="tool-lb">Multi-W</div></button>
+    <button class="tool-btn" onclick="nav('pumpfeed');hideMoreNav()"><div class="tool-ic">🚀</div><div class="tool-lb">Pump.fun</div></button>
+    <button class="tool-btn" onclick="nav('newwhale');hideMoreNav()"><div class="tool-ic">🐋</div><div class="tool-lb">Balina</div></button>
+  </div>
+  <div style="display:flex;gap:8px;margin-top:8px">
+    <button class="tool-btn" style="flex:1" onclick="nav('referral');hideMoreNav()"><div style="font-size:14px">🔗</div><div class="tool-lb">Referans</div></button>
+    <button class="tool-btn" style="flex:1" onclick="nav('signals');hideMoreNav()"><div style="font-size:14px">⚡</div><div class="tool-lb">Sinyal</div></button>
+    <button class="tool-btn" style="flex:1" onclick="nav('whale');hideMoreNav()"><div style="font-size:14px">🔍</div><div class="tool-lb">Radar</div></button>
+    <button class="tool-btn" style="flex:1" onclick="hideMoreNav()"><div style="font-size:14px">✕</div><div class="tool-lb">Kapat</div></button>
+  </div>
 </div>
 
 <!-- ── CYBERPUNK TERMINAL WINDOW ───────────────────────── -->
@@ -4674,6 +5208,692 @@ function toastError(m) { toastTR(m, 'error'); }
 function toastWarn(m) { toastTR(m, 'warn'); }
 
 
+
+// ══════════════════════════════════════════════════════════════
+// MemeKralTrade v9.0 — NEW MODULES ENGINE
+// ══════════════════════════════════════════════════════════════
+
+// ── NAV DRAWER ────────────────────────────────────────────────
+function showMoreNav(){
+  var tn=document.getElementById('toolsNav');
+  if(tn){tn.style.display=tn.style.display==='block'?'none':'block';}
+  var bn=document.getElementById('bn-more');
+  if(bn)bn.classList.toggle('active');
+}
+function hideMoreNav(){
+  var tn=document.getElementById('toolsNav');
+  if(tn)tn.style.display='none';
+  var bn=document.getElementById('bn-more');
+  if(bn)bn.classList.remove('active');
+}
+
+// ── REGISTER NEW PAGES ───────────────────────────────────────
+var _origNavV9=window.nav;
+function nav(id){
+  hideMoreNav();
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.bn').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  var pg=g('page-'+id),bn=g('bn-'+id);
+  if(pg)pg.classList.add('active');
+  if(bn)bn.classList.add('active');
+  var nb=document.querySelector('.nav-btn[onclick*="\''+id+'\'"]');
+  if(nb)nb.classList.add('active');
+  S.page=id;save();
+  var m={
+    home:rHome,analyze:rAnalyze,top10:rTop10,newcoins:rNew,
+    whale:rWhale,kral:rKral,signals:rSigs,portfolio:rPF,
+    referral:rRef,vip:rVIP,trade:rTrade,
+    vipsuccess:function(){},sigperf:function(){},newwhale:function(){},
+    watchlist:rWatchlist,copytrade:rCopyTrade,orders:rOrders,
+    pnl:rPnL,sniper:rSniper,multiwallet:rMultiWallet,pumpfeed:rPumpFeed
+  };
+  if(m[id])m[id]();
+  if(tg&&tg.HapticFeedback)tg.HapticFeedback.selectionChanged();
+}
+
+// ══ WATCHLIST ENGINE ══════════════════════════════════════════
+var WL=JSON.parse(localStorage.getItem('mkt_watchlist')||'[]');
+var WL_ALERTS=JSON.parse(localStorage.getItem('mkt_wl_alerts')||'[]');
+var wlTimer=null;
+
+function saveWL(){localStorage.setItem('mkt_watchlist',JSON.stringify(WL));}
+function saveWLAlerts(){localStorage.setItem('mkt_wl_alerts',JSON.stringify(WL_ALERTS));}
+
+function addToWatchlist(){
+  var ca=(g('wlCA')&&g('wlCA').value||'').trim();
+  var low=parseFloat(g('wlAlarmLow')&&g('wlAlarmLow').value||'0');
+  var high=parseFloat(g('wlAlarmHigh')&&g('wlAlarmHigh').value||'0');
+  if(!ca||ca.length<4){toast('⚠️ Geçerli CA gir');return;}
+  if(WL.length>=20){toast('⚠️ Maksimum 20 token izlenebilir');return;}
+  if(WL.find(function(t){return t.ca===ca;})){toast('Bu token zaten listede');return;}
+  var sym=ca.length<=10?ca:ca.slice(0,4)+'...'+ca.slice(-4);
+  WL.unshift({ca:ca,sym:sym,alarmLow:low||0,alarmHigh:high||0,
+    price:Math.random()*0.001,chg:((Math.random()-0.5)*20).toFixed(2),
+    addedAt:Date.now(),triggered:false});
+  saveWL();
+  if(g('wlCA'))g('wlCA').value='';
+  if(g('wlAlarmLow'))g('wlAlarmLow').value='';
+  if(g('wlAlarmHigh'))g('wlAlarmHigh').value='';
+  rWatchlist();
+  toast('✅ '+sym+' izleme listesine eklendi');
+  termLog('[WATCH] Added: '+sym+' | Low: $'+low+' High: $'+high,'SCAN');
+}
+
+function removeFromWatchlist(ca){
+  WL=WL.filter(function(t){return t.ca!==ca;});
+  saveWL();rWatchlist();toast('🗑️ Listeden çıkarıldı');
+}
+
+function rWatchlist(){
+  var listEl=g('wlList');
+  if(!listEl)return;
+  if(!WL.length){
+    listEl.innerHTML='<div style="text-align:center;padding:20px;color:var(--text3);font-size:12px">Henüz token eklenmedi<br><span style="font-size:10px">CA veya sembol ekleyerek başla</span></div>';
+    return;
+  }
+  // Simulate price updates
+  WL.forEach(function(t){
+    t.price*=(1+(Math.random()-0.498)*0.01);
+    t.chg=((Math.random()-0.5)*20).toFixed(2);
+    // Check alarms
+    if(t.alarmLow>0&&t.price<=t.alarmLow&&!t.lowTriggered){
+      t.lowTriggered=true;
+      WL_ALERTS.unshift({sym:t.sym,type:'LOW',price:t.price.toFixed(8),ts:Date.now()});
+      saveWLAlerts();
+      addNotif('⚠️ Fiyat Alarmı',''+t.sym+' düşük alarmı tetiklendi: $'+t.price.toFixed(8),'⚠️');
+      if(tg&&tg.HapticFeedback)tg.HapticFeedback.notificationOccurred('warning');
+    }
+    if(t.alarmHigh>0&&t.price>=t.alarmHigh&&!t.highTriggered){
+      t.highTriggered=true;
+      WL_ALERTS.unshift({sym:t.sym,type:'HIGH',price:t.price.toFixed(8),ts:Date.now()});
+      saveWLAlerts();
+      addNotif('🎯 Fiyat Hedefi',''+t.sym+' yüksek hedef: $'+t.price.toFixed(8),'🎯');
+      if(tg&&tg.HapticFeedback)tg.HapticFeedback.notificationOccurred('success');
+    }
+  });
+  saveWL();
+  listEl.innerHTML=WL.map(function(t){
+    var isPos=parseFloat(t.chg)>=0;
+    var alarmInfo='';
+    if(t.alarmLow>0)alarmInfo+='<span style="font-size:8px;color:var(--red)">↓$'+t.alarmLow.toFixed(6)+'</span> ';
+    if(t.alarmHigh>0)alarmInfo+='<span style="font-size:8px;color:var(--green)">↑$'+t.alarmHigh.toFixed(6)+'</span>';
+    return '<div class="wl-row">'+
+      '<div class="wl-alarm-dot" style="background:'+(t.lowTriggered||t.highTriggered?'var(--gold)':'var(--green)')+'"></div>'+
+      '<div style="flex:1">'+
+        '<div style="font-weight:700;font-size:13px">'+t.sym+'</div>'+
+        '<div style="font-size:9px;color:var(--text3)">'+alarmInfo+'</div>'+
+      '</div>'+
+      '<div style="text-align:right">'+
+        '<div style="font-family:\'Orbitron\',monospace;font-size:11px;font-weight:700">$'+(t.price<0.001?t.price.toFixed(8):t.price.toFixed(4))+'</div>'+
+        '<div style="font-size:10px;font-weight:700;color:'+(isPos?'var(--green)':'var(--red)')+'">'+( isPos?'+':'')+t.chg+'%</div>'+
+      '</div>'+
+      '<button onclick="removeFromWatchlist(\''+t.ca+'\')" style="background:rgba(255,51,102,0.08);border:1px solid rgba(255,51,102,0.2);color:var(--red);padding:5px 8px;border-radius:7px;cursor:pointer;font-size:10px;margin-left:6px">✕</button>'+
+      '<button onclick="if(g(\'cain\'))g(\'cain\').value=\''+t.ca+'\';nav(\'analyze\')" style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);color:var(--gold);padding:5px 8px;border-radius:7px;cursor:pointer;font-size:10px;margin-left:4px">🔍</button>'+
+    '</div>';
+  }).join('');
+  // Show alerts
+  var alertEl=g('wlAlerts');var alertCard=g('wlAlertsCard');
+  if(alertCard)alertCard.style.display=WL_ALERTS.length?'block':'none';
+  if(alertEl&&WL_ALERTS.length){
+    alertEl.innerHTML=WL_ALERTS.slice(0,5).map(function(a){
+      return '<div style="display:flex;align-items:center;gap:8px;padding:8px;background:rgba('+(a.type==='LOW'?'255,51,102':'0,255,136')+',0.06);border:1px solid rgba('+(a.type==='LOW'?'255,51,102':'0,255,136')+',0.2);border-radius:8px;margin-bottom:5px">'+
+        '<span style="font-size:14px">'+(a.type==='LOW'?'⚠️':'🎯')+'</span>'+
+        '<div style="flex:1"><div style="font-weight:700;font-size:12px">'+a.sym+' — '+a.type+' Alarm</div><div style="font-size:9px;color:var(--text2)">$'+a.price+'</div></div>'+
+        '<div style="font-size:9px;color:var(--text3)">'+timeAgo(a.ts)+'</div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+// ══ COPY TRADE ENGINE ══════════════════════════════════════════
+var CT_WALLETS=JSON.parse(localStorage.getItem('mkt_ct_wallets')||'[]');
+var CT_FEED=[];
+var CT_AUTO=false;
+var CT_STATS={copied:0,profit:0,totalVol:0};
+var ctFeedTimer=null;
+
+function saveCT(){localStorage.setItem('mkt_ct_wallets',JSON.stringify(CT_WALLETS));}
+
+function toggleCT(){
+  CT_AUTO=!CT_AUTO;
+  var dot=g('ctTogDot');var tog=g('ctAutoTog');
+  if(tog){tog.style.background=CT_AUTO?'var(--green)':'var(--bg2)';tog.style.borderColor=CT_AUTO?'var(--green)':'var(--border)';}
+  if(dot){dot.style.background=CT_AUTO?'#fff':'var(--text3)';dot.style.transform=CT_AUTO?'translateX(18px)':'translateX(0)';}
+  toast(CT_AUTO?'✅ Otomatik kopyalama AKTİF':'⏸️ Otomatik kopyalama DURDURULDU');
+  termLog('[COPY] Auto-copy: '+(CT_AUTO?'ENABLED':'DISABLED'),'SYSTEM');
+}
+
+function addCopyWallet(){
+  var addr=(g('ctWallet')&&g('ctWallet').value||'').trim();
+  var maxSol=parseFloat(g('ctMaxSOL')&&g('ctMaxSOL').value||'0.1');
+  var delay=parseInt(g('ctDelay')&&g('ctDelay').value||'2');
+  var sl=parseInt(g('ctSL')&&g('ctSL').value||'15');
+  if(!addr||addr.length<10){toast('⚠️ Geçerli cüzdan adresi gir');return;}
+  if(CT_WALLETS.length>=5){toast('⚠️ Maksimum 5 cüzdan takip edilebilir');return;}
+  if(CT_WALLETS.find(function(w){return w.addr===addr;})){toast('Bu cüzdan zaten takipte');return;}
+  CT_WALLETS.push({addr:addr,label:'Trader #'+(CT_WALLETS.length+1),maxSol:maxSol,delay:delay,sl:sl,
+    active:true,copied:0,pnl:0,addedAt:Date.now()});
+  saveCT();
+  if(g('ctWallet'))g('ctWallet').value='';
+  rCopyTrade();toast('✅ Cüzdan takibe alındı: '+addr.slice(0,8)+'...');
+  termLog('[COPY] Tracking wallet: '+addr.slice(0,12)+'... | MaxSOL: '+maxSol,'SYSTEM');
+  startCTFeed();
+}
+
+function removeCTWallet(addr){
+  CT_WALLETS=CT_WALLETS.filter(function(w){return w.addr!==addr;});
+  saveCT();rCopyTrade();toast('🗑️ Takip kaldırıldı');
+}
+
+function startCTFeed(){
+  if(ctFeedTimer)clearInterval(ctFeedTimer);
+  ctFeedTimer=setInterval(function(){
+    if(!CT_WALLETS.length)return;
+    var w=CT_WALLETS[Math.floor(Math.random()*CT_WALLETS.length)];
+    if(!w.active)return;
+    var tokens=['PEPE','WIF','BONK','TURBO','SHIB','BRETT','POPCAT'];
+    var tok=tokens[Math.floor(Math.random()*tokens.length)];
+    var isBuy=Math.random()>0.4;
+    var solAmt=(0.05+Math.random()*w.maxSol).toFixed(3);
+    var feed={wallet:w.label,addr:w.addr,type:isBuy?'buy':'sell',token:tok,
+      sol:solAmt,ts:Date.now(),copied:CT_AUTO&&isBuy};
+    CT_FEED.unshift(feed);
+    if(CT_FEED.length>20)CT_FEED.pop();
+    if(feed.copied){
+      w.copied++;CT_STATS.copied++;CT_STATS.totalVol+=parseFloat(solAmt);
+      saveCT();
+      var pnlSimulated=((Math.random()-0.4)*0.5*parseFloat(solAmt)).toFixed(4);
+      CT_STATS.profit+=parseFloat(pnlSimulated);
+      termLog('[COPY] Auto-copied: '+tok+' | '+solAmt+' SOL | from '+w.addr.slice(0,8)+'...','SWAP');
+      addNotif('🔁 Kopyalandı',''+tok+' alımı kopyalandı — '+solAmt+' SOL','🔁');
+    }
+    if(S.page==='copytrade')rCTFeed();
+  },5000+Math.random()*8000);
+}
+
+function rCopyTrade(){
+  var gate=g('ctGate'),content=g('ctContent');
+  if(!S.isVIP){
+    if(gate)gate.innerHTML='<div class="vgate"><div class="vg-icon">🔁</div><div class="vg-title">Copy Trade VIP\'e Özel</div><div class="vg-desc">Kazanan cüzdanları otomatik takip et ve işlemlerini kopyala. Sadece VIP üyeler için.</div><button class="star-btn" onclick="nav(\'vip\')">⭐ VIP OL</button></div>';
+    if(content)content.style.display='none';return;
+  }
+  if(gate)gate.innerHTML='';if(content)content.style.display='block';
+  var wl=g('ctWalletList');
+  if(wl){
+    if(!CT_WALLETS.length){wl.innerHTML='<div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">Henüz cüzdan eklenmedi</div>';}
+    else{wl.innerHTML=CT_WALLETS.map(function(w){
+      return '<div style="display:flex;align-items:center;gap:10px;padding:12px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;margin-bottom:7px">'+
+        '<div style="width:8px;height:8px;border-radius:50%;background:'+(w.active?'var(--green)':'var(--text3)')+';box-shadow:'+(w.active?'0 0 6px var(--green)':'none')+';flex-shrink:0"></div>'+
+        '<div style="flex:1"><div style="font-weight:700;font-size:12px">'+w.label+'</div><div style="font-size:9px;color:var(--text3);font-family:\'Share Tech Mono\',monospace">'+w.addr.slice(0,10)+'...'+w.addr.slice(-6)+'</div></div>'+
+        '<div style="text-align:right"><div style="font-size:10px;color:var(--text2)">Max: '+w.maxSol+' SOL</div><div style="font-size:9px;color:var(--green)">'+w.copied+' kopyalandı</div></div>'+
+        '<button onclick="toggleCTWallet(\''+w.addr+'\')" style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);color:var(--green);padding:5px 8px;border-radius:7px;cursor:pointer;font-size:9px;margin-left:4px">'+(w.active?'DURDUR':'BAŞLAT')+'</button>'+
+        '<button onclick="removeCTWallet(\''+w.addr+'\')" style="background:rgba(255,51,102,0.08);border:1px solid rgba(255,51,102,0.2);color:var(--red);padding:5px 8px;border-radius:7px;cursor:pointer;font-size:9px;margin-left:4px">✕</button>'+
+      '</div>';
+    }).join('');}
+  }
+  rCTFeed();rCTStats();
+  if(!ctFeedTimer&&CT_WALLETS.length)startCTFeed();
+}
+
+function toggleCTWallet(addr){
+  var w=CT_WALLETS.find(function(w){return w.addr===addr;});
+  if(w){w.active=!w.active;saveCT();rCopyTrade();}
+}
+
+function rCTFeed(){
+  var el=g('ctFeed');if(!el)return;
+  if(!CT_FEED.length){el.innerHTML='<div style="text-align:center;padding:12px;color:var(--text3);font-size:12px">İşlem bekleniyor...</div>';return;}
+  el.innerHTML=CT_FEED.slice(0,8).map(function(f){
+    return '<div class="ct-item '+f.type+'">'+
+      '<div style="font-size:16px">'+(f.type==='buy'?'🟢':'🔴')+'</div>'+
+      '<div style="flex:1"><div style="font-weight:700;font-size:12px">'+f.wallet+' — '+f.token+'</div><div style="font-size:9px;color:var(--text3)">'+f.addr.slice(0,10)+'... · '+timeAgo(f.ts)+'</div></div>'+
+      '<div style="text-align:right"><div style="font-size:11px;font-weight:700;color:'+(f.type==='buy'?'var(--green)':'var(--red)')+'">'+f.sol+' SOL</div>'+
+        (f.copied?'<div style="font-size:8px;color:var(--gold);font-weight:700">✅ KOPYALANDI</div>':'<div style="font-size:8px;color:var(--text3)">TESPİT EDİLDİ</div>')+
+      '</div></div>';
+  }).join('');
+}
+
+function rCTStats(){
+  var el=g('ctStats');if(!el)return;
+  el.innerHTML=[
+    {v:CT_STATS.copied,l:'Kopyalanan',c:'var(--green)'},
+    {v:CT_STATS.totalVol.toFixed(2)+' SOL',l:'Toplam Hacim',c:'var(--blue)'},
+    {v:(CT_STATS.profit>=0?'+':'')+CT_STATS.profit.toFixed(4)+' SOL',l:'Tahmini PnL',c:CT_STATS.profit>=0?'var(--green)':'var(--red)'},
+    {v:CT_WALLETS.filter(function(w){return w.active;}).length,l:'Aktif Takip',c:'var(--gold)'},
+  ].map(function(s){return '<div class="sb" style="padding:10px;text-align:center"><div class="sv" style="color:'+s.c+'">'+s.v+'</div><div class="sl">'+s.l+'</div></div>';}).join('');
+}
+
+// ══ LIMIT ORDER / TP-SL ENGINE ═══════════════════════════════
+var ORDERS=JSON.parse(localStorage.getItem('mkt_orders')||'[]');
+var ORDER_HIST=JSON.parse(localStorage.getItem('mkt_order_hist')||'[]');
+var currentOrderType='limit';
+var orderMonitorTimer=null;
+
+function saveOrders(){localStorage.setItem('mkt_orders',JSON.stringify(ORDERS));}
+function saveOrderHist(){localStorage.setItem('mkt_order_hist',JSON.stringify(ORDER_HIST));}
+
+function setOrderType(type){
+  currentOrderType=type;
+  ['limit','tp','sl'].forEach(function(t){
+    var btn=g('ot-'+t);if(btn)btn.classList.toggle('active',t===type);
+  });
+  var lbl=g('ordTypeLabel');
+  var labels={limit:'Limit Alım',tp:'Kâr Al (TP)',sl:'Zarar Durdur (SL)'};
+  if(lbl)lbl.textContent=labels[type]||type;
+  var extra=g('ordExtraFields');
+  if(extra){
+    if(type==='tp'){extra.innerHTML='<div style="margin-bottom:8px"><div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">MEVCUT POZİSYON (token)</div><input type="number" id="ordPosition" placeholder="1000000" class="form-inp"/></div>';}
+    else if(type==='sl'){extra.innerHTML='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px"><div><div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">GİRİŞ FİYATI</div><input type="number" id="ordEntry" placeholder="0.00001" class="form-inp"/></div><div><div style="font-size:9px;color:var(--text3);margin-bottom:3px;letter-spacing:1px">DURUŞ NOKTASI %</div><input type="number" id="ordSLPct" value="15" class="form-inp"/></div></div>';}
+    else{extra.innerHTML='';}
+  }
+}
+
+function placeOrder(){
+  if(!S.isVIP){toast('⚠️ Emirler sadece VIP üyelere özel');nav('vip');return;}
+  var ca=(g('ordCA')&&g('ordCA').value||'').trim().toUpperCase();
+  var price=parseFloat(g('ordPrice')&&g('ordPrice').value||'0');
+  var amount=parseFloat(g('ordAmount')&&g('ordAmount').value||'0');
+  if(!ca||!price||!amount){toast('⚠️ Tüm alanları doldur');return;}
+  var order={id:'ORD_'+Date.now(),type:currentOrderType,ca:ca,sym:ca.slice(0,6),
+    targetPrice:price,amount:amount,status:'active',createdAt:Date.now(),
+    currentPrice:price*(0.9+Math.random()*0.2)};
+  if(currentOrderType==='sl'){
+    var entry=parseFloat(g('ordEntry')&&g('ordEntry').value||'0');
+    var slPct=parseFloat(g('ordSLPct')&&g('ordSLPct').value||'15');
+    order.stopPrice=entry*(1-slPct/100);order.entry=entry;
+  }
+  ORDERS.unshift(order);saveOrders();
+  rOrders();
+  toast('✅ Emir verildi: '+order.sym+' @ $'+price);
+  termLog('[ORDER] '+order.type.toUpperCase()+': '+order.sym+' @ $'+price+' | '+amount+' SOL','SWAP');
+  startOrderMonitor();
+}
+
+function cancelOrder(id){
+  var ord=ORDERS.find(function(o){return o.id===id;});
+  if(ord){ord.status='cancelled';ORDER_HIST.unshift(ord);ORDERS=ORDERS.filter(function(o){return o.id!==id;});saveOrders();saveOrderHist();rOrders();toast('🗑️ Emir iptal edildi');}
+}
+
+function startOrderMonitor(){
+  if(orderMonitorTimer)clearInterval(orderMonitorTimer);
+  orderMonitorTimer=setInterval(function(){
+    ORDERS.forEach(function(ord){
+      // Simulate price movement
+      var currentP=ord.currentPrice*(1+(Math.random()-0.498)*0.015);
+      ord.currentPrice=currentP;
+      var triggered=false;
+      if(ord.type==='limit'&&currentP<=ord.targetPrice){triggered=true;}
+      else if(ord.type==='tp'&&currentP>=ord.targetPrice){triggered=true;}
+      else if(ord.type==='sl'&&ord.stopPrice&&currentP<=ord.stopPrice){triggered=true;}
+      if(triggered){
+        ord.status='executed';ord.executedAt=Date.now();ord.executedPrice=currentP;
+        ORDER_HIST.unshift(ord);
+        ORDERS=ORDERS.filter(function(o){return o.id!==ord.id;});
+        saveOrders();saveOrderHist();
+        addNotif('📋 Emir Tetiklendi',''+ord.sym+' '+ord.type.toUpperCase()+' emri çalıştı @ $'+currentP.toFixed(8),'📋');
+        if(tg&&tg.HapticFeedback)tg.HapticFeedback.notificationOccurred('success');
+        termLog('[ORDER] EXECUTED: '+ord.sym+' @ $'+currentP.toFixed(8),'KRAL');
+        if(S.page==='orders')rOrders();
+      }
+    });
+    if(S.page==='orders')rOrders();
+  },3000);
+}
+
+function rOrders(){
+  var gate=g('ordGate'),content=g('ordContent');
+  if(!S.isVIP){
+    if(gate)gate.innerHTML='<div class="vgate"><div class="vg-icon">📋</div><div class="vg-title">Limit Order VIP\'e Özel</div><div class="vg-desc">Hedef fiyat belirliyerek otomatik alım-satım. TP/SL ile pozisyonlarını koru.</div><button class="star-btn" onclick="nav(\'vip\')">⭐ VIP OL</button></div>';
+    if(content)content.style.display='none';return;
+  }
+  if(gate)gate.innerHTML='';if(content)content.style.display='block';
+  var ae=g('activeOrders');
+  if(ae){
+    if(!ORDERS.length)ae.innerHTML='<div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">Aktif emir yok</div>';
+    else ae.innerHTML=ORDERS.map(function(o){
+      var isUp=o.currentPrice>=o.targetPrice;
+      var dist=Math.abs(((o.currentPrice-o.targetPrice)/o.targetPrice)*100).toFixed(1);
+      return '<div class="ord-row '+o.type+'">'+
+        '<div style="flex:1">'+
+          '<div style="display:flex;align-items:center;gap:6px">'+
+            '<span style="font-weight:700;font-size:13px">'+o.sym+'</span>'+
+            '<span style="font-size:8px;padding:2px 6px;border-radius:4px;font-weight:700;background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.2);color:var(--gold)">'+o.type.toUpperCase()+'</span>'+
+          '</div>'+
+          '<div style="font-size:9px;color:var(--text3);margin-top:2px">Hedef: $'+o.targetPrice.toFixed(8)+' · Şimdi: $'+o.currentPrice.toFixed(8)+'</div>'+
+          '<div style="font-size:9px;color:var(--text2);margin-top:1px">'+o.amount+' SOL · Uzaklık: '+dist+'%</div>'+
+        '</div>'+
+        '<button onclick="cancelOrder(\''+o.id+'\')" style="background:rgba(255,51,102,0.08);border:1px solid rgba(255,51,102,0.2);color:var(--red);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:9px">İPTAL</button>'+
+      '</div>';
+    }).join('');
+  }
+  var he=g('orderHistory');
+  if(he){
+    if(!ORDER_HIST.length)he.innerHTML='<div style="text-align:center;padding:12px;color:var(--text3);font-size:12px">Henüz emir yok</div>';
+    else he.innerHTML=ORDER_HIST.slice(0,5).map(function(o){
+      var ok=o.status==='executed';
+      return '<div style="display:flex;align-items:center;gap:8px;padding:9px;background:rgba('+(ok?'0,255,136':'255,51,102')+',0.04);border:1px solid rgba('+(ok?'0,255,136':'255,51,102')+',0.12);border-radius:10px;margin-bottom:5px">'+
+        '<span style="font-size:14px">'+(ok?'✅':'❌')+'</span>'+
+        '<div style="flex:1"><div style="font-size:12px;font-weight:700">'+o.sym+' — '+o.type.toUpperCase()+'</div><div style="font-size:9px;color:var(--text3)">'+timeAgo(o.executedAt||o.createdAt)+'</div></div>'+
+        '<div style="font-size:10px;color:var(--text2)">$'+(o.executedPrice||o.targetPrice).toFixed(8)+'</div>'+
+      '</div>';
+    }).join('');
+  }
+  if(!orderMonitorTimer&&ORDERS.length)startOrderMonitor();
+}
+
+// ══ PnL DASHBOARD ════════════════════════════════════════════
+function rPnL(){
+  var gate=g('pnlGate'),content=g('pnlContent');
+  if(!S.isVIP){
+    if(gate)gate.innerHTML='<div class="vgate"><div class="vg-icon">💰</div><div class="vg-title">PnL Dashboard VIP\'e Özel</div><div class="vg-desc">Tüm işlemlerinin kâr/zarar grafiği, token bazlı performans ve gerçekçi analiz.</div><button class="star-btn" onclick="nav(\'vip\')">⭐ VIP OL</button></div>';
+    if(content)content.style.display='none';return;
+  }
+  if(gate)gate.innerHTML='';if(content)content.style.display='block';
+  // Build data from TS.trades + ORDER_HIST
+  var allTrades=TS.trades.concat(ORDER_HIST.filter(function(o){return o.status==='executed';}));
+  var totalPnL=0,totalVol=0,wins=0,losses=0;
+  allTrades.forEach(function(t){
+    var pnl=t.toUSD?(t.toUSD-t.fromUSD):((Math.random()-0.45)*50);
+    totalPnL+=pnl;totalVol+=t.fromUSD||50;
+    if(pnl>0)wins++;else losses++;
+  });
+  var summary=g('pnlSummary');
+  if(summary){
+    summary.innerHTML=[
+      {v:(totalPnL>=0?'+$':'-$')+Math.abs(totalPnL).toFixed(2),l:'Toplam PnL',c:totalPnL>=0?'var(--green)':'var(--red)'},
+      {v:'$'+(totalVol/1000).toFixed(1)+'K',l:'İşlem Hacmi',c:'var(--blue)'},
+      {v:allTrades.length?Math.round(wins/allTrades.length*100)+'%':'0%',l:'Kazanma Oranı',c:'var(--gold)'},
+      {v:allTrades.length,l:'Toplam İşlem',c:'var(--purple)'},
+    ].map(function(s){return '<div class="sb" style="padding:10px;text-align:center"><div class="sv" style="color:'+s.c+'">'+s.v+'</div><div class="sl">'+s.l+'</div></div>';}).join('');
+  }
+  // Simple chart via canvas
+  drawPnLChart(allTrades);
+  // Token breakdown
+  var tl=g('pnlTokenList');
+  var tokenData={};
+  TS.trades.forEach(function(t){
+    if(!tokenData[t.to])tokenData[t.to]={sym:t.to,trades:0,pnl:0};
+    tokenData[t.to].trades++;
+    tokenData[t.to].pnl+=(t.toUSD-t.fromUSD)||0;
+  });
+  var tokens=Object.values(tokenData).sort(function(a,b){return b.pnl-a.pnl;});
+  if(tl){
+    if(!tokens.length)tl.innerHTML='<div style="text-align:center;padding:12px;color:var(--text3);font-size:12px">İşlem yok — Kral Swap\'tan alım yap</div>';
+    else tl.innerHTML=tokens.map(function(t){
+      var pos=t.pnl>=0;
+      return '<div class="pnl-row">'+
+        '<div style="font-size:20px;width:30px;text-align:center">🪙</div>'+
+        '<div style="flex:1"><div style="font-weight:700;font-size:13px">'+t.sym+'</div><div style="font-size:9px;color:var(--text3)">'+t.trades+' işlem</div></div>'+
+        '<div class="pnl-pct '+(pos?'pos':'neg')+'">'+(pos?'+':'')+t.pnl.toFixed(2)+'$</div>'+
+      '</div>';
+    }).join('');
+  }
+  var pt=g('pnlTrades');
+  if(pt){
+    if(!TS.trades.length)pt.innerHTML='<div style="text-align:center;padding:12px;color:var(--text3);font-size:12px">İşlem yok</div>';
+    else pt.innerHTML=TS.trades.slice(0,6).map(function(t){
+      var pnl=t.toUSD-t.fromUSD;var pos=pnl>=0;
+      return '<div class="pnl-row">'+
+        '<div style="font-size:18px">💹</div>'+
+        '<div style="flex:1"><div style="font-size:12px;font-weight:700">'+t.from+' → '+t.to+'</div><div style="font-size:9px;color:var(--text3)">'+timeAgo(t.ts)+'</div></div>'+
+        '<div style="text-align:right"><div style="font-size:11px;font-weight:700">$'+t.fromUSD.toFixed(2)+'</div><div class="pnl-pct '+(pos?'pos':'neg')+'" style="font-size:10px">'+(pos?'+':'')+pnl.toFixed(2)+'$</div></div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+function drawPnLChart(trades){
+  var canvas=g('pnlChart');
+  if(!canvas)return;
+  // Use Chart.js if available, else canvas fallback
+  try{
+    var ctx=canvas.getContext('2d');
+    var labels=[],data=[];
+    var cum=0;
+    for(var i=0;i<30;i++){
+      labels.push((30-i)+'g');
+      var dayPnL=(Math.random()-0.42)*80;
+      cum+=dayPnL;data.push(parseFloat(cum.toFixed(2)));
+    }
+    data=data.reverse();
+    if(window.pnlChartInst)window.pnlChartInst.destroy();
+    if(window.Chart){
+      window.pnlChartInst=new window.Chart(ctx,{
+        type:'line',
+        data:{labels:labels,datasets:[{label:'PnL ($)',data:data,
+          borderColor:'#14F195',backgroundColor:'rgba(20,241,149,0.08)',
+          tension:0.4,pointRadius:0,fill:true,borderWidth:2}]},
+        options:{responsive:true,maintainAspectRatio:false,
+          plugins:{legend:{display:false}},
+          scales:{x:{ticks:{color:'#5a5a70',font:{size:9}},grid:{color:'rgba(255,255,255,0.04)'}},
+                 y:{ticks:{color:'#5a5a70',font:{size:9},callback:function(v){return '$'+v;}},grid:{color:'rgba(255,255,255,0.04)'}}}}
+      });
+    } else {
+      // Simple canvas fallback
+      canvas.width=canvas.parentElement.offsetWidth||300;canvas.height=160;
+      var W=canvas.width,H=canvas.height,pad=20;
+      ctx.clearRect(0,0,W,H);
+      var mx=Math.max.apply(null,data.map(Math.abs))||1;
+      var midY=H/2;
+      ctx.beginPath();ctx.moveTo(pad,midY-data[0]/mx*(H/2-pad));
+      for(var i=1;i<data.length;i++){
+        ctx.lineTo(pad+i*(W-pad*2)/(data.length-1),midY-data[i]/mx*(H/2-pad));
+      }
+      ctx.strokeStyle='#14F195';ctx.lineWidth=2;ctx.stroke();
+    }
+  }catch(e){}
+}
+
+// ══ SNIPER ENGINE ════════════════════════════════════════════
+var SNIPER_HIST=JSON.parse(localStorage.getItem('mkt_sniper_hist')||'[]');
+function saveSniper(){localStorage.setItem('mkt_sniper_hist',JSON.stringify(SNIPER_HIST));}
+
+function rSniper(){
+  var gate=g('sniperGate'),content=g('sniperContent');
+  if(!S.isVIP){
+    if(gate)gate.innerHTML='<div class="vgate"><div class="vg-icon">🎯</div><div class="vg-title">Sniper Modu VIP\'e Özel</div><div class="vg-desc">Yeni tokenleri ilk blokta yakala. Anti-rug filtresi aktif. Yüksek hız, yüksek risk.</div><button class="star-btn" onclick="nav(\'vip\')">⭐ VIP OL</button></div>';
+    if(content)content.style.display='none';return;
+  }
+  if(gate)gate.innerHTML='';if(content)content.style.display='block';
+  // Mint status check simulation
+  var ms=g('sniperMintStatus');
+  if(ms){ms.textContent='Kontrol bekleniyor...';ms.style.color='var(--text3)';}
+  var sh=g('sniperHistory');
+  if(sh){
+    if(!SNIPER_HIST.length)sh.innerHTML='<div style="text-align:center;padding:12px;color:var(--text3);font-size:12px">Henüz işlem yok</div>';
+    else sh.innerHTML=SNIPER_HIST.slice(0,5).map(function(s){
+      var pos=s.pnl>=0;
+      return '<div style="display:flex;align-items:center;gap:9px;padding:10px;background:rgba('+(pos?'0,255,136':'255,51,102')+',0.04);border:1px solid rgba('+(pos?'0,255,136':'255,51,102')+',0.15);border-radius:12px;margin-bottom:6px">'+
+        '<span style="font-size:18px">'+(pos?'✅':'❌')+'</span>'+
+        '<div style="flex:1"><div style="font-weight:700;font-size:12px">'+s.sym+'</div><div style="font-size:9px;color:var(--text3)">'+s.sol+' SOL · '+timeAgo(s.ts)+'</div></div>'+
+        '<div style="text-align:right"><div style="font-size:11px;font-weight:700;color:'+(pos?'var(--green)':'var(--red)')+'">'+s.mult+'x</div><div class="pnl-pct '+(pos?'pos':'neg')+'" style="font-size:10px">'+(pos?'+':'')+s.pnl.toFixed(2)+'$</div></div>'+
+      '</div>';
+    }).join('');
+  }
+}
+
+function executSniper(){
+  if(!S.isVIP){toast('⚠️ VIP gerekli');nav('vip');return;}
+  var ca=(g('sniperCA')&&g('sniperCA').value||'').trim();
+  var amt=parseFloat(g('sniperAmt')&&g('sniperAmt').value||'0.1');
+  if(!ca){toast('⚠️ Token CA gir');return;}
+  btnLoad('sniperBtn',true);
+  var ms=g('sniperMintStatus');if(ms){ms.textContent='Taranıyor...';ms.style.color='var(--gold)';}
+  termLog('[SNIPER] Targeting: '+ca.slice(0,12)+'... | '+amt+' SOL | TURBO FEE','SCAN');
+  setTimeout(function(){
+    // Anti-rug check
+    var isSafe=Math.random()>0.3;
+    if(ms){ms.textContent=isSafe?'✅ KAPALI (Güvenli)':'⚠️ AÇIK (Riskli)';ms.style.color=isSafe?'var(--green)':'var(--red)';}
+    if(!isSafe){
+      btnLoad('sniperBtn',false);
+      toast('🛡️ Anti-rug: Mint authority açık — atlandı');
+      termLog('[SNIPER] BLOCKED: Mint authority open → anti-rug protection','ALERT');
+      updateCounters(0,1);return;
+    }
+    setTimeout(function(){
+      btnLoad('sniperBtn',false);
+      var mult=(1.5+Math.random()*8).toFixed(1);
+      var pnl=(parseFloat(mult)-1)*amt*178;
+      var entry={sym:ca.slice(0,6).toUpperCase(),ca:ca,sol:amt,mult:mult,
+        pnl:pnl,ts:Date.now(),autoSell:g('sniperAutoSell')&&g('sniperAutoSell').value||'3'};
+      SNIPER_HIST.unshift(entry);saveSniper();
+      rSniper();
+      toastTR('🎯 Sniper '+mult+'x — $'+pnl.toFixed(0)+' kâr!','success',4000);
+      termLog('[SNIPER] SUCCESS: '+entry.sym+' | '+mult+'x | $'+pnl.toFixed(0),'KRAL');
+      addNotif('🎯 Sniper',entry.sym+' tokeni '+mult+'x kâr ile satıldı!','🎯');
+      if(tg&&tg.HapticFeedback)tg.HapticFeedback.notificationOccurred('success');
+    },2000);
+  },1500);
+}
+
+// ══ MULTI-WALLET ENGINE ═══════════════════════════════════════
+var MW_LIST=JSON.parse(localStorage.getItem('mkt_mw_list')||'[]');
+function saveMW(){localStorage.setItem('mkt_mw_list',JSON.stringify(MW_LIST));}
+
+function addMultiWallet(){
+  var addr=(g('mwAddr')&&g('mwAddr').value||'').trim();
+  var label=(g('mwLabel')&&g('mwLabel').value||'').trim();
+  if(!addr||addr.length<10){toast('⚠️ Geçerli adres gir');return;}
+  if(MW_LIST.length>=5){toast('⚠️ Maksimum 5 cüzdan');return;}
+  if(MW_LIST.find(function(w){return w.addr===addr;})){toast('Bu cüzdan zaten ekli');return;}
+  MW_LIST.push({addr:addr,label:label||('Cüzdan '+(MW_LIST.length+1)),
+    sol:(1+Math.random()*10).toFixed(3)*1,usdc:(50+Math.random()*500).toFixed(2)*1,
+    active:true,addedAt:Date.now()});
+  saveMW();
+  if(g('mwAddr'))g('mwAddr').value='';if(g('mwLabel'))g('mwLabel').value='';
+  rMultiWallet();toast('✅ Cüzdan eklendi: '+addr.slice(0,8)+'...');
+}
+
+function removeMWallet(addr){MW_LIST=MW_LIST.filter(function(w){return w.addr!==addr;});saveMW();rMultiWallet();}
+
+function rMultiWallet(){
+  var gate=g('mwGate'),content=g('mwContent');
+  if(!S.isVIP){
+    if(gate)gate.innerHTML='<div class="vgate"><div class="vg-icon">👜</div><div class="vg-title">Multi-Wallet VIP\'e Özel</div><div class="vg-desc">5 cüzdana kadar yönet. Dağıtık alım ile fiyat etkisini minimize et.</div><button class="star-btn" onclick="nav(\'vip\')">⭐ VIP OL</button></div>';
+    if(content)content.style.display='none';return;
+  }
+  if(gate)gate.innerHTML='';if(content)content.style.display='block';
+  var ml=g('mwList');
+  if(ml){
+    if(!MW_LIST.length)ml.innerHTML='<div style="text-align:center;padding:16px;color:var(--text3);font-size:12px">Cüzdan eklenmedi (max 5)</div>';
+    else ml.innerHTML=MW_LIST.map(function(w,i){
+      return '<div class="mw-row">'+
+        '<div class="mw-dot"></div>'+
+        '<div style="flex:1"><div style="font-weight:700;font-size:13px">'+w.label+'</div><div style="font-family:\'Share Tech Mono\',monospace;font-size:9px;color:var(--text3)">'+w.addr.slice(0,10)+'...'+w.addr.slice(-6)+'</div></div>'+
+        '<div style="text-align:right"><div style="font-size:11px;font-weight:700;color:var(--sol-green)">'+w.sol.toFixed(3)+' SOL</div><div style="font-size:10px;color:var(--blue)">$'+w.usdc+'</div></div>'+
+        '<button onclick="removeMWallet(\''+w.addr+'\')" style="background:rgba(255,51,102,0.08);border:1px solid rgba(255,51,102,0.2);color:var(--red);padding:5px 8px;border-radius:7px;cursor:pointer;font-size:9px;margin-left:8px">✕</button>'+
+      '</div>';
+    }).join('');
+  }
+  var ms=g('mwStats');
+  if(ms){
+    var totalSOL=MW_LIST.reduce(function(a,w){return a+w.sol;},0);
+    var totalUSDC=MW_LIST.reduce(function(a,w){return a+w.usdc;},0);
+    ms.innerHTML=[
+      {v:MW_LIST.length+'/5',l:'Cüzdan',c:'var(--purple)'},
+      {v:totalSOL.toFixed(3),l:'Toplam SOL',c:'var(--green)'},
+      {v:'$'+totalUSDC.toFixed(0),l:'Toplam USDC',c:'var(--blue)'},
+      {v:'$'+((totalSOL*178+totalUSDC)).toFixed(0),l:'Toplam Değer',c:'var(--gold)'},
+    ].map(function(s){return '<div class="sb" style="padding:10px;text-align:center"><div class="sv" style="color:'+s.c+'">'+s.v+'</div><div class="sl">'+s.l+'</div></div>';}).join('');
+  }
+}
+
+function distributedBuy(){
+  if(!S.isVIP){toast('⚠️ VIP gerekli');nav('vip');return;}
+  if(!MW_LIST.length){toast('⚠️ Önce cüzdan ekle');return;}
+  var ca=(g('mwBuyCA')&&g('mwBuyCA').value||'').trim();
+  var totalAmt=parseFloat(g('mwBuyAmt')&&g('mwBuyAmt').value||'1');
+  var delay=parseInt(g('mwDelay')&&g('mwDelay').value||'500');
+  if(!ca){toast('⚠️ Token CA gir');return;}
+  toast('⚡ Dağıtık alım başlıyor — '+MW_LIST.length+' cüzdan');
+  var perWallet=(totalAmt/MW_LIST.length).toFixed(3);
+  MW_LIST.forEach(function(w,i){
+    setTimeout(function(){
+      toast('💹 Cüzdan '+(i+1)+': '+perWallet+' SOL alındı');
+      termLog('[MULTIBUY] Wallet '+(i+1)+': '+perWallet+' SOL of '+ca.slice(0,8)+'...','SWAP');
+      updateCounters(parseFloat(perWallet)*178);
+    },i*delay);
+  });
+  setTimeout(function(){toastTR('✅ Dağıtık alım tamamlandı — Toplam: '+totalAmt+' SOL','success',4000);},MW_LIST.length*delay+500);
+}
+
+// ══ PUMP.FUN FEED ════════════════════════════════════════════
+var PUMP_FILTER='all';
+var PUMP_TOKENS=[];
+var pumpFeedTimer=null;
+
+function filterPump(type,btn){
+  PUMP_FILTER=type;
+  document.querySelectorAll('.fs-btn').forEach(function(b){b.classList.remove('active');});
+  if(btn)btn.classList.add('active');
+  rPumpFeed();
+}
+
+function genPumpToken(){
+  var names=['KINGCAT','SOLPUMP','MOONWIF','GIGAPEPE','SOLDOG','ULTRABONK','MEGATURBO','PUMPRAT','SUNMEME','KEKCAT'];
+  var n=names[Math.floor(Math.random()*names.length)]+'_'+(Date.now()%10000);
+  var liq=5000+Math.random()*200000;
+  var safe=liq>30000&&Math.random()>0.35;
+  var hot=Math.random()>0.7;
+  var whale=Math.random()>0.8;
+  return {name:n,sym:n.slice(0,6),liq:liq,safe:safe,hot:hot,whale:whale,
+    pct:(Math.random()*500).toFixed(0),holders:Math.floor(10+Math.random()*500),
+    age:Math.floor(Math.random()*30),ts:Date.now()-Math.random()*600000,
+    curve:(10+Math.random()*90).toFixed(0),
+    ca:'PUMP'+Math.random().toString(36).slice(2,10).toUpperCase()};
+}
+
+function startPumpFeed(){
+  // Seed
+  for(var i=0;i<12;i++){var t=genPumpToken();t.ts=Date.now()-i*45000;PUMP_TOKENS.push(t);}
+  pumpFeedTimer=setInterval(function(){
+    PUMP_TOKENS.unshift(genPumpToken());
+    if(PUMP_TOKENS.length>50)PUMP_TOKENS.pop();
+    if(S.page==='pumpfeed')rPumpFeed();
+  },8000+Math.random()*6000);
+}
+
+function rPumpFeed(){
+  var el=g('pumpFeed');if(!el)return;
+  var filtered=PUMP_TOKENS;
+  if(PUMP_FILTER==='hot')filtered=PUMP_TOKENS.filter(function(t){return t.hot;});
+  else if(PUMP_FILTER==='safe')filtered=PUMP_TOKENS.filter(function(t){return t.safe;});
+  else if(PUMP_FILTER==='whale')filtered=PUMP_TOKENS.filter(function(t){return t.whale;});
+  el.innerHTML=filtered.slice(0,10).map(function(t){
+    var badges='<span class="pf-badge new">NEW</span>';
+    if(t.hot)badges+=' <span class="pf-badge hot">HOT</span>';
+    if(t.safe)badges+=' <span class="pf-badge safe">SAFE</span>';
+    if(t.whale)badges+=' <span class="pf-badge whale">WHALE</span>';
+    return '<div class="pf-row">'+
+      '<div style="width:36px;height:36px;background:linear-gradient(135deg,var(--lime),#66bb00);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;font-weight:900;color:#000">'+t.sym.charAt(0)+'</div>'+
+      '<div style="flex:1">'+
+        '<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px">'+
+          '<span style="font-weight:700;font-size:13px">'+t.name+'</span>'+
+        '</div>'+
+        '<div style="font-size:9px;color:var(--text3)">'+badges+'</div>'+
+        '<div style="font-size:9px;color:var(--text2);margin-top:2px">Liq: $'+(t.liq/1000).toFixed(1)+'K · Holders: '+t.holders+' · Curve: '+t.curve+'%</div>'+
+      '</div>'+
+      '<div style="text-align:right">'+
+        '<div style="font-family:\'Orbitron\',monospace;font-size:11px;font-weight:700;color:var(--lime)">+'+t.pct+'%</div>'+
+        '<div style="font-size:9px;color:var(--text3)">'+timeAgo(t.ts)+'</div>'+
+        '<button onclick="if(g(\'cain\'))g(\'cain\').value=\''+t.ca+'\';nav(\'analyze\')" style="background:rgba(255,215,0,0.08);border:1px solid rgba(255,215,0,0.2);color:var(--gold);padding:4px 8px;border-radius:7px;cursor:pointer;font-size:8px;margin-top:3px">🔍</button>'+
+      '</div>'+
+    '</div>';
+  }).join('')||'<div style="text-align:center;padding:20px;color:var(--text3);font-size:12px">Yükleniyor...</div>';
+  // Stats
+  var ps=g('pumpStats');
+  if(ps){
+    var totalLiq=PUMP_TOKENS.reduce(function(a,t){return a+t.liq;},0);
+    ps.innerHTML=[
+      {v:PUMP_TOKENS.length,l:'Toplam Launch',c:'var(--lime)'},
+      {v:PUMP_TOKENS.filter(function(t){return t.safe;}).length,l:'Güvenli',c:'var(--green)'},
+      {v:PUMP_TOKENS.filter(function(t){return t.hot;}).length,l:'Hot Token',c:'var(--red)'},
+      {v:'$'+(totalLiq/1000).toFixed(0)+'K',l:'Top. Likidite',c:'var(--gold)'},
+    ].map(function(s){return '<div class="sb" style="padding:10px;text-align:center"><div class="sv" style="color:'+s.c+'">'+s.v+'</div><div class="sl">'+s.l+'</div></div>';}).join('');
+  }
+}
+
 function initCyberpunk() {
   updateCounters();
   startTerminal();
@@ -4697,6 +5917,11 @@ function init(){
   applyLang();
   startLiveWhale();
   initCyberpunk();
+  startPumpFeed();
+  startOrderMonitor();
+  // Load watchlist refresh
+  setInterval(function(){if(S.page==='watchlist')rWatchlist();},8000);
+  setInterval(function(){if(S.page==='pumpfeed')rPumpFeed();},10000);
   startNewTokenWhale();
   rVIP();qUI();rHome();rAnalyze();
   // Pre-load top10 and new coins silently
